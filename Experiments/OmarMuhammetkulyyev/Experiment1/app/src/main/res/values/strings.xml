@@ -7,7 +7,7 @@
     <string name="previous">Back</string>
 
     <string name="hello_first_fragment">0</string>
-    <string name="random_heading">The Chosen Random Color is #%s in hex.</string>
+    <string name="random_heading">The Chosen Random Color is %s in hex.</string>
 
     <string name="random_button_text">Submit</string>
 

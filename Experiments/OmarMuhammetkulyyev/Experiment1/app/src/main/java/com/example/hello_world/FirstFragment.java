@@ -1,17 +1,20 @@
 package com.example.hello_world;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.hello_world.databinding.FragmentFirstBinding;
 
+import java.util.Locale;
 import java.util.Random;
 
 public class FirstFragment extends Fragment {
@@ -41,7 +44,9 @@ public class FirstFragment extends Fragment {
         redTextView = binding.getRoot().findViewById(R.id.red_hex);
         greenTextView = binding.getRoot().findViewById(R.id.green_hex);
         blueTextView = binding.getRoot().findViewById(R.id.blue_hex);
+
         showCountTextView.setText("#000000");
+        updateColor(showCountTextView);
 
         return binding.getRoot();
 
@@ -56,7 +61,7 @@ public class FirstFragment extends Fragment {
                 String hex_color = redTextView.getText().toString() + greenTextView.getText().toString() + blueTextView.getText().toString();
                 //int currentCount = Integer.parseInt(showCountTextView.getText().toString());
                 FirstFragmentDirections.ActionFirstFragmentToSecondFragment action = FirstFragmentDirections.actionFirstFragmentToSecondFragment(hex_color);
-                action.setMyArg(hex_color);
+                action.setMyArg(showCountTextView.getText().toString());
                 NavHostFragment.findNavController(FirstFragment.this)
                         .navigate(action /** R.id.action_FirstFragment_to_SecondFragment */);
             }
@@ -68,6 +73,7 @@ public class FirstFragment extends Fragment {
                 blueInt = getRandom();
                 blueTextView.setText(getHex(blueInt));
                 showCountTextView.setText(showCountTextView.getText().toString().substring(0, 5) + getHex(blueInt));
+                updateColor(showCountTextView);
             }
         });
 
@@ -77,7 +83,7 @@ public class FirstFragment extends Fragment {
                 redInt = getRandom();
                 redTextView.setText(getHex(redInt));
                 showCountTextView.setText(showCountTextView.getText().toString().substring(0, 1) + getHex(redInt) + showCountTextView.getText().toString().substring(3));
-
+                updateColor(showCountTextView);
                 /**
                 Toast myToast = Toast.makeText(getActivity(), "Hello toast!", Toast.LENGTH_SHORT);
                 myToast.show(); */
@@ -90,10 +96,23 @@ public class FirstFragment extends Fragment {
                 greenInt = getRandom();
                 greenTextView.setText(getHex(greenInt));
                 showCountTextView.setText(showCountTextView.getText().toString().substring(0, 3) + getHex(greenInt) + showCountTextView.getText().toString().substring(5));
+                updateColor(showCountTextView);
                 //countMe(view);
             }
         });
     }
+
+    private void updateColor(TextView view){
+        view.setTextColor(Color.parseColor(showCountTextView.getText().toString()));
+        System.out.println(get_Int(view.getText().toString().substring(1).toLowerCase()));
+    }
+
+    @ColorInt
+    private int get_Int(String hex_color){
+        int ret = Integer.parseInt(hex_color, 16);
+        return ret;
+    }
+
     /**
     private void countMe(View view){
         String countString = showCountTextView.getText().toString();
