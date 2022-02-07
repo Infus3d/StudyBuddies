@@ -26,9 +26,10 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String s = display.getText().toString();
 
-                Intent intent = new Intent(getApplicationContext(), Second_activity.class);
+                Intent intent = new Intent(getApplicationContext(), MainActivity2.class);
 
-                intent.putExtra(“message_key”, s);
+                intent.putExtra("key", s);
+
                 startActivity(intent);
             }
         });
