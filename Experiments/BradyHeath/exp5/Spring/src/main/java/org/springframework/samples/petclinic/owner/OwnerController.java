@@ -48,7 +48,7 @@ class OwnerController {
         return "New Owner "+ owner.getFirstName() + " Saved";
     }
     
-    @RequestMapping(method = RequestMethod.POST, path = "/person/new/{first}/{last}/{address}/{number}")
+    @RequestMapping(method = RequestMethod.PUT, path = "/person/new/{first}/{last}/{address}/{number}")
     public String saveOwnerInfo(@PathVariable("first") String first, @PathVariable("last") String last, @PathVariable("address") String address, @PathVariable("number") String number) {
    	Owners temp = new Owners(7, first, last, address, number);
     	ownersRepository.save(temp);
