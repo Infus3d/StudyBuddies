@@ -1,0 +1,12 @@
+Ryan's Experiments Overview:
+
+1. Created a simple prime number counter using hello world tutorial
+
+2. Added delete all and add multiple functions to hello people tutorial
+
+3. Made schools and schools controller for hello people tutorial
+
+4. Added functionality to delete the dummy data and delete one specific owner
+
+5. Created a new method to simulate a day passing at the clinic where 
+there is a random chance of a random owner being added or removed
