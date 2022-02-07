@@ -1,0 +1,23 @@
+R_DEF: Internal format may change without notice
+local
+color black
+color darkModeBackground
+color darkModeSlider
+color darkModeText
+color lightModeBackground
+color lightModeSlider
+color lightModeText
+color purple_200
+color purple_700
+color teal_200
+drawable ic_launcher_background
+drawable ic_launcher_foreground
+id backgroundID
+id darkModeSlider
+id textTag
+layout activity_main
+mipmap ic_launcher
+mipmap ic_launcher_round
+string app_name
+string slide_on_to_enable_dark_mode
+style Theme.DarkModeSwitch

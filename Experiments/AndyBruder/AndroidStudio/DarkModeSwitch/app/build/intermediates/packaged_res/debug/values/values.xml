@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="http://schemas.android.com/tools">
+    <color name="black">#FF000000</color>
+    <color name="darkModeBackground">#2e2d2c</color>
+    <color name="darkModeSlider">#FF000000</color>
+    <color name="darkModeText">#FFFFFFFF</color>
+    <color name="lightModeBackground">#FFFFFFFF</color>
+    <color name="lightModeSlider">#8f8b86</color>
+    <color name="lightModeText">#FF000000</color>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <string name="app_name">DarkModeSwitch</string>
+    <string name="slide_on_to_enable_dark_mode">Slide on to enable dark mode</string>
+    <style name="Theme.DarkModeSwitch" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/black</item>
+        <item name="colorPrimaryVariant">@color/black</item>
+        <item name="colorOnPrimary">@color/black</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/black</item>
+        <item name="colorSecondaryVariant">@color/black</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" ns1:targetApi="l">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+    </style>
+</resources>
