@@ -1,5 +1,6 @@
 package com.example.hello_world;
 
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -39,8 +40,7 @@ public class SecondFragment extends Fragment {
         String countText = getString(R.string.random_heading, hex_color);
         TextView headerView = view.getRootView().findViewById(R.id.textview_header);
         View myRootView = view.getRootView();
-        myRootView.setBackgroundColor(get_Int(hex_color));
-        myRootView.setBackground(new ColorDrawable(get_Int(hex_color.toLowerCase())));
+        myRootView.setBackgroundColor(Color.parseColor(hex_color));
         headerView.setText(countText);
 //        Random random = new java.util.Random();
 //        Integer randomNumber = 0;
