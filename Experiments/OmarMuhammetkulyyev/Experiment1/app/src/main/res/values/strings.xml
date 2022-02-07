@@ -7,8 +7,15 @@
     <string name="previous">Back</string>
 
     <string name="hello_first_fragment">0</string>
-    <string name="random_heading">Here is a random number between 0 and %d.</string>
-    <string name="toast_button_text">Toast</string>
-    <string name="random_button_text">Random</string>
-    <string name="count_button_text">Count</string>
+    <string name="random_heading">The Chosen Random Color is #%s in hex.</string>
+
+    <string name="random_button_text">Submit</string>
+
+    <string name="red_button_text">Red</string>
+    <string name="blue_button_text">Blue</string>
+    <string name="green_button_text">Green</string>
+
+    <string name="red_hex_text">Red</string>
+    <string name="blue_hex_text">Blue</string>
+    <string name="green_hex_text">Green</string>
 </resources>
