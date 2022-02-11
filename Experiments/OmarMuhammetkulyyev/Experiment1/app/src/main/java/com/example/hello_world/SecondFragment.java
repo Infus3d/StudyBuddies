@@ -39,7 +39,7 @@ public class SecondFragment extends Fragment {
         String hex_color = SecondFragmentArgs.fromBundle(getArguments()).getMyArg();
         String countText = getString(R.string.random_heading, hex_color);
         TextView headerView = view.getRootView().findViewById(R.id.textview_header);
-        View myRootView = view.getRootView();
+        View myRootView = view.getRootView().findViewById(R.id.rootView_fragment2);
         myRootView.setBackgroundColor(Color.parseColor(hex_color));
         headerView.setText(countText);
 //        Random random = new java.util.Random();
