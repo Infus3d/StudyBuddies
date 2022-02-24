@@ -9,13 +9,13 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
+import com.android.volley.Request.Method;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.example.studybuddies.utils.Const;
 import com.example.studybuddies.app.AppController;
+import com.example.studybuddies.utils.Const;
 
 import org.json.JSONObject;
 
@@ -48,8 +48,10 @@ public class GroupCreation extends AppCompatActivity {
     }
 
     private void makeJsonObjReq() {
-        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
-                Const.URL_JSON_OBJECT, null,
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(
+                Method.GET,
+                Const.URL_JSON_OBJECT,
+                null,
                 new Response.Listener<JSONObject>() {
 
                     @Override
@@ -87,8 +89,7 @@ public class GroupCreation extends AppCompatActivity {
 
         };
         // Adding request to request queue
-        AppController.getInstance().addToRequestQueue(jsonObjReq,
-                tag_json_obj);
+        AppController.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
 
         // Cancelling request
         // ApplicationController.getInstance().getRequestQueue().cancelAll(tag_json_obj);
