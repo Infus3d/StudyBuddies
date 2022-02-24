@@ -49,8 +49,8 @@ public class GroupCreation extends AppCompatActivity {
 
     private void makeJsonObjReq() {
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(
-                Method.GET,
-                Const.URL_JSON_OBJECT,
+                Method.POST,
+                Const.POST_URL_JSON_OBJECT,
                 null,
                 new Response.Listener<JSONObject>() {
 
