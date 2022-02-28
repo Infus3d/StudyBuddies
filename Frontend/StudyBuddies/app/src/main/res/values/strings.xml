@@ -16,11 +16,13 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="button">button</string>
     <string name="enter_information_for_user">Enter information for user</string>
-    <string name="enter_first_name">Enter first name</string>
     <string name="enter_last_name">Enter last name</string>
     <string name="enter_user_name">Enter user name</string>
     <string name="enter_location">Enter location</string>
     <string name="enter_password">Enter password</string>
     <string name="response_will_be_shown_below">Response will be shown below</string>
     <string name="create">Create</string>
+    <string name="show_users">Show Users</string>
+    <string name="enter_first_name">Enter first name</string>
+    <string name="show">show</string>
 </resources>
