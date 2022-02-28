@@ -10,14 +10,18 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.studybuddies.app.AppController;
 import com.example.studybuddies.utils.Const;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -29,7 +33,9 @@ public class CreateUser extends AppCompatActivity {
     EditText firstName;
     EditText lastName;
     TextView response_txt;
-    Button button;
+    Button createButton;
+    Button showButton;
+    TextView showUsers;
     private String TAG = GroupCreation.class.getSimpleName();
     private String tag_json_obj = "jobj_req";
 
@@ -41,9 +47,11 @@ public class CreateUser extends AppCompatActivity {
         firstName = findViewById(R.id.first_name);
         lastName = findViewById(R.id.last_name);
         response_txt = findViewById(R.id.response);
-        button = findViewById(R.id.button_first);
+        showUsers = findViewById(R.id.users_display);
+        createButton = findViewById(R.id.button_first);
+        showButton = findViewById(R.id.users_button);
 
-        button.setOnClickListener(new View.OnClickListener() {
+        createButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -59,6 +67,13 @@ public class CreateUser extends AppCompatActivity {
                 }
 
                 makeJsonObjReq(jsonObject);
+            }
+        });
+
+        showButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                makeJSONArrayRequest();
             }
         });
     }
@@ -78,7 +93,12 @@ public class CreateUser extends AppCompatActivity {
 
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            VolleyLog.d(TAG, "Error: " + error.getMessage());
+                            NetworkResponse response = error.networkResponse;
+                            String errorMsg = "";
+                            if(response != null && response.data != null){
+                                String errorString = new String(response.data);
+                                Log.d("log error", errorString);
+                            }
                         }
                     }) {
 
@@ -102,9 +122,59 @@ public class CreateUser extends AppCompatActivity {
                         }
 
                     };
+
+
+                    jsonObjReq.setRetryPolicy(new DefaultRetryPolicy(10000, 1, 1.0f));
                     // Adding request to request queue
                     AppController.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
 
                 };
+
+    public void makeJSONArrayRequest() {
+
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Const.GET_URL_JSON_OBJECT, new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray response) {
+                Log.d(TAG, response.toString());
+                showUsers.setText(response.toString());
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                NetworkResponse response = error.networkResponse;
+                String errorMsg = "";
+                if(response != null && response.data != null){
+                    String errorString = new String(response.data);
+                    Log.d("log error", errorString);
+                }
+            }
+        }){
+
+            /**
+             * Passing some request headers
+             * */
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Content-Type", "application/json");
+                return headers;
+            }
+
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("firstName", "first");
+                params.put("lastName", "last");
+
+                return params;
+            }
+
+        };
+
+        jsonArrayRequest.setRetryPolicy(new DefaultRetryPolicy(10000, 1, 1.0f));
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(jsonArrayRequest, tag_json_obj);
+
+    }
 
 }
