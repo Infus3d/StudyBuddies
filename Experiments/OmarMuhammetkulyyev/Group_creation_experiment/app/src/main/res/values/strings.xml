@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">GroupCreation</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="create_group">Create Group</string>
+    <string name="placeholderval">placeholderval</string>
+    <string name="click_here_to_generate_group">Click here to generate group</string>
+    <string name="title_activity_get_user_from_serve">GetUserFromServe</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="action_settings"> Action Settings LoL </string>
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="button">button</string>
+    <string name="enter_information_for_user">Enter information for user</string>
+    <string name="enter_last_name">Enter last name</string>
+    <string name="enter_user_name">Enter user name</string>
+    <string name="enter_location">Enter location</string>
+    <string name="enter_password">Enter password</string>
+    <string name="response_will_be_shown_below">Response will be shown below</string>
+    <string name="create">Create</string>
+    <string name="show_users">Show Users</string>
+    <string name="enter_first_name">Enter first name</string>
+    <string name="show">show</string>
+</resources>
