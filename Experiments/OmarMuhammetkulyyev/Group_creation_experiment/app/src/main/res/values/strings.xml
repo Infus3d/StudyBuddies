@@ -26,4 +26,7 @@
     <string name="show_users">Show Users</string>
     <string name="enter_first_name">Enter first name</string>
     <string name="show">show</string>
+
+    <string name="new_group">Create Group</string>
+    <string name="get_groups">Show Groups</string>
 </resources>
