@@ -123,7 +123,7 @@ public class Owners {
         return new ToStringCreator(this)
 
                 .append("id", this.getId())
-                .append("new", this.isNew())
+                //.append("new", this.isNew())
                 .append("lastName", this.getLastName())
                 .append("firstName", this.getFirstName())
                 /*.append("address", this.address)
