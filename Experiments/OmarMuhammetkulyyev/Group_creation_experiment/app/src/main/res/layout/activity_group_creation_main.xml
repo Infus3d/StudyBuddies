@@ -14,8 +14,9 @@
         android:text="Response:"
         android:textColor="#533CA5"
         android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@+id/inputOuterLayout"
-        tools:layout_editor_absoluteX="150dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/inputOuterLayout" />
 
     <LinearLayout
         android:id="@+id/inputOuterLayout"
