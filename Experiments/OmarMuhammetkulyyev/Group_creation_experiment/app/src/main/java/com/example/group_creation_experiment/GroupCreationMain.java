@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -60,8 +61,8 @@ public class GroupCreationMain extends AppCompatActivity {
         showGroupsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                makeJsonObjPostReq();
                 makeJsonArrayReq();
+                groupOwnerText.onEditorAction(EditorInfo.IME_ACTION_DONE); //closes the soft-keyboard upon clicking the button
             }
         });
 
@@ -76,6 +77,7 @@ public class GroupCreationMain extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 makeJsonObjPostReq(newGroup);
+                groupOwnerText.onEditorAction(EditorInfo.IME_ACTION_DONE); //closes the soft-keyboard upon clicking the button
             }
         });
     }
