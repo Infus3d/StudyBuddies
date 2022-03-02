@@ -10,13 +10,12 @@
         android:id="@+id/displaygroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="GROUP LIST"
-        android:textColor="#45E6C6"
+        android:layout_marginTop="8dp"
+        android:text="Response:"
+        android:textColor="#533CA5"
         android:textSize="20sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputOuterLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/inputOuterLayout"
+        tools:layout_editor_absoluteX="150dp" />
 
     <LinearLayout
         android:id="@+id/inputOuterLayout"
@@ -38,6 +37,7 @@
             android:textAlignment="center"
             android:visibility="visible" />
         <EditText
+            android:id="@+id/editTextGroupOwner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
@@ -91,12 +91,12 @@
 
     <ScrollView
         android:layout_width="370dp"
-        android:layout_height="500dp"
+        android:layout_height="420dp"
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.512"
+        app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/displaygroup">
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2">
 
         <LinearLayout
             android:id="@+id/scrollGroupsLinearLayout"
@@ -107,6 +107,23 @@
 
         </LinearLayout>
 
+    </ScrollView>
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="370dp"
+        android:layout_height="69dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/displaygroup">
+        <TextView
+            android:id="@+id/httpResponseText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible"
+            android:text="Nothing so far"
+            android:textAlignment="center"/>
     </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -31,24 +32,30 @@ import java.util.Map;
 public class GroupCreationMain extends AppCompatActivity {
     private String TAG = GroupCreationMain.class.getSimpleName();
 
-    Button createGroupsButton;
-    Button showGroupsButton;
-    TextView textView;
+    EditText groupNameText, groupOwnerText;
+
+    Button createGroupButton, showGroupsButton;
+    TextView textView, responseTextView;
 
     private int layoutCounter, textViewCounter;
 
     private String tag_json_obj = "jobj_req";
     private String tag_json_array = "jarray_req";
-    private String[] colors = {"#FF3F86A6", "#FF5253B8", "#FF4372CF"};
+    private String[] colors = {"#FF3F86A6", "#FF5253B8", "#FF533CA5"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_creation_main);
 
+        groupNameText = findViewById(R.id.editTextGroupName);
+        groupOwnerText = findViewById(R.id.editTextGroupOwner);
+
         showGroupsButton = findViewById(R.id.buttonShowGroups);
-        createGroupsButton = findViewById(R.id.buttonCreateGroup);
+        createGroupButton = findViewById(R.id.buttonCreateGroup);
+
         textView = findViewById(R.id.displaygroup);
+        responseTextView = findViewById(R.id.httpResponseText);
 
         showGroupsButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,18 +65,31 @@ public class GroupCreationMain extends AppCompatActivity {
             }
         });
 
+        createGroupButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                JSONObject newGroup = new JSONObject();
+                try {
+                    newGroup.put("question", groupNameText.getText().toString());
+                    newGroup.put("answer", groupOwnerText.getText().toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                makeJsonObjPostReq(newGroup);
+            }
+        });
     }
 
     private void makeJsonObjPostReq(JSONObject jsonObj) {
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(
                 Request.Method.POST,
-                Const.URL_JSON_OBJECT_USERS_POST, jsonObj,
+                Const.URL_JSON_OBJECT_TRIVIA_POST, jsonObj,
                 new Response.Listener<JSONObject>() {
 
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d(TAG, response.toString());
-                        textView.setText(response.toString());
+                        responseTextView.setText(response.toString());
                     }
                 }, new Response.ErrorListener() {
 
@@ -107,12 +127,12 @@ public class GroupCreationMain extends AppCompatActivity {
     }
 
     public void makeJsonArrayReq(){
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Const.URL_JSON_ARRAY_USERS_GET,
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Const.URL_JSON_ARRAY_TRIVIA_GET,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
                         Log.d(TAG, response.toString());
-                        textView.setText(response.toString());
+                        responseTextView.setText(response.toString());
                         try {
                             showAllGroups(response);
                         } catch (JSONException e) {
@@ -137,9 +157,9 @@ public class GroupCreationMain extends AppCompatActivity {
     public void showAllGroups(JSONArray response) throws JSONException {
         LinearLayout container = findViewById(R.id.scrollGroupsLinearLayout);
         container.removeAllViews(); layoutCounter = 0; textViewCounter = 0;
-        for(int i=0; i<response.length(); i++){
+        for(int i=response.length()-1; i>=0; i--){
             JSONObject cur = response.getJSONObject(i);
-            addGroupToLayout(container, cur, i%3);
+            addGroupToLayout(container, cur, i%2);
         }
     }
 
@@ -149,11 +169,11 @@ public class GroupCreationMain extends AppCompatActivity {
         groupID.setId(++textViewCounter);
 
         TextView groupName = new TextView(GroupCreationMain.this);
-        groupName.setText("Name: " + obj.getString("firstName"));
+        groupName.setText("Name: " + obj.getString("question"));
         groupName.setId(++textViewCounter);
 
         TextView groupOwner = new TextView(GroupCreationMain.this);
-        groupOwner.setText("Owner: " + obj.getString("lastName"));
+        groupOwner.setText("Owner: " + obj.getString("answer"));
         groupOwner.setId(++textViewCounter);
 
         LinearLayout tempGroup = new LinearLayout(GroupCreationMain.this);
