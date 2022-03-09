@@ -16,7 +16,7 @@ maven-build:
   tags:
     - -springboot_tag
   script:
-    - cd Backend
+    - cd Backend/Spring
     - mvn package -B
     
 maven-test:
@@ -29,7 +29,7 @@ maven-test:
   tags:
     - -springboot_tag
   script:
-    - cd Backend
+    - cd Backend/Spring
     - mvn test
   artifacts:
     paths:
@@ -46,7 +46,7 @@ autoDeploy:
   tags:
    - -springboot_tag
   script:
-    - cd Backend
+    - cd Backend/Spring
     - mvn package
     - sudo mv target/*.jar /target/web-demo.jar 
     - sudo systemctl stop system-web-demo
@@ -67,7 +67,7 @@ android-build:
   tags:
    - -android_tag
   script:
-    - cd Frontend/
+    - cd Frontend/StudyBuddies
     - ./gradlew build
   artifacts:
     paths:
@@ -83,10 +83,10 @@ android-test:
   stage: androidtest
   before_script:
     - export GRADLE_USER_HOME=`pwd`/.gradle
-    - chmod +x ./Frontend/gradlew
+    - chmod +x ./Frontend/StudyBuddies/gradlew
   tags:
    - -android_tag
   script:
-    - cd Frontend/
+    - cd Frontend/StudyBuddies
     - ./gradlew test
 
