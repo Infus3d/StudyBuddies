@@ -61,7 +61,7 @@ android-build:
       - main
     changes:
       - Frontend/StudyBuddies
-  image: javiersantos/android-ci:latest
+  image: gjandres/android-ci:latest
   stage: androidbuild
   before_script:
     - export GRADLE_USER_HOME=`pwd`/.gradle
@@ -81,7 +81,7 @@ android-test:
       - main
     changes:
       - Frontend/StudyBuddies
-  image: javiersantos/android-ci:latest
+  image: gjandres/android-ci:latest
   stage: androidtest
   before_script:
     - export GRADLE_USER_HOME=`pwd`/.gradle
