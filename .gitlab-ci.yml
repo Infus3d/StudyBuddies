@@ -5,8 +5,6 @@ stages:
   - mavenDeploy
   - androidbuild
   - androidtest
-before_script:
-  - export JAVA_HOME="/"
 
 maven-build:
   only:
