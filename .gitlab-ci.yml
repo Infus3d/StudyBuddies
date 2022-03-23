@@ -60,6 +60,8 @@ android-build:
       - main
     changes:
       - Frontend/StudyBuddies/*
+    variables:
+      - $CI_COMMIT_MESSAGE !~ /-insignificant/i
   image: gjandres/android-ci:latest
   stage: androidbuild
   before_script:
@@ -80,6 +82,8 @@ android-test:
       - main
     changes:
       - Frontend/StudyBuddies/*
+    variables:
+      - $CI_COMMIT_MESSAGE !~ /-insignificant/i
   image: gjandres/android-ci:latest
   stage: androidtest
   before_script:
@@ -98,7 +102,7 @@ omar-test:
     changes:
       - Frontend/Studybuddies/*
     variables:
-      - $CI_COMMIT_MESSAGE !~ /-insignificant/i
+      - $CI_COMMIT_MESSAGE !~ /-insignificante/i
   stage: omartest
   script:
     - echo "This is just a test"
