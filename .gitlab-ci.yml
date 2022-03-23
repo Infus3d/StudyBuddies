@@ -5,6 +5,7 @@ stages:
   - mavenDeploy
   - androidbuild
   - androidtest
+  - omartest
 
 maven-build:
   only:
@@ -90,3 +91,14 @@ android-test:
     - cd Frontend/StudyBuddies
     - ./gradlew test
 
+omar-test:
+  only:
+    refs:
+      - main
+    changes:
+      - Frontend/Studybuddies/*
+    variables:
+      - $CI_COMMIT_MESSAGE !~ /-insignificant/i
+  stage: omartest
+  script:
+    - echo "This is just a test"
