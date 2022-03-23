@@ -102,7 +102,9 @@ omar-test:
     changes:
       - Frontend/Studybuddies/*
     variables:
-      - $CI_COMMIT_MESSAGE !~ /-insignificante/i
+      - $CI_COMMIT_MESSAGE !~ /-random/i
   stage: omartest
+  tags:
+    - -android_tag
   script:
     - echo "This is just a test"
