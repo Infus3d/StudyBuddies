@@ -26,25 +26,34 @@ public class Users {
     @NotFound(action = NotFoundAction.IGNORE)
     private Integer id;
 
-    @Column(name = "first_name")
+    @Column(name = "username")
     @NotFound(action = NotFoundAction.IGNORE)
-    private String firstName;
+    private String username;
 
-    @Column(name = "last_name")
+    @Column(name = "password")
     @NotFound(action = NotFoundAction.IGNORE)
-    private String lastName;
+    private String password;
 
+    @Column(name = "email")
+    @NotFound(action = NotFoundAction.IGNORE)
+    private String email;
+    
+    @Column(name = "location")
+    @NotFound(action = NotFoundAction.IGNORE)
+    private String location;
+    
     public Users(){
         
     }
 
-    public Users(int id, String firstName, String lastName){
+    public Users(int id, String username, String password){
         this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.username = username;
+        this.password = password;
        
     }
 
+    //ID
     public Integer getId() {
         return id;
     }
@@ -53,30 +62,51 @@ public class Users {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return this.firstName;
+    //Username
+    public String getUsername() {
+        return this.username;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getLastName() {
-        return this.lastName;
+    //Password
+    public String getPassword() {
+        return this.password;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLastName(String password) {
+        this.password = password;
     }
 
+    //Email
+    public String getEmail() {
+        return this.email;
+    }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    
+    //Location
+    public String getLocation() {
+        return this.location;
+    }
+
+    public void setLcoation(String location) {
+        this.location = location;
+    }
+    
     @Override
     public String toString() {
         return new ToStringCreator(this)
 
                 .append("id", this.getId())
-                .append("lastName", this.getLastName())
-                .append("firstName", this.getFirstName())
+                .append("username", this.getUsername())
+                .append("password", this.getPassword())
+                .append("email", this.getEmail())
+                .append("location", this.getLocation())
                .toString();
     }
 }
