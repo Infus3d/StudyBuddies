@@ -1,5 +1,5 @@
 
-package org.springframework.studybuddies.user;
+package org.springframework.studybuddies.group;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,34 +21,34 @@ import java.util.Optional;
 
 
 @RestController
-class UserController {
+class GroupController {
 
     @Autowired
-    UserRepository usersRepository;
+    GroupRepository groupRepository;
 
-    private final Logger logger = LoggerFactory.getLogger(UserController.class);
+    private final Logger logger = LoggerFactory.getLogger(GroupController.class);
     
     //CREATE Request
     @PostMapping("/users/new")
-    public @ResponseBody String createUsers(@RequestBody Users user) {
-        System.out.println(user);
-        usersRepository.save(user);
-        return "New User "+ user.getUsername() + " Saved";
+    public @ResponseBody String createUsers(@RequestBody Group group) {
+        System.out.println(group);
+        groupRepository.save(group);
+        return "New Group "+ group.getTitle() + " Saved";
     }
     
     //READ Request
-    @RequestMapping(method = RequestMethod.GET, path = "/users/{userId}")
-    public Optional<Users> findUserById(@PathVariable("userId") int id) {
+    @RequestMapping(method = RequestMethod.GET, path = "/groups/{groupId}")
+    public Optional<Group> findgroupById(@PathVariable("groupId") int id) {
         logger.info("Entered into Controller Layer");
-        Optional<Users> results = usersRepository.findById(id);
+        Optional<Group> results = groupRepository.findById(id);
         return results;
     }
     
     //LIST Request
-    @RequestMapping(method = RequestMethod.GET, path = "/users")
-    public List<Users> getAllUsers() {
+    @RequestMapping(method = RequestMethod.GET, path = "/groups")
+    public List<Group> getAllGroups() {
         logger.info("Entered into Controller Layer");
-        List<Users> results = usersRepository.findAll();
+        List<Group> results = groupRepository.findAll();
         logger.info("Number of Records Fetched:" + results.size());
         return results;
     }
