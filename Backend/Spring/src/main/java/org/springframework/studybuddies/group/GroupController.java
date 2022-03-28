@@ -1,5 +1,7 @@
-
 package org.springframework.studybuddies.group;
+
+import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,9 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import java.util.List;
-import java.util.Optional;
-
 
 /**
  * @author Ryan Sand and Brady Heath
@@ -21,38 +20,36 @@ import java.util.Optional;
 
 
 @RestController
-class GroupController {
+public class GroupController {
 
-    @Autowired
-    GroupRepository groupRepository;
+	@Autowired
+    GroupRepository groupsRepository;
 
     private final Logger logger = LoggerFactory.getLogger(GroupController.class);
     
     //CREATE Request
-    @PostMapping("/users/new")
-    public @ResponseBody String createUsers(@RequestBody Group group) {
+    @PostMapping("/groups/new")
+    public @ResponseBody String createUsers(@RequestBody Groups group) {
         System.out.println(group);
-        groupRepository.save(group);
+        groupsRepository.save(group);
         return "New Group "+ group.getTitle() + " Saved";
     }
     
     //READ Request
     @RequestMapping(method = RequestMethod.GET, path = "/groups/{groupId}")
-    public Optional<Group> findgroupById(@PathVariable("groupId") int id) {
+    public Optional<Groups> findGroupById(@PathVariable("groupId") int id) {
         logger.info("Entered into Controller Layer");
-        Optional<Group> results = groupRepository.findById(id);
+        Optional<Groups> results = groupsRepository.findById(id);
         return results;
     }
     
     //LIST Request
     @RequestMapping(method = RequestMethod.GET, path = "/groups")
-    public List<Group> getAllGroups() {
+    public List<Groups> getAllGroups() {
         logger.info("Entered into Controller Layer");
-        List<Group> results = groupRepository.findAll();
+        List<Groups> results = groupsRepository.findAll();
         logger.info("Number of Records Fetched:" + results.size());
         return results;
     }
-
-    
-
+	
 }

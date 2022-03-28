@@ -15,98 +15,94 @@ import org.springframework.core.style.ToStringCreator;
  * @author Ryan Sand and Brady Heath
  */
 
-
 @Entity
 @Table(name = "users")
 public class Users {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    @NotFound(action = NotFoundAction.IGNORE)
-    private Integer id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	@NotFound(action = NotFoundAction.IGNORE)
+	private Integer id;
 
-    @Column(name = "username")
-    @NotFound(action = NotFoundAction.IGNORE)
-    private String username;
+	@Column(name = "username")
+	@NotFound(action = NotFoundAction.IGNORE)
+	private String username;
 
-    @Column(name = "password")
-    @NotFound(action = NotFoundAction.IGNORE)
-    private String password;
+	@Column(name = "password")
+	@NotFound(action = NotFoundAction.IGNORE)
+	private String password;
 
-    @Column(name = "email")
-    @NotFound(action = NotFoundAction.IGNORE)
-    private String email;
-    
-    @Column(name = "location")
-    @NotFound(action = NotFoundAction.IGNORE)
-    private String location;
-    
-    public Users(){
-        
-    }
+	@Column(name = "email")
+	@NotFound(action = NotFoundAction.IGNORE)
+	private String email;
 
-    public Users(int id, String username, String password){
-        this.id = id;
-        this.username = username;
-        this.password = password;
-       
-    }
+	@Column(name = "location")
+	@NotFound(action = NotFoundAction.IGNORE)
+	private String location;
 
-    //ID
-    public Integer getId() {
-        return id;
-    }
+	public Users() {
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	}
 
-    //Username
-    public String getUsername() {
-        return this.username;
-    }
+	public Users(int id, String username, String password) {
+		this.id = id;
+		this.username = username;
+		this.password = password;
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+	}
 
-    //Password
-    public String getPassword() {
-        return this.password;
-    }
+	// ID
+	public Integer getId() {
+		return id;
+	}
 
-    public void setLastName(String password) {
-        this.password = password;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    //Email
-    public String getEmail() {
-        return this.email;
-    }
+	// Username
+	public String getUsername() {
+		return this.username;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-    
-    //Location
-    public String getLocation() {
-        return this.location;
-    }
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
-    public void setLcoation(String location) {
-        this.location = location;
-    }
-    
-    @Override
-    public String toString() {
-        return new ToStringCreator(this)
+	// Password
+	public String getPassword() {
+		return this.password;
+	}
 
-                .append("id", this.getId())
-                .append("username", this.getUsername())
-                .append("password", this.getPassword())
-                .append("email", this.getEmail())
-                .append("location", this.getLocation())
-               .toString();
-    }
+	public void setLastName(String password) {
+		this.password = password;
+	}
+
+	// Email
+	public String getEmail() {
+		return this.email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	// Location
+	public String getLocation() {
+		return this.location;
+	}
+
+	public void setLcoation(String location) {
+		this.location = location;
+	}
+
+	@Override
+	public String toString() {
+		return new ToStringCreator(this)
+
+				.append("id", this.getId()).append("username", this.getUsername())
+				.append("password", this.getPassword()).append("email", this.getEmail())
+				.append("location", this.getLocation()).toString();
+	}
 }
