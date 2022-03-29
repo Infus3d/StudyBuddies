@@ -75,7 +75,7 @@ public class Users {
 		return this.password;
 	}
 
-	public void setLastName(String password) {
+	public void setPassword(String password) {
 		this.password = password;
 	}
 
@@ -93,7 +93,7 @@ public class Users {
 		return this.location;
 	}
 
-	public void setLcoation(String location) {
+	public void setLocation(String location) {
 		this.location = location;
 	}
 
