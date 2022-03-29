@@ -95,7 +95,6 @@ public class CreateUser extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.i(TAG, response.toString());
-                        showUsers.setText(response.toString());
                     }
                 }, new Response.ErrorListener() {
 

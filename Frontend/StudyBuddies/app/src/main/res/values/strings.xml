@@ -18,7 +18,7 @@
     <string name="enter_information_for_user">Enter information for user</string>
     <string name="enter_last_name">Enter last name</string>
     <string name="enter_user_name">Enter user name</string>
-    <string name="enter_location">Enter location</string>
+
     <string name="enter_password">Enter password</string>
     <string name="response_will_be_shown_below">Response will be shown below</string>
     <string name="create">Create</string>
@@ -26,4 +26,10 @@
     <string name="enter_first_name">Enter first name</string>
     <string name="show">show</string>
     <string name="enter_password_again">Enter password again</string>
+    <string name="already_have_an_account">Already have an account?</string>
+    <string name="enter_information_to_create_a_new_account">Enter information to create a new account!</string>
+    <string name="enter_username">Enter username</string>
+    <string name="enter_e_mail_address">Enter e-mail address</string>
+    <string name="enter_location">Enter location</string>
+    <string name="login">LOGIN</string>
 </resources>
