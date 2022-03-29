@@ -30,14 +30,16 @@ import java.util.Map;
 
 public class CreateUser extends AppCompatActivity {
 
-    EditText firstName;
-    EditText lastName;
+    EditText username;
     EditText email;
     EditText password1;
     EditText password2;
+    EditText location;
     TextView errorDisplay;
     Button createButton;
     TextView showUsers;
+    int numUsers;
+    JSONArray users;
     private String TAG = GroupCreation.class.getSimpleName();
     private String tag_json_obj = "jobj_req";
 
@@ -46,30 +48,33 @@ public class CreateUser extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_user);
 
-        firstName = findViewById(R.id.first_name);
-        lastName = findViewById(R.id.last_name);
+        username = findViewById(R.id.user_name);
         email = findViewById(R.id.email_address);
         password1 = findViewById(R.id.password_one);
         password2 = findViewById(R.id.password_two);
+        location = findViewById(R.id.location);
         errorDisplay = findViewById(R.id.error_display);
-        showUsers = findViewById(R.id.users_display);
         createButton = findViewById(R.id.create_button);
+        getUsers();
 
         createButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                if (!password1.getText().toString().equals(password2.getText().toString())){
-                    errorDisplay.setText("passwords don't match");
-                    return;
+                try {
+                    if (validNewUser() == false) {
+                        return;
+                    }
+                } catch (JSONException e) {
+                    errorDisplay.setText("new user error");
                 }
 
                 JSONObject jsonObject = new JSONObject();
                 try {
-                    jsonObject.put("firstName", firstName.getText().toString());
-                    jsonObject.put("lastName", lastName.getText().toString());
+                    jsonObject.put("username", username.getText().toString());
                     jsonObject.put("email", email.getText().toString());
                     jsonObject.put("password", password1.getText().toString());
+                    jsonObject.put("location", location.getText().toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -79,6 +84,7 @@ public class CreateUser extends AppCompatActivity {
         });
 
     }
+
     private void makeJsonObjReq(JSONObject j) {
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(
                 Request.Method.POST,
@@ -88,7 +94,7 @@ public class CreateUser extends AppCompatActivity {
 
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.d(TAG, response.toString());
+                        Log.i(TAG, response.toString());
                         showUsers.setText(response.toString());
                     }
                 }, new Response.ErrorListener() {
@@ -132,13 +138,18 @@ public class CreateUser extends AppCompatActivity {
 
     };
 
-    public void makeJSONArrayRequest() {
+    public void getUsers() {
 
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Const.GET_URL_JSON_OBJECT, new Response.Listener<JSONArray>() {
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
+                Request.Method.GET,
+                Const.GET_URL_JSON_OBJECT,
+                null,
+                new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
-                Log.d(TAG, response.toString());
-                showUsers.setText(response.toString());
+                Log.i(TAG, response.toString());
+                numUsers = response.length();
+                users = response;
             }
         }, new Response.ErrorListener() {
             @Override
@@ -176,6 +187,36 @@ public class CreateUser extends AppCompatActivity {
         jsonArrayRequest.setRetryPolicy(new DefaultRetryPolicy(10000, 1, 1.0f));
         // Adding request to request queue
         AppController.getInstance().addToRequestQueue(jsonArrayRequest, tag_json_obj);
+
+    }
+
+    public boolean validNewUser() throws JSONException {
+
+        if (!password1.getText().toString().equals(password2.getText().toString())) {
+            errorDisplay.setText("passwords don't match");
+            return false;
+        }
+
+        if (!email.getText().toString().contains("@") || !email.getText().toString().contains(".")) {
+            errorDisplay.setText("invalid email address");
+            return false;
+        }
+
+        for (int i = 0; i < numUsers; i++){
+            JSONObject obj = users.getJSONObject(i);
+            String e = (String) obj.get("email");
+            String u = (String) obj.get("username");
+            if (e.equals(email.getText().toString())) {
+                errorDisplay.setText("email already in use");
+                return false;
+            }
+            if (u.equals(username.getText().toString())) {
+                errorDisplay.setText("username already in use");
+                return false;
+            }
+        }
+
+        return true;
 
     }
 
