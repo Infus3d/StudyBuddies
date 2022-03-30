@@ -125,9 +125,6 @@ public class CreateUser extends AppCompatActivity {
 
         };
 
-
-        jsonObjReq.setRetryPolicy(new DefaultRetryPolicy(10000, 1, 1.0f));
-        // Adding request to request queue
         AppController.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
 
     };
@@ -173,8 +170,6 @@ public class CreateUser extends AppCompatActivity {
 
         };
 
-        jsonArrayRequest.setRetryPolicy(new DefaultRetryPolicy(10000, 1, 1.0f));
-        // Adding request to request queue
         AppController.getInstance().addToRequestQueue(jsonArrayRequest, tag_json_obj);
 
     }
