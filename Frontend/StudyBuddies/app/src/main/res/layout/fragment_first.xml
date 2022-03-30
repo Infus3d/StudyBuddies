@@ -47,7 +47,7 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:minHeight="48dp"
-        android:text="@string/enter_user_name"
+        android:text="@string/enter_username"
         app:layout_constraintBottom_toTopOf="@id/location"
         app:layout_constraintHorizontal_bias="0.099"
         app:layout_constraintLeft_toLeftOf="parent"
