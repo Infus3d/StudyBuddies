@@ -22,7 +22,7 @@ import java.util.Map;
 
 public class RequestsCentral {
 
-    private String TAG = GroupCreation.class.getSimpleName();
+    private String TAG = RequestsCentral.class.getSimpleName();
     private String tag_json_obj = "jobj_req";
     private JSONArray jsonArrayResponse;
     private int arrayResponseLength;
