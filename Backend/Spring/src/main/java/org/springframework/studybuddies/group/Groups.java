@@ -16,7 +16,7 @@ import org.springframework.core.style.ToStringCreator;
  */
 
 @Entity
-@Table(name = "groups")
+@Table(name = "groupsTable")
 public class Groups {
 
 	@Id
