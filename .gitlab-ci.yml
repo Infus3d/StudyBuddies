@@ -48,7 +48,7 @@ autoDeploy:
   script:
     - cd Backend/Spring
     - mvn package
-    - sudo mv target/*.jar /target/ 
+    - sudo mv target/*.jar /target/web-demo.jar 
     - sudo systemctl stop system-web-demo
     - sudo systemctl start system-web-demo
 
