@@ -10,11 +10,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.example.studybuddies.GroupCreation;
 import com.example.studybuddies.app.AppController;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -185,7 +183,7 @@ public class RequestsCentral {
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
                 Request.Method.GET,
-                Const.GET_URL_JSON_OBJECT,
+                url,
                 null,
                 new Response.Listener<JSONArray>() {
                     @Override

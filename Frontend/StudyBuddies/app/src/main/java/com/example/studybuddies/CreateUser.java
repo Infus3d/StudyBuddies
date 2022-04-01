@@ -6,30 +6,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.NetworkResponse;
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.example.studybuddies.app.AppController;
 import com.example.studybuddies.utils.Const;
 import com.example.studybuddies.utils.RequestsCentral;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class CreateUser extends AppCompatActivity {
 
@@ -72,7 +58,7 @@ public class CreateUser extends AppCompatActivity {
         loginButton = findViewById(R.id.login);
         requestsCentral = new RequestsCentral();
 
-        requestsCentral.getJSONArray(Const.GET_URL_JSON_OBJECT);
+        requestsCentral.getJSONArray(Const.GET_USERS);
 
         sharedPreferences = getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
         id = sharedPreferences.getInt(ID_KEY, 0);
@@ -107,40 +93,23 @@ public class CreateUser extends AppCompatActivity {
 
                 // clears request central and sends the json object
                 requestsCentral = new RequestsCentral();
-                requestsCentral.postJSONObject(Const.MOCK_POST, jsonObject);
+                requestsCentral.postJSONObject(Const.CREATE_NEW_USER, jsonObject);
 
-                // waits to allow requests to be sent and received
-                try {
-                    wait(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
 
-                // clears request central and gets the updated users list
-                requestsCentral = new RequestsCentral();
-                requestsCentral.getJSONArray(Const.GET_URL_JSON_OBJECT);
 
-                // gets the new user json object including the id
-                try {
-                    JSONObject newUser = requestsCentral.getJsonArrayResponse().getJSONObject(requestsCentral.getArrayResponseLength() - 1);
+                //sharedPreferences.Editor editor = sharedPreferences.edit();
 
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                //editor.putInt(ID_KEY, newUser.getInt("id"));
+                // editor.putString(USERNAME_KEY, newUser.getString("username"));
+                //editor.putString(EMAIL_KEY, newUser.getString("email"));
+                // editor.putString(PASSWORD_KEY, newUser.getString("password"));
+                //editor.putString(LOCATION_KEY, newUser.getString("location"));
 
-                    editor.putInt(ID_KEY, newUser.getInt("id"));
-                    editor.putString(USERNAME_KEY, newUser.getString("username"));
-                    editor.putString(EMAIL_KEY, newUser.getString("email"));
-                    editor.putString(PASSWORD_KEY, newUser.getString("password"));
-                    editor.putString(LOCATION_KEY, newUser.getString("location"));
+                //editor.apply();
 
-                    editor.apply();
-
-                    Intent intent = new Intent(getApplicationContext(), LoginScreen.class);
-                    startActivity(intent);
-                    finish();
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                //Intent intent = new Intent(getApplicationContext(), Dashboard.class);
+                //startActivity(intent);
+                //finish();
 
 
             }

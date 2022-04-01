@@ -3,7 +3,6 @@ package com.example.studybuddies;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,12 +11,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.example.studybuddies.R;
 import com.example.studybuddies.utils.Const;
 import com.example.studybuddies.utils.RequestsCentral;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -50,7 +46,7 @@ public class LoginScreen extends AppCompatActivity {
         errorMessage = findViewById(R.id.login_error);
         loginB = findViewById(R.id.login_button);
         requestsCentral = new RequestsCentral();
-        requestsCentral.getJSONArray(Const.GET_URL_JSON_OBJECT);
+        requestsCentral.getJSONArray(Const.GET_USERS);
 
         loginB.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,15 +62,15 @@ public class LoginScreen extends AppCompatActivity {
                     }
 
                     try {
-                        if (currentUser.getString("firstName").equals(username.getText().toString()) && currentUser.getString("lastName").equals(password.getText().toString()) ){
+                        if (currentUser.getString("username").equals(username.getText().toString()) && currentUser.getString("password").equals(password.getText().toString()) ){
 
                             SharedPreferences.Editor editor = sharedPreferences.edit();
 
                             editor.putInt(ID_KEY, currentUser.getInt("id"));
-                            //editor.putString(USERNAME_KEY, currentUser.getString("username"));
-                            //editor.putString(EMAIL_KEY, currentUser.getString("email"));
-                            //editor.putString(PASSWORD_KEY, currentUser.getString("password"));
-                            //editor.putString(LOCATION_KEY, currentUser.getString("location"));
+                            editor.putString(USERNAME_KEY, currentUser.getString("username"));
+                            editor.putString(EMAIL_KEY, currentUser.getString("email"));
+                            editor.putString(PASSWORD_KEY, currentUser.getString("password"));
+                            editor.putString(LOCATION_KEY, currentUser.getString("location"));
 
                             editor.apply();
 
