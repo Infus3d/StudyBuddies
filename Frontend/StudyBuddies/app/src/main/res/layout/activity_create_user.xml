@@ -4,145 +4,101 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CreateUser"
-    android:background="@color/white"
-    >
+    tools:context=".CreateUser">
+
 
     <TextView
         android:id="@+id/textview_first"
-        android:layout_width="300dp"
-        android:layout_height="75dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
-        android:text="@string/enter_information_to_create_a_new_account"
-        android:textAlignment="center"
-        android:textColor="@color/greyText"
-        android:textSize="25sp"
-        app:layout_constraintBottom_toTopOf="@id/user_name"
+        android:text="@string/enter_information_for_user"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/user_name"
+        android:id="@+id/first_name"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:hint="@string/enter_username"
         android:minHeight="48dp"
-        android:textColorHint="@color/greyText"
-        android:textColor="@color/greyText"
-        app:layout_constraintBottom_toTopOf="@id/email_address"
-        app:layout_constraintHorizontal_bias="0.099"
+        android:hint="@string/enter_first_name"
+        app:layout_constraintBottom_toTopOf="@id/last_name"
+        app:layout_constraintHorizontal_bias="0.097"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textview_first" />
-    <EditText
-        android:id="@+id/email_address"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:hint="@string/enter_e_mail_address"
-        android:textColorHint="@color/greyText"
-        android:textColor="@color/greyText"
-        android:minHeight="48dp"
-        app:layout_constraintBottom_toTopOf="@id/password_one"
-        app:layout_constraintHorizontal_bias="0.099"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/user_name" />
+        app:layout_constraintTop_toBottomOf="@+id/textview_first"
+        app:layout_constraintVertical_bias="0.033" />
 
     <EditText
-        android:id="@+id/password_one"
+        android:id="@+id/last_name"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:hint="@string/enter_password"
         android:minHeight="48dp"
-        android:textColorHint="@color/greyText"
-        android:textColor="@color/greyText"
-        app:layout_constraintBottom_toTopOf="@id/password_two"
+        android:hint="@string/enter_last_name"
+        app:layout_constraintBottom_toTopOf="@id/response_heading"
         app:layout_constraintHorizontal_bias="0.099"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/email_address"
-        android:inputType="textPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/first_name"
+        app:layout_constraintVertical_bias="0.033" />
 
-    <EditText
-        android:id="@+id/password_two"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:hint="@string/enter_password_again"
-        android:textColorHint="@color/greyText"
-        android:textColor="@color/greyText"
-        android:minHeight="48dp"
-        app:layout_constraintBottom_toTopOf="@id/location"
-        app:layout_constraintHorizontal_bias="0.099"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/password_one"
-        android:inputType="textPassword" />
-
-    <EditText
-        android:id="@+id/location"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:hint="@string/enter_location"
-        android:minHeight="48dp"
-        android:textColorHint="@color/greyText"
-        android:textColor="@color/greyText"
-        app:layout_constraintBottom_toTopOf="@id/create_button"
-        app:layout_constraintHorizontal_bias="0.099"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/password_two"
-        android:inputType="text" />
 
     <TextView
-        android:id="@+id/error_display"
+        android:id="@+id/response_heading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/response"
         app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/create_button"
-        app:layout_constraintVertical_bias="0.802" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/last_name"
+        app:layout_constraintVertical_bias="0.0"
+        android:text="@string/response_will_be_shown_below"
+        />
 
-    <Button
-        android:id="@+id/create_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/darkButton"
-        android:text="@string/create"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@id/or"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/location" />
 
     <TextView
-        android:id="@+id/or"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/already_have_an_account"
-        android:textColor="@color/greyText"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.837" />
+        android:id="@+id/response"
+        android:layout_width="1dp"
+        android:layout_height="13dp"
+        app:layout_constraintBottom_toTopOf="@id/button_first"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/response_heading"
+        app:layout_constraintVertical_bias="0" />
 
     <Button
-        android:id="@+id/login"
+        android:id="@+id/button_first"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/darkButton"
-        android:text="@string/login"
-        android:textColor="@color/white"
+        android:text="@string/create"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.9" />
+        app:layout_constraintTop_toBottomOf="@id/textview_first"
+        app:layout_constraintVertical_bias="0.393" />
 
+    <Button
+        android:id="@+id/users_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_first"
+        app:layout_constraintVertical_bias="0.148"
+        android:text="@string/show_users"/>
+
+    <TextView
+        android:id="@+id/users_display"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/users_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
