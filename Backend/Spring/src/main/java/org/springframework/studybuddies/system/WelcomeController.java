@@ -1,4 +1,4 @@
-package org.springframework.samples.users.system;
+package org.springframework.studybuddies.system;
 
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,6 +9,6 @@ class WelcomeController {
 
     @GetMapping("/")
     public String welcome() {
-        return "Welcome</br> Go to localhost:8080/owners/create to create dummy data </br>";
+        return "Welcome</br> Go to localhost:8080 or coms-309-011.class.las.iastate.edu:8080 </br>";
     }
 }
