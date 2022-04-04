@@ -16,7 +16,7 @@ import org.springframework.core.style.ToStringCreator;
  */
 
 @Entity
-@Table(name = "permissionssTable")
+@Table(name = "permissionsTable")
 public class Permissions {
 
 	@Id

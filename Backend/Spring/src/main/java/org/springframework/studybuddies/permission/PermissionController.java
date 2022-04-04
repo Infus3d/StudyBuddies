@@ -76,7 +76,7 @@ public class PermissionController {
     }
     
     //LIST Request
-    @RequestMapping(method = RequestMethod.GET, path = "/permissions")
+    @RequestMapping(method = RequestMethod.GET, path = "/permissions/")
     public List<Permissions> getAllPermissions() {
         logger.info("Entered into Controller Layer");
         List<Permissions> results = permissionsRepository.findAll();
