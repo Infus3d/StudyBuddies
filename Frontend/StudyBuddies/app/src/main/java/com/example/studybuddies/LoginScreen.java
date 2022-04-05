@@ -3,6 +3,7 @@ package com.example.studybuddies;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -74,11 +75,10 @@ public class LoginScreen extends AppCompatActivity {
 
                             editor.apply();
 
-                            //Intent intent = new Intent(getApplicationContext(), Dashboard.class);
-                            //startActivity(intent);
-                            //finish();
+                            Intent intent = new Intent(getApplicationContext(), Dashboard.class);
+                            startActivity(intent);
+                            finish();
 
-                            errorMessage.setText("Success");
                             Log.i(LoginScreen.class.getSimpleName(), "success");
                             return;
 

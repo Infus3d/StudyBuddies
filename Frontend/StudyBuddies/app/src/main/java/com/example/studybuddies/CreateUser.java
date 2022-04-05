@@ -107,9 +107,9 @@ public class CreateUser extends AppCompatActivity {
 
                 //editor.apply();
 
-                //Intent intent = new Intent(getApplicationContext(), Dashboard.class);
-                //startActivity(intent);
-                //finish();
+                Intent intent = new Intent(getApplicationContext(), Dashboard.class);
+                startActivity(intent);
+                finish();
 
 
             }
@@ -141,12 +141,12 @@ public class CreateUser extends AppCompatActivity {
 
         for (int i = 0; i < requestsCentral.getArrayResponseLength(); i++) {
             JSONObject obj = requestsCentral.getJsonArrayResponse().getJSONObject(i);
-            //String e = (String) obj.get("email");
-            String u = (String) obj.get("firstName");
-            //if (e.equals(email.getText().toString())) {
-            //    errorDisplay.setText("email already in use");
-            //    return false;
-            //}
+            String e = (String) obj.get("email");
+            String u = (String) obj.get("username");
+            if (e.equals(email.getText().toString())) {
+                errorDisplay.setText("email already in use");
+                return false;
+            }
             if (u.equals(username.getText().toString())) {
                 errorDisplay.setText("username already in use");
                 return false;
