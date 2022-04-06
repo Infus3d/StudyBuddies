@@ -81,8 +81,6 @@ public class Dashboard extends AppCompatActivity {
 
         welcomeUser = findViewById(R.id.welcome_user);
 
-        profileButton = findViewById(R.id.profile);
-        settingsButton = findViewById(R.id.settings);
         dashboardButton = findViewById(R.id.dashboard);
         groupsButton = findViewById(R.id.dashboard);
         scheduleButton = findViewById(R.id.schedule);
@@ -203,6 +201,7 @@ public class Dashboard extends AppCompatActivity {
         tempGroup.addView(groupTitle);
         tempGroup.addView(isPublic);
         tempGroup.setClickable(true);
+        tempGroup.setBackgroundColor(Color.LTGRAY);
 
         tempGroup.setOnClickListener(new View.OnClickListener() {
             @Override
