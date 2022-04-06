@@ -206,17 +206,17 @@ public class Dashboard extends AppCompatActivity {
         tempGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Intent i = new Intent(getApplicationContext(), GroupPage.class);
+                Intent i = new Intent(getApplicationContext(), GroupPage.class);
 
-                //try {
-                //    i.putExtra("groupID", obj.getInt("id"));
-                //    i.putExtra("groupTitle", obj.getString("title"));
-                //    i.putExtra("isPublic", obj.getString("isPublic"));
-                //} catch (JSONException e) {
-                //    e.printStackTrace();
-                //}
+                try {
+                    i.putExtra("groupID", obj.getInt("id"));
+                    i.putExtra("groupTitle", obj.getString("title"));
+                    i.putExtra("isPublic", obj.getString("isPublic"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
-                //startActivity(i);
+                startActivity(i);
             }
         });
 
