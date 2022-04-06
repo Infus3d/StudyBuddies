@@ -63,25 +63,41 @@
 
     </RelativeLayout>
 
+    <TextView
+        android:id="@+id/welcome_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:height="30dp"
+        android:textColor="@color/black"
+        app:flow_horizontalAlign="center"
+        app:flow_verticalAlign="center"
+        app:layout_constraintTop_toBottomOf="@id/header"
+        app:layout_constraintBottom_toTopOf="@id/scroller"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        />
+
     <!--This ScrollView will contain all groups a user is a part of-->
 
     <ScrollView
         android:id="@+id/scroller"
-        android:layout_width="match_parent"
-        android:layout_height="532dp"
+        android:layout_width="375dp"
+        android:layout_height="480dp"
         app:layout_constraintBottom_toTopOf="@id/footer"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.487"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/header"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintVertical_bias="1.0">
 
         <LinearLayout
             android:id="@+id/scrollerLinearLayout"
-            android:layout_width="match_parent"
+            android:layout_width="400dp"
             android:layout_height="match_parent"
+            android:divider="@drawable/divider"
             android:orientation="vertical"
+            android:showDividers="middle"
             android:visibility="visible">
 
         </LinearLayout>

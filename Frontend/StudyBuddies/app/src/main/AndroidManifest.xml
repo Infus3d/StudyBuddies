@@ -14,13 +14,13 @@
         android:theme="@style/Theme.AppCompat.NoActionBar"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".GroupPage"
+            android:exported="false" />
+        <activity
             android:name=".Dashboard"
             android:exported="false" />
         <activity
             android:name=".LoginScreen"
-            android:exported="false" />
-        <activity
-            android:name=".GroupCreation"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

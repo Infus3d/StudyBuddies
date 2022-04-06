@@ -7,12 +7,14 @@ import androidx.annotation.ColorRes;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -26,19 +28,25 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.example.studybuddies.app.AppController;
 import com.example.studybuddies.utils.Const;
 import com.example.studybuddies.utils.OnSuccessfulArray;
+import com.example.studybuddies.utils.OnSuccessfulObject;
 import com.example.studybuddies.utils.RequestsCentral;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class Dashboard extends AppCompatActivity {
 
     private String TAG = Dashboard.class.getSimpleName();
     private String tag_json_obj = "jobj_req";
+
+    private TextView welcomeUser;
 
     private Button profileButton;
     private Button settingsButton;
@@ -70,6 +78,8 @@ public class Dashboard extends AppCompatActivity {
 
         getGroups();
 
+        welcomeUser = findViewById(R.id.welcome_user);
+
         profileButton = findViewById(R.id.profile);
         settingsButton = findViewById(R.id.settings);
         dashboardButton = findViewById(R.id.dashboard);
@@ -82,6 +92,8 @@ public class Dashboard extends AppCompatActivity {
         email_s = sharedPreferences.getString(EMAIL_KEY, null);
         password_s = sharedPreferences.getString(PASSWORD_KEY, null);
         location_s = sharedPreferences.getString(LOCATION_KEY, null);
+
+        welcomeUser.setText("WELCOME " + username_s.toUpperCase(Locale.ROOT));
 
         /**
          * Uncomment when profile page is implemented
@@ -142,22 +154,30 @@ public class Dashboard extends AppCompatActivity {
     }
 
     public void showGroups(JSONArray groups) throws JSONException {
+
         LinearLayout container = findViewById(R.id.scrollerLinearLayout);
         container.removeAllViews();
+
         layoutCounter = 0;
         textViewCounter = 0;
-        for (int i=groups.length()-1; i>=0; i--) {
+
+        for (int i=0; i<groups.length(); i++) {
+
             JSONObject currentGroup = null;
+
             try {
                 currentGroup = groups.getJSONObject(i);
             } catch (JSONException e) {
                 e.printStackTrace();
+
             }
             addGroupToLayout(container, currentGroup);
+
         }
     }
 
     public void addGroupToLayout(LinearLayout container, JSONObject obj) throws JSONException {
+
         TextView groupID = new TextView(Dashboard.this);
         groupID.setText("ID: " + obj.getInt("id"));
         groupID.setTextColor(Color.BLACK);
@@ -181,6 +201,24 @@ public class Dashboard extends AppCompatActivity {
         tempGroup.addView(groupID);
         tempGroup.addView(groupTitle);
         tempGroup.addView(isPublic);
+        tempGroup.setClickable(true);
+
+        tempGroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getApplicationContext(), GroupPage.class);
+
+                try {
+                    i.putExtra("groupID", obj.getInt("id"));
+                    i.putExtra("groupTitle", obj.getString("title"));
+                    i.putExtra("isPublic", obj.getString("isPublic"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                startActivity(i);
+            }
+        });
 
         container.addView(tempGroup);
     }
@@ -199,5 +237,53 @@ public class Dashboard extends AppCompatActivity {
         });
 
     }
+
+    /**
+     * THIS IS TO BE IMPLEMENTED ONCE THE MEMBERS TABLE IS UP AND RUNNING
+     * NOT YET COMPLETE, BUT HOPEFULLY A GOOD START FOR WHEN THAT IS UP
+     *
+    public void findUsersGroups() {
+
+        RequestsCentral.getJSONArray(Const.GET_MEMBERS, new OnSuccessfulArray() {
+            @Override
+            public void onSuccess(JSONArray response) {
+                searchMembersForUser(response);
+            }
+        });
+
+    }
+
+    public JSONArray searchMembersForUser(JSONArray members) {
+
+        JSONArray userGroups = null;
+
+        for (int i = 0; i < members.length(); i++) {
+
+            try {
+                JSONObject member = members.getJSONObject(i);
+                // make sure to check that the user id is called userID when members is implemented
+                int CurrentMemberID = member.getInt("userID");
+                if (CurrentMemberID == id) {
+                    int groupID = member.getInt("id");
+                    RequestsCentral.getJSONObject(Const.GET_GROUPS + "/" + groupID, new OnSuccessfulObject() {
+                        @Override
+                        public void onSuccess(JSONObject response) {
+                            userGroups.put(response.toString());
+                        }
+                    });
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+
+        return userGroups;
+
+    }
+     */
+
+
+
 
 }

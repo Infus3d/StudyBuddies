@@ -103,20 +103,28 @@ public class CreateUser extends AppCompatActivity {
 
                 RequestsCentral.postJSONObject(Const.CREATE_NEW_USER, jsonObject, new OnSuccessfulObject() {
                     @Override
-                    public void onSuccess(JSONObject response) {}
+                    public void onSuccess(JSONObject response) {
+                        errorDisplay.setText("success");
+                    }
                 });
 
+                int newUserid = -1;
 
+                try {
+                    newUserid = users.getJSONObject(users.length() - 1).getInt("id");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
-                //sharedPreferences.Editor editor = sharedPreferences.edit();
+                SharedPreferences.Editor editor = sharedPreferences.edit();
 
-                //editor.putInt(ID_KEY, newUser.getInt("id"));
-                // editor.putString(USERNAME_KEY, newUser.getString("username"));
-                //editor.putString(EMAIL_KEY, newUser.getString("email"));
-                // editor.putString(PASSWORD_KEY, newUser.getString("password"));
-                //editor.putString(LOCATION_KEY, newUser.getString("location"));
+                editor.putInt(ID_KEY, newUserid);
+                editor.putString(USERNAME_KEY, username_s);
+                editor.putString(EMAIL_KEY, email_s);
+                editor.putString(PASSWORD_KEY, password_s);
+                editor.putString(LOCATION_KEY, location_s);
 
-                //editor.apply();
+                editor.apply();
 
                 Intent intent = new Intent(getApplicationContext(), Dashboard.class);
                 startActivity(intent);
@@ -166,7 +174,7 @@ public class CreateUser extends AppCompatActivity {
         return true;
     }
 
-    /** to be changed when Dashboard is created
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -175,6 +183,5 @@ public class CreateUser extends AppCompatActivity {
             startActivity(intent);
         }
     }
-     */
 
 }
