@@ -35,4 +35,5 @@
 
     <string name="menu_drawer_open">Drawer Open</string>
     <string name="menu_drawer_close">Drawer Close</string>
+    <string name="here_is_a_totally_short_and_not_long_winded_description_of_your_group_that_hasnt_been_implemented_yet_this_description_will_fill_up_this_area_and_be_displayed_beneath_the_group_name_this_is_where_groups_will_write_a_short_desctiption_about_their_group_in_case_people_need_to_know_something_before_joining_thank_you_for_taking_the_time_to_read_all_of_this_filler_text">Here is a totally short and not long winded description of your group that hasn\'t been implemented yet. This description will fill up this area and be displayed beneath the group name. This is where groups will write a short description about their group in case people need to know something before joining. Thank you for taking the time to read all of this filler text.</string>
 </resources>

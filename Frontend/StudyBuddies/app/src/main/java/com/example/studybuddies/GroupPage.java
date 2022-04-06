@@ -4,11 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class GroupPage extends AppCompatActivity {
 
     private TextView welcomeMessage;
+    private Button backButton;
+    TextView headerText;
 
     private int groupID;
     private String groupTitle;
@@ -29,6 +33,10 @@ public class GroupPage extends AppCompatActivity {
 
         welcomeMessage = findViewById(R.id.welcome_group);
         welcomeMessage.setText("Welcome to " + groupTitle);
+
+        headerText = findViewById(R.id.header_text);
+        headerText.setText(groupTitle);
+
 
     }
 }
