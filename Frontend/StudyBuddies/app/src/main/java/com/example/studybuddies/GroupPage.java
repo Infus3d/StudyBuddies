@@ -21,7 +21,7 @@ public class GroupPage extends DrawerBaseActivity {
 
     private int groupID;
     private String groupTitle;
-    private String isPublic;
+    private boolean isPublic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +35,7 @@ public class GroupPage extends DrawerBaseActivity {
 
         groupID = extras.getInt("groupID");
         groupTitle = extras.getString("groupTitle");
-        isPublic = extras.getString("isPublic");
+        isPublic = extras.getBoolean("isPublic");
 
         allocateActivityTitle(groupTitle);
 
