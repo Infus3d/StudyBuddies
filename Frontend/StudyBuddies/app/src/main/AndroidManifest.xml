@@ -27,7 +27,7 @@
             android:exported="false" />
         <activity
             android:name=".PublicGroups"
-            android:exported="false">
+            android:exported="false"/>
         <activity
             android:name=".LoginScreen"
             android:exported="false" />
