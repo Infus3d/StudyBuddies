@@ -1,20 +1,44 @@
 package com.example.studybuddies;
 
+import static android.graphics.BlendMode.COLOR;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.ColorRes;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.NetworkResponse;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.example.studybuddies.utils.PopulateUserGroups;
+import com.example.studybuddies.app.AppController;
+import com.example.studybuddies.utils.Const;
+import com.example.studybuddies.utils.OnSuccessfulArray;
+import com.example.studybuddies.utils.RequestsCentral;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Dashboard extends AppCompatActivity {
+
+    private String TAG = Dashboard.class.getSimpleName();
+    private String tag_json_obj = "jobj_req";
 
     private Button profileButton;
     private Button settingsButton;
@@ -36,12 +60,15 @@ public class Dashboard extends AppCompatActivity {
     private String location_s;
     SharedPreferences sharedPreferences;
 
-    private JSONArray groups;
+    private int layoutCounter;
+    private int textViewCounter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+
+        getGroups();
 
         profileButton = findViewById(R.id.profile);
         settingsButton = findViewById(R.id.settings);
@@ -55,8 +82,6 @@ public class Dashboard extends AppCompatActivity {
         email_s = sharedPreferences.getString(EMAIL_KEY, null);
         password_s = sharedPreferences.getString(PASSWORD_KEY, null);
         location_s = sharedPreferences.getString(LOCATION_KEY, null);
-
-        groups = PopulateUserGroups.getGroups();
 
         /**
          * Uncomment when profile page is implemented
@@ -86,8 +111,7 @@ public class Dashboard extends AppCompatActivity {
         dashboardButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), Dashboard.class);
-                startActivity(i);
+                getGroups();
             }
         });
 
@@ -116,4 +140,64 @@ public class Dashboard extends AppCompatActivity {
          */
 
     }
+
+    public void showGroups(JSONArray groups) throws JSONException {
+        LinearLayout container = findViewById(R.id.scrollerLinearLayout);
+        container.removeAllViews();
+        layoutCounter = 0;
+        textViewCounter = 0;
+        for (int i=groups.length()-1; i>=0; i--) {
+            JSONObject currentGroup = null;
+            try {
+                currentGroup = groups.getJSONObject(i);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            addGroupToLayout(container, currentGroup);
+        }
+    }
+
+    public void addGroupToLayout(LinearLayout container, JSONObject obj) throws JSONException {
+        TextView groupID = new TextView(Dashboard.this);
+        groupID.setText("ID: " + obj.getInt("id"));
+        groupID.setTextColor(Color.BLACK);
+        groupID.setId(++textViewCounter);
+
+        TextView groupTitle = new TextView(Dashboard.this);
+        groupTitle.setText("Title: " + obj.getString("title"));
+        groupTitle.setTextColor(Color.BLACK);
+        groupTitle.setId(++textViewCounter);
+
+        TextView isPublic = new TextView(Dashboard.this);
+        isPublic.setText("isPublic: " + obj.getString("isPublic"));
+        isPublic.setTextColor(Color.BLACK);
+        isPublic.setId(++textViewCounter);
+
+        LinearLayout tempGroup = new LinearLayout(Dashboard.this);
+        tempGroup.setId(++layoutCounter);
+        tempGroup.setOrientation(LinearLayout.VERTICAL);
+        tempGroup.setHorizontalGravity(LinearLayout.HORIZONTAL);
+
+        tempGroup.addView(groupID);
+        tempGroup.addView(groupTitle);
+        tempGroup.addView(isPublic);
+
+        container.addView(tempGroup);
+    }
+
+    public void getGroups() {
+
+        RequestsCentral.getJSONArray(Const.GET_GROUPS, new OnSuccessfulArray() {
+            @Override
+            public void onSuccess(JSONArray response) {
+                try {
+                    showGroups(response);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+    }
+
 }

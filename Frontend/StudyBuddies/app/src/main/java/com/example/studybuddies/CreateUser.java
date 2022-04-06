@@ -12,8 +12,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.studybuddies.utils.Const;
+import com.example.studybuddies.utils.OnSuccessfulArray;
+import com.example.studybuddies.utils.OnSuccessfulObject;
 import com.example.studybuddies.utils.RequestsCentral;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -36,6 +39,8 @@ public class CreateUser extends AppCompatActivity {
     public static final String PASSWORD_KEY = "password_key";
     public static final String LOCATION_KEY = "location_key";
 
+    JSONArray users;
+
     int id;
     String username_s;
     String email_s;
@@ -56,9 +61,13 @@ public class CreateUser extends AppCompatActivity {
         errorDisplay = findViewById(R.id.error_display);
         createButton = findViewById(R.id.create_button);
         loginButton = findViewById(R.id.login);
-        requestsCentral = new RequestsCentral();
 
-        requestsCentral.getJSONArray(Const.GET_USERS);
+        RequestsCentral.getJSONArray(Const.GET_USERS, new OnSuccessfulArray() {
+            @Override
+            public void onSuccess(JSONArray response) {
+                users = response;
+            }
+        });
 
         sharedPreferences = getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
         id = sharedPreferences.getInt(ID_KEY, 0);
@@ -91,9 +100,11 @@ public class CreateUser extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                // clears request central and sends the json object
-                requestsCentral = new RequestsCentral();
-                requestsCentral.postJSONObject(Const.CREATE_NEW_USER, jsonObject);
+
+                RequestsCentral.postJSONObject(Const.CREATE_NEW_USER, jsonObject, new OnSuccessfulObject() {
+                    @Override
+                    public void onSuccess(JSONObject response) {}
+                });
 
 
 
@@ -139,8 +150,8 @@ public class CreateUser extends AppCompatActivity {
             return false;
         }
 
-        for (int i = 0; i < requestsCentral.getArrayResponseLength(); i++) {
-            JSONObject obj = requestsCentral.getJsonArrayResponse().getJSONObject(i);
+        for (int i = 0; i < users.length(); i++) {
+            JSONObject obj = users.getJSONObject(i);
             String e = (String) obj.get("email");
             String u = (String) obj.get("username");
             if (e.equals(email.getText().toString())) {

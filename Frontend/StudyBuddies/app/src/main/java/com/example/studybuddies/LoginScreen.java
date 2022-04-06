@@ -13,8 +13,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.studybuddies.utils.Const;
+import com.example.studybuddies.utils.OnSuccessfulArray;
 import com.example.studybuddies.utils.RequestsCentral;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -24,7 +26,7 @@ public class LoginScreen extends AppCompatActivity {
     private EditText password;
     private Button loginB;
     private TextView errorMessage;
-    private RequestsCentral requestsCentral;
+    private RequestsCentral usersGetter;
 
     public static final String SHARED_PREFS = "shared_prefs";
     public static final String ID_KEY = "id_key";
@@ -32,6 +34,8 @@ public class LoginScreen extends AppCompatActivity {
     public static final String EMAIL_KEY = "email_key";
     public static final String PASSWORD_KEY = "password_key";
     public static final String LOCATION_KEY = "location_key";
+
+    JSONArray users;
 
     SharedPreferences sharedPreferences;
 
@@ -46,18 +50,22 @@ public class LoginScreen extends AppCompatActivity {
         password = findViewById(R.id.enter_password);
         errorMessage = findViewById(R.id.login_error);
         loginB = findViewById(R.id.login_button);
-        requestsCentral = new RequestsCentral();
-        requestsCentral.getJSONArray(Const.GET_USERS);
+        RequestsCentral.getJSONArray(Const.GET_USERS, new OnSuccessfulArray() {
+            @Override
+            public void onSuccess(JSONArray response) {
+                users = response;
+            }
+        });
 
         loginB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                for (int i = 0; i < requestsCentral.getArrayResponseLength(); i++) {
+                for (int i = 0; i < users.length(); i++) {
 
                     JSONObject currentUser = null;
                     try {
-                        currentUser = requestsCentral.getJsonArrayResponse().getJSONObject(i);
+                        currentUser = users.getJSONObject(i);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
