@@ -14,11 +14,14 @@
         android:theme="@style/Theme.AppCompat.NoActionBar"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".CreateGroup"
+            android:exported="false" />
+        <activity
             android:name=".GroupPage"
             android:exported="false" />
         <activity
             android:name=".Dashboard"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".UserSchedule"
             android:exported="false" />
@@ -27,7 +30,7 @@
             android:exported="false" />
         <activity
             android:name=".PublicGroups"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".LoginScreen"
             android:exported="false" />

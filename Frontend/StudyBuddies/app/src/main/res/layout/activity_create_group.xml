@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CreateGroup"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/group_creation_textview"
+        android:layout_width="300dp"
+        android:layout_height="75dp"
+        android:layout_marginTop="28dp"
+        android:text="Enter information to create a new group"
+        android:textAlignment="center"
+        android:textColor="@color/greyText"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@id/group_name_edit_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/group_name_edit_text"
+        android:layout_marginTop="40dp"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:hint="Enter group name"
+        android:minHeight="48dp"
+        android:textColorHint="@color/greyText"
+        android:textColor="@color/greyText"
+        app:layout_constraintBottom_toTopOf="@id/group_description"
+        app:layout_constraintHorizontal_bias="0.099"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/group_creation_textview" />
+
+    <EditText
+        android:id="@+id/group_description"
+        android:layout_marginTop="20dp"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:hint="Enter group description"
+        android:textColorHint="@color/greyText"
+        android:textColor="@color/greyText"
+        android:minHeight="48dp"
+        app:layout_constraintHorizontal_bias="0.099"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/group_name_edit_text" />
+
+    <RelativeLayout
+        android:id="@+id/is_public_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/group_description"
+        app:layout_constraintVertical_bias="0.249">
+
+        <Switch
+            android:id="@+id/is_public_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:checked="true"
+            android:hint="Is public"
+            android:textColorHint="@color/black"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/is_public_label"
+        android:layout_width="300dp"
+        android:layout_height="75dp"
+        android:text="Public group?"
+        android:textAlignment="center"
+        android:textColor="@color/greyText"
+        android:textSize="25dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/is_public_container"
+        app:layout_constraintTop_toBottomOf="@id/group_description"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/is_public_container"
+        android:text="Create"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

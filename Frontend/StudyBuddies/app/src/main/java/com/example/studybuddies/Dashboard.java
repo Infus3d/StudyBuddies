@@ -53,6 +53,8 @@ public class Dashboard extends DrawerBaseActivity {
 
     private TextView welcomeUser;
 
+    private Button createGroup;
+
     public static final String SHARED_PREFS = "shared_prefs";
     public static final String ID_KEY = "id_key";
     public static final String USERNAME_KEY = "username_key";
@@ -76,7 +78,7 @@ public class Dashboard extends DrawerBaseActivity {
         activityDashboardBinding = ActivityDashboardBinding.inflate(getLayoutInflater());
         setContentView(activityDashboardBinding.getRoot());
 
-        getGroups();
+        findUsersGroups();
 
         sharedPreferences = getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
         id = sharedPreferences.getInt(ID_KEY, 0);
@@ -86,6 +88,14 @@ public class Dashboard extends DrawerBaseActivity {
         location_s = sharedPreferences.getString(LOCATION_KEY, null);
 
         allocateActivityTitle(username_s + "'s Dashboard");
+
+        createGroup = findViewById(R.id.create_group);
+        createGroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), CreateGroup.class));
+            }
+        });
 
     }
 
@@ -160,6 +170,7 @@ public class Dashboard extends DrawerBaseActivity {
         container.addView(tempGroup);
     }
 
+    /*
     public void getGroups() {
 
         RequestsCentral.getJSONArray(Const.GET_GROUPS, new OnSuccessfulArray() {
@@ -173,18 +184,19 @@ public class Dashboard extends DrawerBaseActivity {
             }
         });
 
-    }
+    }*/
 
-    /**
-     * THIS IS TO BE IMPLEMENTED ONCE THE MEMBERS TABLE IS UP AND RUNNING
-     * NOT YET COMPLETE, BUT HOPEFULLY A GOOD START FOR WHEN THAT IS UP
-     *
+
     public void findUsersGroups() {
 
         RequestsCentral.getJSONArray(Const.GET_MEMBERS, new OnSuccessfulArray() {
             @Override
             public void onSuccess(JSONArray response) {
-                searchMembersForUser(response);
+                try {
+                    showGroups(searchMembersForUser(response));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -192,22 +204,16 @@ public class Dashboard extends DrawerBaseActivity {
 
     public JSONArray searchMembersForUser(JSONArray members) {
 
-        JSONArray userGroups = null;
+        JSONArray userGroups = new JSONArray();
 
         for (int i = 0; i < members.length(); i++) {
 
             try {
                 JSONObject member = members.getJSONObject(i);
                 // make sure to check that the user id is called userID when members is implemented
-                int CurrentMemberID = member.getInt("userID");
+                int CurrentMemberID = member.getInt("userId");
                 if (CurrentMemberID == id) {
-                    int groupID = member.getInt("id");
-                    RequestsCentral.getJSONObject(Const.GET_GROUPS + "/" + groupID, new OnSuccessfulObject() {
-                        @Override
-                        public void onSuccess(JSONObject response) {
-                            userGroups.put(response.toString());
-                        }
-                    });
+                    userGroups.put(member.get("groupsDetail"));
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -218,9 +224,6 @@ public class Dashboard extends DrawerBaseActivity {
         return userGroups;
 
     }
-     */
-
-
 
 
 }
