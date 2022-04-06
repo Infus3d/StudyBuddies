@@ -20,27 +20,10 @@ import java.util.Map;
 
 public class RequestsCentral {
 
-    private String TAG = RequestsCentral.class.getSimpleName();
-    private String tag_json_obj = "jobj_req";
-    private JSONArray jsonArrayResponse;
-    private int arrayResponseLength;
-    private JSONObject jsonObjectResponse;
+    private static String TAG = RequestsCentral.class.getSimpleName();
+    private static String tag_json_obj = "jobj_req";
 
-    public RequestsCentral() {}
-
-    public JSONObject getJsonObjectResponse() {
-        return jsonObjectResponse;
-    }
-
-    public JSONArray getJsonArrayResponse() {
-        return jsonArrayResponse;
-    }
-
-    public int getArrayResponseLength() {
-        return arrayResponseLength;
-    }
-
-    public void postJSONObject(String url, JSONObject j) {
+    public static void postJSONObject(String url, JSONObject j, OnSuccessfulObject onSuccessfulResponse) {
 
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(
                 Request.Method.POST,
@@ -51,7 +34,7 @@ public class RequestsCentral {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.i(TAG, response.toString());
-                        jsonObjectResponse = response;
+                        onSuccessfulResponse.onSuccess(response);
                     }
                 }, new Response.ErrorListener() {
 
@@ -84,7 +67,7 @@ public class RequestsCentral {
 
     }
 
-    public void getJSONObject(String url) {
+    public static void getJSONObject(String url, OnSuccessfulObject onSuccessfulResponse) {
 
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(
                 Request.Method.GET,
@@ -95,7 +78,7 @@ public class RequestsCentral {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.i(TAG, response.toString());
-                        jsonObjectResponse = response;
+                        onSuccessfulResponse.onSuccess(response);
                     }
                 }, new Response.ErrorListener() {
 
@@ -128,7 +111,7 @@ public class RequestsCentral {
 
     }
 
-    public void postJSONArray(String url, JSONArray j) {
+    public static  void postJSONArray(String url, JSONArray j, OnSuccessfulArray onSuccessfulResponse) {
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
                 Request.Method.POST,
@@ -138,7 +121,7 @@ public class RequestsCentral {
                     @Override
                     public void onResponse(JSONArray response) {
                         Log.i(TAG, response.toString());
-                        jsonArrayResponse = response;
+                        onSuccessfulResponse.onSuccess(response);
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -179,7 +162,7 @@ public class RequestsCentral {
 
     }
 
-    public void getJSONArray(String url) {
+    public static void getJSONArray(String url, OnSuccessfulArray successfulResponse) {
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
                 Request.Method.GET,
@@ -189,8 +172,7 @@ public class RequestsCentral {
                     @Override
                     public void onResponse(JSONArray response) {
                         Log.i(TAG, response.toString());
-                        jsonArrayResponse = response;
-                        arrayResponseLength = response.length();
+                        successfulResponse.onSuccess(response);
                     }
                 }, new Response.ErrorListener() {
             @Override
