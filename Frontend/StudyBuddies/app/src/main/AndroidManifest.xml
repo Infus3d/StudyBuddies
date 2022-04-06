@@ -18,7 +18,16 @@
             android:exported="false" />
         <activity
             android:name=".Dashboard"
+            android:exported="false"/>
+        <activity
+            android:name=".UserSchedule"
             android:exported="false" />
+        <activity
+            android:name=".DrawerBaseActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PublicGroups"
+            android:exported="false">
         <activity
             android:name=".LoginScreen"
             android:exported="false" />
