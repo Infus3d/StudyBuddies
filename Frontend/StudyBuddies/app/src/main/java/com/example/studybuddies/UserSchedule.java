@@ -20,22 +20,5 @@ public class UserSchedule extends DrawerBaseActivity {
         activityUserScheduleBinding = ActivityUserScheduleBinding.inflate(getLayoutInflater());
         setContentView(activityUserScheduleBinding.getRoot());
         allocateActivityTitle("Schedule");
-        SharedPreferences sharedpref = getSharedPreferences(LoginScreen.SHARED_PREFS, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedpref.edit();
-
-        editor.putString("name", "Omar");
-        editor.putString("email", "omar99@iastate.edu");
-        editor.putInt("id", 69);
-        editor.apply();
-
-        Button btn = (Button) findViewById(R.id.submitButton);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Context ctx = view.getContext();
-
-                startActivity(new Intent(view.getContext(), LoginScreen.class));
-            }
-        });
     }
 }

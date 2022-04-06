@@ -8,7 +8,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="greyText">#595e66</color>
+    <color name="grey_medium">#FF686D75</color>
     <color name="darkButton">#262729</color>
     <color name="red">#FF0000</color>
     <color name="lightGrey">#D3D3D3</color>
+    <color name="teal_darker">#FF14A8AE</color>
 </resources>

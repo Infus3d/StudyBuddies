@@ -28,7 +28,8 @@
             android:exported="false" />
         <activity
             android:name=".PublicGroups"
-            android:exported="false"/>
+            android:exported="false">
+        </activity>
         <activity
             android:name=".LoginScreen"
             android:exported="false" />
@@ -37,7 +38,7 @@
             android:exported="false" />
         <activity
             android:name=".CreateUser"
-            android:exported="true">
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
