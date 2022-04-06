@@ -32,4 +32,7 @@
     <string name="enter_location">Enter location</string>
     <string name="login">LOGIN</string>
     <string name="enter_your_account_information">Enter your account information</string>
+
+    <string name="menu_drawer_open">Drawer Open</string>
+    <string name="menu_drawer_close">Drawer Close</string>
 </resources>
