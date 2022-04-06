@@ -25,14 +25,15 @@
     <ScrollView
         android:id="@+id/scroller"
         android:layout_width="375dp"
-        android:layout_height="480dp"
-        app:layout_constraintBottom_toTopOf="@id/footer"
+        android:layout_height="600dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.555"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        >
+        app:layout_constraintVertical_bias="0.778">
 
         <LinearLayout
             android:id="@+id/scrollerLinearLayout"
@@ -41,67 +42,10 @@
             android:divider="@drawable/divider"
             android:orientation="vertical"
             android:showDividers="middle"
-            android:visibility="visible"
-            >
+            android:visibility="visible">
 
         </LinearLayout>
 
     </ScrollView>
-
-    <!--This is the layout for the footer with the dashboard, groups, and schedule buttons-->
-
-    <RelativeLayout
-        android:id="@+id/footer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintHeight="100dp"
-        android:background="@color/darkButton">
-
-        <Button
-            android:id="@+id/dashboard"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/rect_button"
-            android:text="Dashboard"
-            android:textColor="@color/greyText"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/groups"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/groups"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:layout_centerInParent="true"
-            android:layout_centerVertical="true"
-            android:background="@drawable/rect_button"
-            android:text="Groups"
-            android:textColor="@color/greyText"
-            app:layout_constraintLeft_toRightOf="@id/dashboard"
-            app:layout_constraintRight_toLeftOf="@id/schedule"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/schedule"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:layout_centerVertical="true"
-            android:background="@drawable/rect_button"
-            android:text="Schedule"
-            android:textColor="@color/greyText"
-            android:layout_marginRight="10dp"
-            android:layout_alignParentRight="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/groups"
-            app:layout_constraintRight_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"  />
-
-    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,11 +8,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-public class GroupPage extends AppCompatActivity {
+import com.example.studybuddies.databinding.ActivityGroupPageBinding;
+
+public class GroupPage extends DrawerBaseActivity {
 
     private TextView welcomeMessage;
     private Button backButton;
     TextView headerText;
+
+    ActivityGroupPageBinding activityGroupPageBinding;
 
     private int groupID;
     private String groupTitle;
@@ -21,7 +25,8 @@ public class GroupPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_group_page);
+        activityGroupPageBinding = ActivityGroupPageBinding.inflate(getLayoutInflater());
+        setContentView(activityGroupPageBinding.getRoot());
 
         Intent groupIntent = getIntent();
 
@@ -31,11 +36,10 @@ public class GroupPage extends AppCompatActivity {
         groupTitle = extras.getString("groupTitle");
         isPublic = extras.getString("isPublic");
 
+        allocateActivityTitle(groupTitle);
+
         welcomeMessage = findViewById(R.id.welcome_group);
         welcomeMessage.setText("Welcome to " + groupTitle);
-
-        headerText = findViewById(R.id.header_text);
-        headerText.setText(groupTitle);
 
 
     }
