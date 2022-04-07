@@ -1,5 +1,3 @@
-
-
 package org.springframework.studybuddies;
 
 import org.springframework.boot.SpringApplication;

@@ -9,14 +9,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.os.Bundle;
 
 import com.example.studybuddies.databinding.ActivityGroupMembersBinding;
-import com.example.studybuddies.databinding.ActivityPublicGroupsBinding;
 import com.example.studybuddies.utils.Const;
 import com.example.studybuddies.utils.OnSuccessfulArray;
 import com.example.studybuddies.utils.RequestsCentral;
 
 import org.json.JSONArray;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -25,7 +26,9 @@ import java.util.ArrayList;
 public class GroupMembers extends DrawerBaseActivity {
     ActivityGroupMembersBinding activityGroupMembersBinding;
     private Intent incomingIntent;
-    @Override
+    JSONArray members;
+    int groupID;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activityGroupMembersBinding = ActivityGroupMembersBinding.inflate(getLayoutInflater());
@@ -100,6 +103,4 @@ public class GroupMembers extends DrawerBaseActivity {
 
         container.addView(memberContainer);
     }
-
-
 }

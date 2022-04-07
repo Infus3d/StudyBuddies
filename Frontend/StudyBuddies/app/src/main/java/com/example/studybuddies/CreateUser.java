@@ -32,13 +32,6 @@ public class CreateUser extends AppCompatActivity {
     private Button loginButton;
     private RequestsCentral requestsCentral;
 
-    public static final String SHARED_PREFS = "shared_prefs";
-    public static final String ID_KEY = "id_key";
-    public static final String USERNAME_KEY = "username_key";
-    public static final String EMAIL_KEY = "email_key";
-    public static final String PASSWORD_KEY = "password_key";
-    public static final String LOCATION_KEY = "location_key";
-
     JSONArray users;
 
     int id;
@@ -69,12 +62,12 @@ public class CreateUser extends AppCompatActivity {
             }
         });
 
-        sharedPreferences = getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
-        id = sharedPreferences.getInt(ID_KEY, 0);
-        username_s = sharedPreferences.getString(USERNAME_KEY, null);
-        email_s = sharedPreferences.getString(EMAIL_KEY, null);
-        password_s = sharedPreferences.getString(PASSWORD_KEY, null);
-        location_s = sharedPreferences.getString(LOCATION_KEY, null);
+        sharedPreferences = getSharedPreferences(LoginScreen.SHARED_PREFS, Context.MODE_PRIVATE);
+        id = sharedPreferences.getInt(LoginScreen.ID_KEY, 0);
+        username_s = sharedPreferences.getString(LoginScreen.USERNAME_KEY, null);
+        email_s = sharedPreferences.getString(LoginScreen.EMAIL_KEY, null);
+        password_s = sharedPreferences.getString(LoginScreen.PASSWORD_KEY, null);
+        location_s = sharedPreferences.getString(LoginScreen.LOCATION_KEY, null);
 
         createButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,11 +111,11 @@ public class CreateUser extends AppCompatActivity {
 
                 SharedPreferences.Editor editor = sharedPreferences.edit();
 
-                editor.putInt(ID_KEY, newUserid);
-                editor.putString(USERNAME_KEY, username_s);
-                editor.putString(EMAIL_KEY, email_s);
-                editor.putString(PASSWORD_KEY, password_s);
-                editor.putString(LOCATION_KEY, location_s);
+                editor.putInt(LoginScreen.ID_KEY, newUserid);
+                editor.putString(LoginScreen.USERNAME_KEY, username_s);
+                editor.putString(LoginScreen.EMAIL_KEY, email_s);
+                editor.putString(LoginScreen.PASSWORD_KEY, password_s);
+                editor.putString(LoginScreen.LOCATION_KEY, location_s);
 
                 editor.apply();
 

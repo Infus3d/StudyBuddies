@@ -17,11 +17,12 @@
             android:name=".GroupMembers"
             android:exported="false">
         </activity>
-        <!--
+        <activity
+            android:name=".CreateGroup"
+            android:exported="false" />
         <activity
             android:name=".GroupPage"
             android:exported="false" />
-        -->
         <activity
             android:name=".Dashboard"
             android:exported="false" />
@@ -44,7 +45,7 @@
             android:exported="false" />
         <activity
             android:name=".CreateUser"
-            android:exported="false">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

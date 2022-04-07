@@ -138,7 +138,7 @@ public class PublicGroups extends DrawerBaseActivity {
         visitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), UserSchedule.class); //change to GroupPage.class
+                Intent intent = new Intent(view.getContext(), GroupPage.class); //change to GroupPage.class
                 try {
                     intent.putExtra("groupId", obj.getString("id"));
                     intent.putExtra("groupTitle", obj.getString("title"));
