@@ -42,7 +42,7 @@ public class GroupMembers extends DrawerBaseActivity {
                 ArrayList<JSONObject> alist = new ArrayList<JSONObject>();
                 for(int i=response.length()-1; i>=0; i--){
                     JSONObject cur = response.getJSONObject(i);
-                    //uncomment this line when synced with group home page
+//                    uncomment this line when synced with group home page
 //                    if(cur.getString("groupId") != null && cur.getString("groupId").equals(incomingIntent.getStringExtra("groupId")))
                         alist.add(cur);
                 }

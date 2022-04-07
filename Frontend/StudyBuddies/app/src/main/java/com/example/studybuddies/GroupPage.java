@@ -42,6 +42,14 @@ public class GroupPage extends DrawerBaseActivity {
         welcomeMessage = findViewById(R.id.welcome_group);
         welcomeMessage.setText("Welcome to " + groupTitle);
 
-
+        Button membersButton = findViewById(R.id.members_button);
+        membersButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), GroupMembers.class);
+                intent.putExtra("groupId", groupID);
+                startActivity(intent);
+            }
+        });
     }
 }
