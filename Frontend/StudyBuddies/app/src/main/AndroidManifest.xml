@@ -15,7 +15,13 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".GroupMembers"
-            android:exported="false" />
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <!--
         <activity
             android:name=".GroupPage"
@@ -32,7 +38,9 @@
             android:exported="false" />
         <activity
             android:name=".PublicGroups"
-            android:exported="false"></activity>
+            android:exported="false">
+
+        </activity>
         <activity
             android:name=".LoginScreen"
             android:exported="false" />
@@ -42,11 +50,7 @@
         <activity
             android:name=".CreateUser"
             android:exported="false">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 
