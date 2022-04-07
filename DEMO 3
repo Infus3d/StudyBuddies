@@ -12,6 +12,8 @@ Omar Muhammetkulyyev
     - Public Groups Page
     - Group Members Page
 Andy Bruder
-    -CreateUser.java and xml file
-    -LoginScreen.java and xml file
-    -RequestsCentral.java
+    -CreateUser
+    -LoginScreen
+    -RequestsCentral.java and interfaces
+    -Dashboard
+    -Group home page
