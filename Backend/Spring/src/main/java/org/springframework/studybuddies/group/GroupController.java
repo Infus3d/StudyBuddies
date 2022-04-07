@@ -36,7 +36,7 @@ public class GroupController {
     public @ResponseBody String createGroups(@RequestBody Groups group) {
         System.out.println(group);
         groupsRepository.save(group);
-        return "New Group "+ group.getId() + " Saved";
+        return "" + group.getId();
     }
     
     //READ Request
