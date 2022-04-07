@@ -13,6 +13,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.studybuddies.app.AppController;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -121,7 +122,11 @@ public class RequestsCentral {
                     @Override
                     public void onResponse(JSONArray response) {
                         Log.i(TAG, response.toString());
-                        onSuccessfulResponse.onSuccess(response);
+                        try {
+                            onSuccessfulResponse.onSuccess(response);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -172,7 +177,11 @@ public class RequestsCentral {
                     @Override
                     public void onResponse(JSONArray response) {
                         Log.i(TAG, response.toString());
-                        successfulResponse.onSuccess(response);
+                        try {
+                            successfulResponse.onSuccess(response);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }, new Response.ErrorListener() {
             @Override

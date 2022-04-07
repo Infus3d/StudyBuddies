@@ -35,4 +35,10 @@
 
     <string name="menu_drawer_open">Drawer Open</string>
     <string name="menu_drawer_close">Drawer Close</string>
+    <string-array name="sortBy_array">
+        <item>Sort By (select one)</item>
+        <item>Group Name</item>
+        <item>Member Count</item>
+        <item>(To do)</item>
+    </string-array>
 </resources>
