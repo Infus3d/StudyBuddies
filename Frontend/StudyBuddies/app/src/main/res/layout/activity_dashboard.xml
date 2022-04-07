@@ -7,61 +7,6 @@
     tools:context=".Dashboard"
     android:background="@color/white">
 
-    <!--This is the layout for the header with the profile, dashboard title, and settings-->
-
-    <RelativeLayout
-        android:id="@+id/header"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintHeight="100dp"
-        android:background="@color/darkButton">
-
-        <Button
-            android:id="@+id/profile"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/circle_button"
-            android:text="Profile"
-            android:textColor="@color/greyText"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/header_text"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/header_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_centerVertical="true"
-            android:text="Dashboard"
-            android:textColor="@color/white"
-            android:textSize="30dp"
-            app:layout_constraintLeft_toRightOf="@id/profile"
-            app:layout_constraintRight_toLeftOf="@id/settings"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/settings"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:layout_centerVertical="true"
-            android:text="Settings"
-            android:textColor="@color/greyText"
-            android:layout_marginRight="10dp"
-            android:layout_alignParentRight="true"
-            android:background="@drawable/circle_button"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/header_text"
-            app:layout_constraintRight_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </RelativeLayout>
 
     <TextView
         android:id="@+id/welcome_user"
@@ -69,9 +14,7 @@
         android:layout_height="wrap_content"
         android:height="30dp"
         android:textColor="@color/black"
-        app:flow_horizontalAlign="center"
-        app:flow_verticalAlign="center"
-        app:layout_constraintTop_toBottomOf="@id/header"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/scroller"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -82,14 +25,14 @@
     <ScrollView
         android:id="@+id/scroller"
         android:layout_width="375dp"
-        android:layout_height="480dp"
-        app:layout_constraintBottom_toTopOf="@id/footer"
+        android:layout_height="500dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/header"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.324">
 
         <LinearLayout
             android:id="@+id/scrollerLinearLayout"
@@ -104,60 +47,17 @@
 
     </ScrollView>
 
-    <!--This is the layout for the footer with the dashboard, groups, and schedule buttons-->
-
-    <RelativeLayout
-        android:id="@+id/footer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+    <Button
+        android:id="@+id/create_group"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintHeight="100dp"
-        android:background="@color/darkButton">
-
-        <Button
-            android:id="@+id/dashboard"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/rect_button"
-            android:text="Dashboard"
-            android:textColor="@color/greyText"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/groups"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/groups"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:layout_centerInParent="true"
-            android:layout_centerVertical="true"
-            android:background="@drawable/rect_button"
-            android:text="Groups"
-            android:textColor="@color/greyText"
-            app:layout_constraintLeft_toRightOf="@id/dashboard"
-            app:layout_constraintRight_toLeftOf="@id/schedule"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/schedule"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:layout_centerVertical="true"
-            android:background="@drawable/rect_button"
-            android:text="Schedule"
-            android:textColor="@color/greyText"
-            android:layout_marginRight="10dp"
-            android:layout_alignParentRight="true"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/groups"
-            app:layout_constraintRight_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"  />
-
-    </RelativeLayout>
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scroller"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="Create Group"
+        android:textColor="@color/black"
+        android:background="@drawable/rect_button"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
