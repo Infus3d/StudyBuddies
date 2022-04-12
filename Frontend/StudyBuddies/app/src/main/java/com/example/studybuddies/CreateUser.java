@@ -32,13 +32,13 @@ public class CreateUser extends AppCompatActivity {
     private Button loginButton;
     private RequestsCentral requestsCentral;
 
-    JSONArray users;
+    private JSONArray users;
 
-    int id;
-    String username_s;
-    String email_s;
-    String password_s;
-    String location_s;
+    private int id;
+    private String username_s;
+    private String email_s;
+    private String password_s;
+    private String location_s;
     SharedPreferences sharedPreferences;
 
     @Override
@@ -139,6 +139,11 @@ public class CreateUser extends AppCompatActivity {
 
     }
 
+    /**
+     * This method takes the input from a user to determine if their inputs are in a  valid format and unique from other users
+     * @return Returns boolean value to indicate if a user is valid
+     * @throws JSONException
+     */
     public boolean validNewUser() throws JSONException {
 
         if (!password1.getText().toString().equals(password2.getText().toString())) {

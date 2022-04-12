@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -37,7 +38,7 @@ public class CreateGroup extends DrawerBaseActivity {
     private boolean newIsPublic;
     private String isPublicS;
 
-    JSONArray currentGroups;
+    private JSONArray currentGroups;
 
     private int id;
     private String username_s;
@@ -111,7 +112,6 @@ public class CreateGroup extends DrawerBaseActivity {
                                 e.printStackTrace();
                             }
 
-
                             RequestsCentral.postJSONObject(Const.CREATE_NEW_MEMBER, newMember, new OnSuccessfulObject() {
                                 @Override
                                 public void onSuccess(JSONObject response) {
@@ -124,19 +124,12 @@ public class CreateGroup extends DrawerBaseActivity {
 
                                 }
                             });
-
                         }
                     });
-
-
-
-
-
-
-
 
                 }
             }
         });
+
     }
 }

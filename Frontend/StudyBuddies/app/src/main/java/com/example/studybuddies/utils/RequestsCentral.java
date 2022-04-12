@@ -21,9 +21,22 @@ import java.util.Map;
 
 public class RequestsCentral {
 
+    /**
+     * Tag to be inserted in the log upon response
+     */
     private static String TAG = RequestsCentral.class.getSimpleName();
+
+    /**
+     * Tag to be sent in request queue with requests
+     */
     private static String tag_json_obj = "jobj_req";
 
+    /**
+     * Posts a JSONObject to the given url and calls the onSuccess() method from OnSuccessfulObject
+     * @param url Url for the JSONObject to be sent to
+     * @param j JSONObject to be sent by the request
+     * @param onSuccessfulResponse Instance of the interface OnSuccessfulObject to help handle the response
+     */
     public static void postJSONObject(String url, JSONObject j, OnSuccessfulObject onSuccessfulResponse) {
 
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(
@@ -68,6 +81,11 @@ public class RequestsCentral {
 
     }
 
+    /**
+     * Gets a JSONObject from the given url and calls the onSuccess() method from OnSuccessfulObject
+     * @param url Url to get the JSONObject from
+     * @param onSuccessfulResponse Instance of the interface OnSuccessfulObject to help handle the response
+     */
     public static void getJSONObject(String url, OnSuccessfulObject onSuccessfulResponse) {
 
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(
@@ -112,7 +130,13 @@ public class RequestsCentral {
 
     }
 
-    public static  void postJSONArray(String url, JSONArray j, OnSuccessfulArray onSuccessfulResponse) {
+    /**
+     * Posts a JSONArray to the given url and calls the onSuccess() method from OnSuccessfulArray
+     * @param url Url for the JSONArray to be sent to
+     * @param j JSONArray to be sent by the request
+     * @param onSuccessfulResponse Instance of the interface OnSuccessfulArray to help handle the response
+     */
+    public static void postJSONArray(String url, JSONArray j, OnSuccessfulArray onSuccessfulResponse) {
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
                 Request.Method.POST,
@@ -167,6 +191,11 @@ public class RequestsCentral {
 
     }
 
+    /**
+     * Gets a JSONArray from the given url and calls the onSuccess() method from OnSuccessfulArray
+     * @param url Url to get the JSONArray from
+     * @param successfulResponse Instance of the interface OnSuccessfulArray to help handle the response
+     */
     public static void getJSONArray(String url, OnSuccessfulArray successfulResponse) {
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(

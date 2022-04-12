@@ -35,7 +35,7 @@ public class LoginScreen extends AppCompatActivity {
     public static final String PASSWORD_KEY = "password_key";
     public static final String LOCATION_KEY = "location_key";
 
-    JSONArray users;
+    private JSONArray users;
 
     SharedPreferences sharedPreferences;
 
@@ -57,7 +57,13 @@ public class LoginScreen extends AppCompatActivity {
             }
         });
 
+
+
         loginB.setOnClickListener(new View.OnClickListener() {
+            /**
+             * Takes the input present in the fields and attempts to validate the user with these credentials
+             * @param view
+             */
             @Override
             public void onClick(View view) {
 
