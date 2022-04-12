@@ -4,6 +4,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * Interface to help handle JSONArray responses
+ * @author Andy Bruder
+ */
 public interface OnSuccessfulArray {
 
     /**

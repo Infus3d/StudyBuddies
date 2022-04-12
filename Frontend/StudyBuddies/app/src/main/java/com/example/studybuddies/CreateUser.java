@@ -20,6 +20,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * This class represents the page to create a user.
+ * @author Andy Bruder
+ */
 public class CreateUser extends AppCompatActivity {
 
     private EditText username;
@@ -39,8 +43,19 @@ public class CreateUser extends AppCompatActivity {
     private String email_s;
     private String password_s;
     private String location_s;
+
+    /**
+     * Shared preferences stores the information about the
+     * user who is currently logged into the app
+     */
     SharedPreferences sharedPreferences;
 
+    /**
+     * On creation of this view, this method initializes all
+     * UI elements present. It then populates the users field
+     * with all existing users to be used to check credentials
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -172,7 +187,11 @@ public class CreateUser extends AppCompatActivity {
         return true;
     }
 
-
+    /**
+     * This method checks if the sharedPreferences is already populated, indicating
+     * a user has already been logged in on this device. If the sharedPreferences is
+     * not null, this method sends the user straight to the dashboard.
+     */
     @Override
     protected void onStart() {
         super.onStart();

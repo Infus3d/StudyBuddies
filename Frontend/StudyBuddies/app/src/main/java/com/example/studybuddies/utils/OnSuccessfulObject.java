@@ -2,6 +2,10 @@ package com.example.studybuddies.utils;
 
 import org.json.JSONObject;
 
+/**
+ * Interface to handle JSONObject responses
+ * @author Andy Bruder
+ */
 public interface OnSuccessfulObject {
 
     /**

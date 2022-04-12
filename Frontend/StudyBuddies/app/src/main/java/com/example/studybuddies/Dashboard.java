@@ -44,9 +44,13 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+/**
+ * This class represents the user dashboard page.
+ * @author Andy Bruder
+ */
 public class Dashboard extends DrawerBaseActivity {
 
-    ActivityDashboardBinding activityDashboardBinding;
+    private ActivityDashboardBinding activityDashboardBinding;
 
     private String TAG = Dashboard.class.getSimpleName();
     private String tag_json_obj = "jobj_req";
@@ -67,11 +71,21 @@ public class Dashboard extends DrawerBaseActivity {
     private String email_s;
     private String password_s;
     private String location_s;
+
+    /**
+     * Shared preferences stores the information about the
+     * user who is currently logged into the app
+     */
     SharedPreferences sharedPreferences;
 
     private int layoutCounter;
     private int textViewCounter;
 
+    /**
+     * On the creation of the view, this method initializes all UI elements
+     * present on this activity and populates the user's groups
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -170,23 +184,6 @@ public class Dashboard extends DrawerBaseActivity {
         container.addView(tempGroup);
     }
 
-    /*
-    public void getGroups() {
-
-        RequestsCentral.getJSONArray(Const.GET_GROUPS, new OnSuccessfulArray() {
-            @Override
-            public void onSuccess(JSONArray response) {
-                try {
-                    showGroups(response);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
-    }*/
-
-
     public void findUsersGroups() {
 
         RequestsCentral.getJSONArray(Const.GET_MEMBERS, new OnSuccessfulArray() {
@@ -220,10 +217,7 @@ public class Dashboard extends DrawerBaseActivity {
             }
 
         }
-
         return userGroups;
-
     }
-
 
 }
