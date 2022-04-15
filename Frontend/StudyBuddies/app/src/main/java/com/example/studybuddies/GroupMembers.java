@@ -23,15 +23,22 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-/*
-    An activity that displays the Group Members Page.
+/**
+ * This activity shows the members of the group that this activity was accessed from.
+ * Extends DrawBaseActivity in order to get access to the menu.
+ * @author Omar Muhammetkulyyev
  */
 public class GroupMembers extends DrawerBaseActivity {
-    ActivityGroupMembersBinding activityGroupMembersBinding;
+    private ActivityGroupMembersBinding activityGroupMembersBinding;
     private Intent incomingIntent;
     private JSONArray members;
     private int groupID;
 
+    /**
+     * On creation of the view this method embeds itself in the activity frame of the super class
+     * as well as initializing all of the views relevant to this page.
+     * @param savedInstanceState required Bundle of instances to initialize the activity
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activityGroupMembersBinding = ActivityGroupMembersBinding.inflate(getLayoutInflater());
@@ -54,6 +61,10 @@ public class GroupMembers extends DrawerBaseActivity {
         });
     }
 
+    /**
+     * Helper method that shows all of the members in this group
+     * @param alist List of members as JSON objects to display
+     */
     private void showAllMembers(ArrayList<JSONObject> alist){
         LinearLayout container = findViewById(R.id.scrollViewLinearContainer_group_members);
         container.removeAllViews();
@@ -68,6 +79,10 @@ public class GroupMembers extends DrawerBaseActivity {
         }
     }
 
+    /**
+     * Helper method that shows all of the members in this group
+     * @param jsonArray An array of members as JSON objects to display
+     */
     private void showAllMembers(JSONArray jsonArray){
         LinearLayout container = findViewById(R.id.scrollViewLinearContainer_group_members);
         container.removeAllViews();
@@ -81,6 +96,13 @@ public class GroupMembers extends DrawerBaseActivity {
         }
     }
 
+    /**
+     * Helper method that creates an empty linear layout view for a specific member and adds that
+     * member to the container view
+     * @param container The ultimate view to contain all members
+     * @param obj   JSONObject representing current member to add
+     * @throws JSONException
+     */
     private void addMember(LinearLayout container, JSONObject obj) throws JSONException {
         LinearLayout memberContainer = new LinearLayout(this);
 

@@ -15,10 +15,19 @@ import android.widget.FrameLayout;
 
 import com.google.android.material.navigation.NavigationView;
 
+/**
+ * This class is serves as the base extendable activity that helps enables access to the menu
+ * of the application from any activity that extends it.
+ * @author Omar Muhammetkulyyev
+ */
 public class DrawerBaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    DrawerLayout drawerLayout;
+    private DrawerLayout drawerLayout;
 
+    /**
+     * Method to set the current content view of the activity to a given parameter view
+     * @param view Given view to replace the current content view
+     */
     @Override
     public void setContentView(View view) {
         drawerLayout = (DrawerLayout) getLayoutInflater().inflate(R.layout.activity_drawer_base, null);
@@ -37,6 +46,12 @@ public class DrawerBaseActivity extends AppCompatActivity implements NavigationV
         toggle.syncState();
     }
 
+    /**
+     * Method that dictates what actions to take upon selection of the items from the menu.
+     * When an item is selected, the associated activity with that item is initialized with a new Intent()
+     * @param item selected Item from the menu
+     * @return true if the action is taken, false otherwise
+     */
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         drawerLayout.closeDrawer(GravityCompat.START);
@@ -72,6 +87,10 @@ public class DrawerBaseActivity extends AppCompatActivity implements NavigationV
         return false;
     }
 
+    /**
+     * Helper method that assigns the title of the page in the action bar at the top
+     * @param titleString title of the page
+     */
     protected void allocateActivityTitle(String titleString){
         if(getSupportActionBar() != null)
             getSupportActionBar().setTitle(titleString);

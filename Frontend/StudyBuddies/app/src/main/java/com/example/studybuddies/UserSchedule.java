@@ -11,6 +11,11 @@ import android.widget.Button;
 
 import com.example.studybuddies.databinding.ActivityUserScheduleBinding;
 
+/**
+ * This class represents a User Schedule Page where users can view their personal schedule of activities.
+ * Extends DrawerBaseActivity in order to get access to the menu.
+ * @author Omar Muhammetkulyyev
+ */
 public class UserSchedule extends DrawerBaseActivity {
     ActivityUserScheduleBinding activityUserScheduleBinding;
 

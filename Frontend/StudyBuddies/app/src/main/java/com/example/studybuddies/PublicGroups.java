@@ -31,6 +31,11 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
+/**
+ * This class represents a Public Group Page where users can search for groups open to the public.
+ * The activity extends DrawerBaseActivity in order to get access to the menu.
+ * @author Omar Muhammetkulyyev
+ */
 public class PublicGroups extends DrawerBaseActivity {
     ActivityPublicGroupsBinding activityPublicGroupsBinding;
 

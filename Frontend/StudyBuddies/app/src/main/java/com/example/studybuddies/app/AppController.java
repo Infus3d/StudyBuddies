@@ -14,7 +14,7 @@ import com.android.volley.toolbox.Volley;
 public class AppController extends Application {
 
 	/**
-	 * Tag for this class
+	 * Tag for this class as a string
 	 */
 	public static final String TAG = AppController.class.getSimpleName();
 
@@ -22,6 +22,10 @@ public class AppController extends Application {
 
 	private static AppController mInstance;
 
+	/**
+	 * On create method that saves the instance of the object to make
+	 * it a singleton class
+	 */
 	@Override
 	public void onCreate() {
 		super.onCreate();
@@ -31,7 +35,7 @@ public class AppController extends Application {
 
 	/**
 	 * returns the instance of the AppController
-	 * @return
+	 * @return instance of this class
 	 */
 	public static synchronized AppController getInstance() {
 		return mInstance;
@@ -39,7 +43,7 @@ public class AppController extends Application {
 
 	/**
 	 * Creates a new request queue if null, else return the request queue
-	 * @return
+	 * @return RequestQueue of this singleton class
 	 */
 	public RequestQueue getRequestQueue() {
 		if (mRequestQueue == null) {
@@ -64,7 +68,7 @@ public class AppController extends Application {
 	 * Adds a new Volley Request to the queue
 	 * @param req the request to be added to the queue
 	 * @param tag the tag to go along with the request
-	 * @param <T>
+	 * @param <T> the type of the elements in request queue
 	 */
 	public <T> void addToRequestQueue(Request<T> req, String tag) {
 		// set the default tag if tag is empty
@@ -75,7 +79,7 @@ public class AppController extends Application {
 	/**
 	 * Adds a new Volley Request to the queue
 	 * @param req the request to be added to the queue
-	 * @param <T>
+	 * @param <T> the type of the elements in request queue
 	 */
 	public <T> void addToRequestQueue(Request<T> req) {
 		req.setTag(TAG);
