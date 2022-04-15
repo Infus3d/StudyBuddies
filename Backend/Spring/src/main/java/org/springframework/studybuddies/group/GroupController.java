@@ -33,10 +33,10 @@ public class GroupController {
     
     //CREATE Request
     @PostMapping("/groups/new")
-    public @ResponseBody String createGroups(@RequestBody Groups group) {
+    public @ResponseBody Groups createGroups(@RequestBody Groups group) {
         System.out.println(group);
         groupsRepository.save(group);
-        return "" + group.getId();
+        return group;
     }
     
     //READ Request
