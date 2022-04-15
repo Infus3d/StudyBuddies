@@ -19,6 +19,10 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * This class contains all methods used to send requests to the server.
+ * @author Andy Bruder
+ */
 public class RequestsCentral {
 
     /**

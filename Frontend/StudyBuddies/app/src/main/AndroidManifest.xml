@@ -41,9 +41,6 @@
             android:name=".LoginScreen"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
-            android:exported="false" />
-        <activity
             android:name=".CreateUser"
             android:exported="true">
             <intent-filter>

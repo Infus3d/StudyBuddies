@@ -20,6 +20,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * This class represents the page to log into the app if a user already has an account.
+ * @author Andy Bruder
+ */
 public class LoginScreen extends AppCompatActivity {
 
     private EditText username;
@@ -37,8 +41,17 @@ public class LoginScreen extends AppCompatActivity {
 
     private JSONArray users;
 
+    /**
+     * Shared preferences stores the information about the
+     * user who is currently logged into the app
+     */
     SharedPreferences sharedPreferences;
 
+    /**
+     * On the creation of this view, this method initializes the UI elements present.
+     * Populates the existing users to check the credentials entered by user.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,13 +70,7 @@ public class LoginScreen extends AppCompatActivity {
             }
         });
 
-
-
         loginB.setOnClickListener(new View.OnClickListener() {
-            /**
-             * Takes the input present in the fields and attempts to validate the user with these credentials
-             * @param view
-             */
             @Override
             public void onClick(View view) {
 

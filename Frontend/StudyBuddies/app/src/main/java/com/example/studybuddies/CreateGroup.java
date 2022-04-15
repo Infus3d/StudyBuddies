@@ -23,9 +23,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * This class represents the page to create a group.
+ * @author Andy Bruder
+ */
 public class CreateGroup extends DrawerBaseActivity {
 
-    ActivityCreateGroupBinding activityCreateGroupBinding;
+    private ActivityCreateGroupBinding activityCreateGroupBinding;
 
     private EditText groupNameEditText;
     private EditText groupDescriptionEditText;
@@ -45,8 +49,18 @@ public class CreateGroup extends DrawerBaseActivity {
     private String email_s;
     private String password_s;
     private String location_s;
+
+    /**
+     * Shared preferences stores the information about the
+     * user who is currently logged into the app
+     */
     SharedPreferences sharedPreferences;
 
+    /**
+     * On the creation of this view, this method initializes the UI elements
+     * present. Populates the existing groups to obtain the ID of the new group.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,6 +92,11 @@ public class CreateGroup extends DrawerBaseActivity {
             }
         });
 
+        /**
+         * Sends the information entered by the user to the server to
+         * create a group. Then sends information about the group and
+         * the user to the server to tie the user to that group
+         */
         createGroupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
