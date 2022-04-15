@@ -23,11 +23,14 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+/*
+    An activity that displays the Group Members Page.
+ */
 public class GroupMembers extends DrawerBaseActivity {
     ActivityGroupMembersBinding activityGroupMembersBinding;
     private Intent incomingIntent;
-    JSONArray members;
-    int groupID;
+    private JSONArray members;
+    private int groupID;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
