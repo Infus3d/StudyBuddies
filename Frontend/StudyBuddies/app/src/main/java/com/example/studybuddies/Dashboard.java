@@ -113,6 +113,11 @@ public class Dashboard extends DrawerBaseActivity {
 
     }
 
+    /**
+     * Adds a all groups to the layout
+     * @param groups List of groups that the current user is a member of
+     * @throws JSONException
+     */
     public void showGroups(JSONArray groups) throws JSONException {
 
         LinearLayout container = findViewById(R.id.scrollerLinearLayout);
@@ -136,6 +141,12 @@ public class Dashboard extends DrawerBaseActivity {
         }
     }
 
+    /**
+     * Adds a group to the layout to display them on the dashboard
+     * @param container Layout to hold all of the groups on a dashboard
+     * @param obj Group to add to the layout
+     * @throws JSONException
+     */
     public void addGroupToLayout(LinearLayout container, JSONObject obj) throws JSONException {
 
         TextView groupID = new TextView(Dashboard.this);
@@ -184,6 +195,9 @@ public class Dashboard extends DrawerBaseActivity {
         container.addView(tempGroup);
     }
 
+    /**
+     * Finds the groups for the user currently logged in
+     */
     public void findUsersGroups() {
 
         RequestsCentral.getJSONArray(Const.GET_MEMBERS, new OnSuccessfulArray() {
@@ -199,6 +213,11 @@ public class Dashboard extends DrawerBaseActivity {
 
     }
 
+    /**
+     * Finds the "Member" objects for the user that is currently logged in
+     * @param members Members list to search for the user
+     * @return userGroups Groups with the member
+     */
     public JSONArray searchMembersForUser(JSONArray members) {
 
         JSONArray userGroups = new JSONArray();
