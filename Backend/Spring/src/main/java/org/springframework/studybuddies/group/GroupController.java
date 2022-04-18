@@ -36,7 +36,7 @@ public class GroupController {
     
     //CREATE Request
     @PostMapping("/groups/new")
-    @ApiOperation(value = "Add a new group to the table", tags = "createGroups")
+    @ApiOperation(value = "createGroups", notes = "Adds a new group to the database")
     public @ResponseBody Groups createGroups(@RequestBody Groups group) {
         System.out.println(group);
         groupsRepository.save(group);
@@ -45,6 +45,7 @@ public class GroupController {
     
     //READ Request
     @RequestMapping(method = RequestMethod.GET, path = "/groups/{groupId}")
+    @ApiOperation(value = "findGroupById", notes = "Finds the group from the database using the given ID")
     public Optional<Groups> findGroupById(@PathVariable("groupId") int id) {
         logger.info("Entered into Controller Layer");
         Optional<Groups> results = groupsRepository.findById(id);
@@ -54,6 +55,7 @@ public class GroupController {
     
     //UPDATE Request
     @PutMapping("/groups/{groupId}")
+    @ApiOperation(value = "updateGroups", notes = "Updates a group from the database using the given ID")
     public @ResponseBody Groups updateGroups(@RequestBody Groups request,
     		@PathVariable("groupId") int id) {
         Optional<Groups> group = groupsRepository.findById(id);
@@ -69,6 +71,7 @@ public class GroupController {
     
     //DELETE Request
     @DeleteMapping("/groups/{groupId}")
+    @ApiOperation(value = "deleteGroupById", notes = "Finds the group from the database using the given ID and deletes it")
     public Groups deleteGroupById(@PathVariable("groupId") int id) {
         logger.info("Entered into Controller Layer");
         Optional<Groups> group = groupsRepository.findById(id);
@@ -81,6 +84,7 @@ public class GroupController {
     
     //LIST Request
     @RequestMapping(method = RequestMethod.GET, path = "/groups")
+    @ApiOperation(value = "getAllGroups", notes = "Lists out all of the groups in the database")
     public List<Groups> getAllGroups() {
         logger.info("Entered into Controller Layer");
         List<Groups> results = groupsRepository.findAll();
