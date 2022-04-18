@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import io.swagger.annotations.ApiOperation;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -34,6 +37,7 @@ class UserController {
     
     //CREATE Request
     @PostMapping("/users/new")
+    @ApiOperation(value = "createUsers", notes = "Adds a new user to the database")
     public @ResponseBody Users createUsers(@RequestBody Users user) {
         System.out.println(user);
         usersRepository.save(user);
@@ -42,6 +46,7 @@ class UserController {
     
     //READ Request
     @RequestMapping(method = RequestMethod.GET, path = "/users/{userId}")
+    @ApiOperation(value = "findUserById", notes = "Finds the user from the database using the given ID")
     public Optional<Users> findUserById(@PathVariable("userId") int id) {
         logger.info("Entered into Controller Layer");
         Optional<Users> results = usersRepository.findById(id);
@@ -50,6 +55,7 @@ class UserController {
     
   //UPDATE Request
     @PutMapping("/users/{userId}")
+    @ApiOperation(value = "updateUsers", notes = "Updates a user from the database using the given ID")
     public @ResponseBody Users updateUsers(@RequestBody Users request,
     		@PathVariable("userId") int id) {
         Optional<Users> user = usersRepository.findById(id);
@@ -68,6 +74,7 @@ class UserController {
     
     //DELETE Request
     @DeleteMapping("/users/{userId}")
+    @ApiOperation(value = "deleteUserById", notes = "Finds the user from the database using the given ID and deletes it")
     public Users deleteUserById(@PathVariable("userId") int id) {
         logger.info("Entered into Controller Layer");
         Optional<Users> user = usersRepository.findById(id);
@@ -80,6 +87,7 @@ class UserController {
     
     //LIST Request
     @RequestMapping(method = RequestMethod.GET, path = "/users")
+    @ApiOperation(value = "getAllUsers", notes = "Lists out all of the users in the database")
     public List<Users> getAllUsers() {
         logger.info("Entered into Controller Layer");
         List<Users> results = usersRepository.findAll();
