@@ -1,4 +1,3 @@
-
 package org.springframework.studybuddies.user;
 
 import org.slf4j.Logger;
@@ -35,10 +34,10 @@ class UserController {
     
     //CREATE Request
     @PostMapping("/users/new")
-    public @ResponseBody String createUsers(@RequestBody Users user) {
+    public @ResponseBody Users createUsers(@RequestBody Users user) {
         System.out.println(user);
         usersRepository.save(user);
-        return "New User "+ user.getUsername() + " Saved";
+        return user;
     }
     
     //READ Request
@@ -51,7 +50,7 @@ class UserController {
     
   //UPDATE Request
     @PutMapping("/users/{userId}")
-    public @ResponseBody String updateUsers(@RequestBody Users request,
+    public @ResponseBody Users updateUsers(@RequestBody Users request,
     		@PathVariable("userId") int id) {
         Optional<Users> user = usersRepository.findById(id);
     	if(user == null) return null;
@@ -64,19 +63,19 @@ class UserController {
     	
         System.out.println(user.get());
         usersRepository.save(user.get());
-        return "User "+ user.get().getUsername() + " Saved";
+        return user.get();
     }
     
     //DELETE Request
     @DeleteMapping("/users/{userId}")
-    public String deleteUserById(@PathVariable("userId") int id) {
+    public Users deleteUserById(@PathVariable("userId") int id) {
         logger.info("Entered into Controller Layer");
         Optional<Users> user = usersRepository.findById(id);
         if(user == null) return null;
         
         usersRepository.deleteById(id);
         
-        return "User " + user.get().getUsername() + " Deleted";
+        return user.get();
     }
     
     //LIST Request
