@@ -33,10 +33,10 @@ public class PermissionController {
     
     //CREATE Request
     @PostMapping("/permissions/new")
-    public @ResponseBody String createPermissions(@RequestBody Permissions permission) {
+    public @ResponseBody Permissions createPermissions(@RequestBody Permissions permission) {
         System.out.println(permission);
         permissionsRepository.save(permission);
-        return "New Permission "+ permission.getLevel() + " Saved";
+        return permission;
     }
     
     //READ Request
@@ -50,7 +50,7 @@ public class PermissionController {
     
     //UPDATE Request
     @PutMapping("/permissions/{permissionId}")
-    public @ResponseBody String updatePermissions(@RequestBody Permissions request,
+    public @ResponseBody Permissions updatePermissions(@RequestBody Permissions request,
     		@PathVariable("permissionId") int id) {
         Optional<Permissions> permission = permissionsRepository.findById(id);
     	if(permission == null) return null;
@@ -60,19 +60,19 @@ public class PermissionController {
     	
         System.out.println(permission.get());
         permissionsRepository.save(permission.get());
-        return "Permission "+ permission.get().getLevel() + " Saved";
+        return permission.get();
     }
     
     //DELETE Request
     @DeleteMapping("/permissions/{permissionId}")
-    public String deletePermissionById(@PathVariable("permissionId") int id) {
+    public Permissions deletePermissionById(@PathVariable("permissionId") int id) {
         logger.info("Entered into Controller Layer");
         Optional<Permissions> permission = permissionsRepository.findById(id);
         if(permission == null) return null;
         
         permissionsRepository.deleteById(id);
         
-        return "Permission " + permission.get().getLevel() + " Deleted";
+        return permission.get();
     }
     
     //LIST Request

@@ -50,7 +50,7 @@ public class GroupController {
     
     //UPDATE Request
     @PutMapping("/groups/{groupId}")
-    public @ResponseBody String updateGroups(@RequestBody Groups request,
+    public @ResponseBody Groups updateGroups(@RequestBody Groups request,
     		@PathVariable("groupId") int id) {
         Optional<Groups> group = groupsRepository.findById(id);
     	if(group == null) return null;
@@ -60,19 +60,19 @@ public class GroupController {
     	
         System.out.println(group.get());
         groupsRepository.save(group.get());
-        return "Group "+ group.get().getTitle() + " Saved";
+        return group.get();
     }
     
     //DELETE Request
     @DeleteMapping("/groups/{groupId}")
-    public String deleteGroupById(@PathVariable("groupId") int id) {
+    public Groups deleteGroupById(@PathVariable("groupId") int id) {
         logger.info("Entered into Controller Layer");
         Optional<Groups> group = groupsRepository.findById(id);
         if(group == null) return null;
         
         groupsRepository.deleteById(id);
         
-        return "Group " + group.get().getTitle() + " Deleted";
+        return group.get();
     }
     
     //LIST Request
