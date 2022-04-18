@@ -17,12 +17,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 /**
  * @author Ryan Sand and Brady Heath
  */
 
-@Api(value = "Group Rest Controller", description = "test decription")
+@Api(value = "Group Rest Controller", description = "CRUDL Group Controller")
 @RestController
 public class GroupController {
 
@@ -34,6 +35,7 @@ public class GroupController {
     //CRUDL
     
     //CREATE Request
+    @ApiOperation(value = "Add a new group to the table", response = Groups.class, tags = "postGroup")
     @PostMapping("/groups/new")
     public @ResponseBody Groups createGroups(@RequestBody Groups group) {
         System.out.println(group);
