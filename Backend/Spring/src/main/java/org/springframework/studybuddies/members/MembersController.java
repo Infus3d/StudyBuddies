@@ -36,10 +36,10 @@ public class MembersController {
     
     //CREATE Request
     @PostMapping("/members/new")
-    public @ResponseBody String createAdmin(@RequestBody MembersTable membersNew) {
+    public @ResponseBody MembersTable createAdmin(@RequestBody MembersTable membersNew) {
         System.out.println(membersNew);
         membersRepository.save(membersNew);
-        return "New Admin "+ membersNew.getId() + " Saved";
+        return membersNew;
     }
     
     //READ Request
@@ -53,7 +53,7 @@ public class MembersController {
     
     //UPDATE Request
     @PutMapping("/members/{membersId}")
-    public @ResponseBody String updateAdmins(@RequestBody MembersTable request,
+    public @ResponseBody MembersTable updateAdmins(@RequestBody MembersTable request,
     		@PathVariable("membersId") int id) {
         Optional<MembersTable> memberCheck = membersRepository.findById(id);
     	if(memberCheck == null) return null;
@@ -64,12 +64,12 @@ public class MembersController {
     	
         System.out.println(memberCheck.get());
         membersRepository.save(memberCheck.get());
-        return "Member "+ memberCheck.get().getId() + " Saved";
+        return memberCheck.get();
     }
     
     //DELETE Request
     @DeleteMapping("/members/{membersId}")
-    public String deleteAdminById(@PathVariable("membersId") int id) {
+    public MembersTable deleteAdminById(@PathVariable("membersId") int id) {
         logger.info("Entered into Controller Layer");
         Optional<MembersTable> memberChecks = membersRepository.findById(id);
         if(memberChecks == null) return null;
@@ -77,7 +77,7 @@ public class MembersController {
         
         membersRepository.deleteById(id);
         
-       return "Member " + memberChecks.get().getId() + " Deleted";
+       return memberChecks.get();
     }
     
     //LIST Request
