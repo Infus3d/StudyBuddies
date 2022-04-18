@@ -80,18 +80,6 @@ public class CreateGroup extends DrawerBaseActivity {
         isPublicSwitch = findViewById(R.id.is_public_switch);
         createGroupButton = findViewById(R.id.create_group_button);
 
-        RequestsCentral.getJSONArray(Const.GET_GROUPS, new OnSuccessfulArray() {
-            @Override
-            public void onSuccess(JSONArray response) {
-                currentGroups = response;
-                try {
-                    newGroupId = response.getJSONObject(response.length() - 1).getInt("id") + 1;
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
         /**
          * Sends the information entered by the user to the server to
          * create a group. Then sends information about the group and
@@ -125,8 +113,9 @@ public class CreateGroup extends DrawerBaseActivity {
 
                             try {
                                 newMember.put("userId", id);
-                                newMember.put("groupId", newGroupId);
+                                newMember.put("groupId", response.get("id"));
                                 newMember.put("permission", 1);
+                                newGroupId = response.getInt("id");
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -140,6 +129,8 @@ public class CreateGroup extends DrawerBaseActivity {
                                     i.putExtra("groupID", newGroupId);
                                     i.putExtra("groupTitle", newGroupName);
                                     i.putExtra("isPublic", newIsPublic);
+
+                                    startActivity(i);
 
                                 }
                             });

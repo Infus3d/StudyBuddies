@@ -14,7 +14,7 @@ import com.example.studybuddies.databinding.ActivityCreateGroupBinding;
 import com.example.studybuddies.databinding.ActivityGroupPageBinding;
 
 /**
- * This class represents the page for any given group.
+ * This class represents the home page for any given group.
  * @author Andy Bruder
  */
 public class GroupPage extends DrawerBaseActivity {
