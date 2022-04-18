@@ -35,8 +35,8 @@ public class GroupController {
     //CRUDL
     
     //CREATE Request
-    //@ApiOperation(value = "Add a new group to the table", response = Groups.class, tags = "postGroup")
     @PostMapping("/groups/new")
+    @ApiOperation(value = "Add a new group to the table", response = Groups.class, tags = "postGroup")
     public @ResponseBody Groups createGroups(@RequestBody Groups group) {
         System.out.println(group);
         groupsRepository.save(group);
