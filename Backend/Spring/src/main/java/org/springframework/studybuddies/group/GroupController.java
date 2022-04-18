@@ -36,7 +36,7 @@ public class GroupController {
     
     //CREATE Request
     @PostMapping("/groups/new")
-    @ApiOperation(value = "Add a new group to the table", response = Groups.class, tags = "postGroup")
+    @ApiOperation(value = "Add a new group to the table")
     public @ResponseBody Groups createGroups(@RequestBody Groups group) {
         System.out.println(group);
         groupsRepository.save(group);
