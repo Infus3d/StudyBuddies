@@ -16,11 +16,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.annotations.Api;
+
 /**
  * @author Ryan Sand and Brady Heath
  */
 
-
+@Api(value = "Group Rest Controller", description = "test decription")
 @RestController
 public class GroupController {
 
