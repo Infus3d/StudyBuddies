@@ -60,7 +60,7 @@ public class GroupController {
     	
         System.out.println(group.get());
         groupsRepository.save(group.get());
-        return group;
+        return group.get();
     }
     
     //DELETE Request
@@ -72,7 +72,7 @@ public class GroupController {
         
         groupsRepository.deleteById(id);
         
-        return group;
+        return group.get();
     }
     
     //LIST Request
