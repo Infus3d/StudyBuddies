@@ -66,6 +66,37 @@ public class Group {
     }
 
     /**
+     * Creates a new group object from a JSONObject representing a group
+     * @param j JSONObject representing group
+     */
+    public Group(JSONObject j){
+
+        try {
+            this.id = j.getInt("id");
+            this.title = j.getString("title");
+            this.isPublic = j.getBoolean("isPublic");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        members = new ArrayList<User>();
+
+        RequestsCentral.getJSONArray(Const.GET_MEMBERS, new OnSuccessfulArray() {
+            @Override
+            public void onSuccess(JSONArray response) throws JSONException {
+                for (int i = 0; i < response.length(); i++) {
+
+                    JSONObject j = response.getJSONObject(i);
+                    if (j.getInt("groupId") == id) {
+                        members.add(new User((JSONObject) j.get("membersDetail")));
+                    }
+                }
+            }
+        });
+
+    }
+
+    /**
      * Gets the group ID of the object as an int
       * @return id
      */
@@ -111,6 +142,23 @@ public class Group {
         return false;
     }
 
+    /**
+     * Creates a JSONObject to be able to send to the database
+     * @return JSONObject j
+     */
+    public JSONObject toJSONObject() {
 
+        JSONObject j = new JSONObject();
+
+        try {
+            j.put("id", id);
+            j.put("title", title);
+            j.put("isPublic", isPublic);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return j;
+    }
 
 }

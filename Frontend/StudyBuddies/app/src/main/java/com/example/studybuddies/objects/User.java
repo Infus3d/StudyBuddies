@@ -134,4 +134,25 @@ public class User {
         return password == this.password;
     }
 
+    /**
+     * Creates a JSONObject to be able to send to the database
+     * @return JSONObject j
+     */
+    public JSONObject toJSONObject() {
+
+        JSONObject j = new JSONObject();
+
+        try {
+            j.put("id", id);
+            j.put("username", username);
+            j.put("email", email);
+            j.put("password", password);
+            j.put("location", location);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return j;
+    }
+
 }
