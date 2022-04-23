@@ -87,8 +87,8 @@ public class Group {
                 for (int i = 0; i < response.length(); i++) {
 
                     JSONObject j = response.getJSONObject(i);
-                    if (j.getInt("groupId") == id) {
-                        members.add(new User((JSONObject) j.get("membersDetail")));
+                    if (j.getInt("groupId") == id && !j.get("userId").equals(null) && !j.get("membersDetail").equals(null)) {
+                        members.add(new User(j.getJSONObject("membersDetail")));
                     }
                 }
             }
