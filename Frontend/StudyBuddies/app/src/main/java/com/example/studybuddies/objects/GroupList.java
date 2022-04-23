@@ -1,6 +1,7 @@
 package com.example.studybuddies.objects;
 
 import com.example.studybuddies.utils.Const;
+import com.example.studybuddies.utils.OnFinishedArrayList;
 import com.example.studybuddies.utils.OnSuccessfulArray;
 import com.example.studybuddies.utils.RequestsCentral;
 
@@ -17,6 +18,9 @@ import java.util.ArrayList;
  */
 public class GroupList {
 
+
+    private static final int SIMULATED_DELAY_MS = 250;
+
     /**
      * Stores a list of group objects
      */
@@ -25,7 +29,7 @@ public class GroupList {
     /**
      * Constructor to create a GroupList of all existing groups
      */
-    public GroupList() {
+    public GroupList(OnFinishedArrayList o) {
 
         groupList = new ArrayList<Group>();
 
@@ -39,6 +43,7 @@ public class GroupList {
 
                 }
 
+                o.onFinishedArrayList(groupList);
             }
         });
 
@@ -48,17 +53,32 @@ public class GroupList {
      * Creates a GroupList for groups containing the user
      * @param u User object to search groups for
      */
-    public GroupList(User u) {
+    public GroupList(OnFinishedArrayList o, User u) {
 
         groupList = new ArrayList<Group>();
 
-        GroupList temp = new GroupList();
+        RequestsCentral.getJSONArray(Const.GET_GROUPS, new OnSuccessfulArray() {
+            @Override
+            public void onSuccess(JSONArray response) throws JSONException {
 
-        for (Group g : temp.groupList) {
-            if (g.memberPresent(u.getUsername())) {
-                groupList.add(g);
+                for (int i = 0; i < response.length(); i++){
+
+                    Group current = new Group((JSONObject) response.get(i));
+
+                    try {
+                        Thread.sleep(SIMULATED_DELAY_MS);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    if (current.memberPresent(u.getUsername())) {
+                        groupList.add(current);
+                    }
+                }
+
+                o.onFinishedArrayList(groupList);
             }
-        }
+        });
 
     }
 

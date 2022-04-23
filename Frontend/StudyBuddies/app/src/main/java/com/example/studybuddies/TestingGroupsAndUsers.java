@@ -13,6 +13,9 @@ import com.example.studybuddies.databinding.ActivityDashboardBinding;
 import com.example.studybuddies.databinding.ActivityTestingGroupsAndUsersBinding;
 import com.example.studybuddies.objects.Group;
 import com.example.studybuddies.objects.GroupList;
+import com.example.studybuddies.objects.User;
+import com.example.studybuddies.utils.OnFinishedArrayList;
+import com.example.studybuddies.utils.OnSuccessfulArray;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,6 +28,7 @@ public class TestingGroupsAndUsers extends DrawerBaseActivity {
     ActivityTestingGroupsAndUsersBinding activityTestingGroupsAndUsersBinding;
 
     private int layoutCounter, textViewCounter;
+    private static final int SIMULATED_DELAY_MS = 250;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,21 +37,30 @@ public class TestingGroupsAndUsers extends DrawerBaseActivity {
         setContentView(activityTestingGroupsAndUsersBinding.getRoot());
         allocateActivityTitle("Testing Groups and Users");
 
-        GroupList groups = new GroupList();
+        User andy = new User(11, "andy", "andy@gmail.com", "pass", "Ames, Iowa");
+
+        GroupList groups = new GroupList(new OnFinishedArrayList() {
+            @Override
+            public void onFinishedArrayList(ArrayList a) {
+                try {
+                    showGroups((ArrayList<Group>) a);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
     }
 
-    public void showGroups(GroupList g) throws JSONException {
+    public void showGroups(ArrayList<Group> g) throws JSONException {
 
-        LinearLayout container = findViewById(R.id.scrollerLinearLayout);
+        LinearLayout container = findViewById(R.id.groupsScrollerLinearLayout);
         container.removeAllViews();
-
-        ArrayList<Group> list = g.getGroupList();
 
         layoutCounter = 0;
         textViewCounter = 0;
 
-        for (Group group : list) {
+        for (Group group : g) {
 
             addGroupToLayout(container, group);
 
