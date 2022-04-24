@@ -72,5 +72,16 @@ public class GroupPage extends DrawerBaseActivity {
                 startActivity(intent);
             }
         });
+
+        Button groupPostsButton = findViewById(R.id.posts_button);
+        groupPostsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), GroupPosts.class);
+                intent.putExtra("groupId", groupID);
+                intent.putExtra("title", groupTitle);
+                startActivity(intent);
+            }
+        });
     }
 }
