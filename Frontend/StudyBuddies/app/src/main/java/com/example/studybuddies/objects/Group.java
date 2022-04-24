@@ -34,7 +34,7 @@ public class Group {
     /**
      * ArrayList containing user objects for all users who are a member of the group
      */
-    private ArrayList<User> members;
+    private UserList members;
 
     /**
      * Creates a new group from the information contained in the database
@@ -48,7 +48,7 @@ public class Group {
         this.title = title;
         this.isPublic = isPublic;
 
-        members = new ArrayList<User>();
+        members = new UserList();
 
         RequestsCentral.getJSONArray(Const.GET_MEMBERS, new OnSuccessfulArray() {
             @Override
@@ -79,20 +79,7 @@ public class Group {
             e.printStackTrace();
         }
 
-        members = new ArrayList<User>();
-
-        RequestsCentral.getJSONArray(Const.GET_MEMBERS, new OnSuccessfulArray() {
-            @Override
-            public void onSuccess(JSONArray response) throws JSONException {
-                for (int i = 0; i < response.length(); i++) {
-
-                    JSONObject j = response.getJSONObject(i);
-                    if (j.getInt("groupId") == id && !j.get("userId").equals(null) && !j.get("membersDetail").equals(null)) {
-                        members.add(new User(j.getJSONObject("membersDetail")));
-                    }
-                }
-            }
-        });
+        members = new UserList(this);
 
     }
 
@@ -124,7 +111,7 @@ public class Group {
      * Returns the ArrayList<User> that contains all of the group's members
      * @return members
      */
-    public ArrayList<User> getMembers() {
+    public UserList getMembers() {
         return members;
     }
 
@@ -134,12 +121,7 @@ public class Group {
      * @return boolean value representing if a member is part of the group
      */
     public boolean memberPresent(String username) {
-        for (User u : members) {
-            if (u.getUsername() == username) {
-                return true;
-            }
-        }
-        return false;
+        return members.searchList(username);
     }
 
     /**

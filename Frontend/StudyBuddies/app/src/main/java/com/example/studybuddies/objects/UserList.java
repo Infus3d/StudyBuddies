@@ -2,6 +2,7 @@ package com.example.studybuddies.objects;
 
 import com.example.studybuddies.utils.Const;
 import com.example.studybuddies.utils.OnSuccessfulArray;
+import com.example.studybuddies.utils.OnSuccessfulObject;
 import com.example.studybuddies.utils.RequestsCentral;
 
 import org.json.JSONArray;
@@ -27,6 +28,8 @@ public class UserList {
      */
     public UserList() {
 
+        userList = new ArrayList<User>();
+
         RequestsCentral.getJSONArray(Const.GET_USERS, new OnSuccessfulArray() {
             @Override
             public void onSuccess(JSONArray response) throws JSONException {
@@ -44,7 +47,47 @@ public class UserList {
      * @param g Group to create list from
      */
     public UserList(Group g) {
-        userList = g.getMembers();
+        userList = new ArrayList<User>();
+
+        RequestsCentral.getJSONArray(Const.GET_MEMBERS, new OnSuccessfulArray() {
+            @Override
+            public void onSuccess(JSONArray response) throws JSONException {
+                for (int i = 0; i < response.length(); i++) {
+
+                    JSONObject j = response.getJSONObject(i);
+                    if (j.getInt("groupId") == g.getId() && !j.get("userId").equals(null) && !j.get("membersDetail").equals(null)) {
+                        userList.add(new User(j.getJSONObject("membersDetail")));
+                    }
+                }
+            }
+        });
+
+    }
+
+
+    public UserList(ArrayList<Member> list) {
+        userList = new ArrayList<User>();
+
+        for(Member m : list) {
+            RequestsCentral.getJSONObject(Const.GET_MEMBERS + Integer.valueOf(m.getUserId()), new OnSuccessfulObject() {
+                @Override
+                public void onSuccess(JSONObject response) {
+                    userList.add(new User(response));
+                }
+            });
+        }
+
+    }
+
+
+    public boolean searchList(String username) {
+
+        for (User u : userList) {
+            if (u.getUsername().equals(username)){
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -54,6 +97,10 @@ public class UserList {
      */
     public boolean searchList(User u) {
         return userList.contains(u);
+    }
+
+    public void add(User u) {
+        userList.add(u);
     }
 
 
