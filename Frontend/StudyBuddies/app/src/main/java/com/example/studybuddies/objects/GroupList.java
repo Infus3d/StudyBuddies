@@ -65,12 +65,6 @@ public class GroupList {
 
                     Group current = new Group((JSONObject) response.get(i));
 
-                    try {
-                        Thread.sleep(SIMULATED_DELAY_MS);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-
                     if (current.memberPresent(u.getUsername())) {
                         groupList.add(current);
                     }
