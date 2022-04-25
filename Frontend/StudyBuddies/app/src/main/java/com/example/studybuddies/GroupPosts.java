@@ -5,9 +5,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.example.studybuddies.databinding.ActivityGroupPostsBinding;
+import com.example.studybuddies.utils.OnSuccessfulArray;
+import com.example.studybuddies.utils.RequestsCentral;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class GroupPosts extends DrawerBaseActivity {
 
@@ -23,6 +34,8 @@ public class GroupPosts extends DrawerBaseActivity {
     private String location_s;
 
     SharedPreferences sharedPreferences;
+
+    private int layoutCounter, textViewCounter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,4 +59,97 @@ public class GroupPosts extends DrawerBaseActivity {
         location_s = sharedPreferences.getString(LoginScreen.LOCATION_KEY, null);
 
     }
+
+    public void getPosts() {
+
+        RequestsCentral.getJSONArray(Const.GET_POSTS, new OnSuccessfulArray() {
+            @Override
+            public void onSuccess(JSONArray response) throws JSONException {
+
+                JSONArray postsForGroup = new JSONArray();
+
+                for (int i = 0; i < response.length(); i++) {
+                    if (response.getJSONObject(i).getInt("groupId") == groupId) {
+                        postsForGroup.put(response.getJSONObject(i));
+                    }
+                }
+
+                showPosts(postsForGroup);
+            }
+        });
+    }
+
+    public void showPosts(JSONArray groups) throws JSONException {
+
+        LinearLayout container = findViewById(R.id.group_posts_scroller_linear_layout);
+        container.removeAllViews();
+
+        layoutCounter = 0;
+        textViewCounter = 0;
+
+        for (int i=0; i<groups.length(); i++) {
+
+            JSONObject currentGroup = null;
+
+            try {
+                currentGroup = groups.getJSONObject(i);
+            } catch (JSONException e) {
+                e.printStackTrace();
+
+            }
+            addGroupToLayout(container, currentGroup);
+
+        }
+    }
+
+    /**
+     * Adds a group to the layout to display them on the dashboard
+     * @param container Layout to hold all of the groups on a dashboard
+     * @param obj Group to add to the layout
+     * @throws JSONException
+     */
+    public void addGroupToLayout(LinearLayout container, JSONObject obj) throws JSONException {
+
+        TextView groupID = new TextView(GroupPosts.this);
+        groupID.setText("ID: " + obj.getInt("id"));
+        groupID.setTextColor(Color.BLACK);
+        groupID.setId(++textViewCounter);
+
+        TextView author = new TextView(GroupPosts.this);
+        author.setText("Author: " + obj.getJSONObject("membersDetail").getString("username"));
+        author.setTextColor(Color.BLACK);
+        author.setId(++textViewCounter);
+
+        TextView message = new TextView(GroupPosts.this);
+        message.setText("Message: " + obj.getString("message"));
+        message.setTextColor(Color.BLACK);
+        message.setId(++textViewCounter);
+
+        TextView time = new TextView(GroupPosts.this);
+        time.setText("Time: " + obj.getString("time"));
+        time.setTextColor(Color.BLACK);
+        time.setId(++textViewCounter);
+
+        LinearLayout tempGroup = new LinearLayout(GroupPosts.this);
+        tempGroup.setId(++layoutCounter);
+        tempGroup.setOrientation(LinearLayout.VERTICAL);
+        tempGroup.setHorizontalGravity(LinearLayout.HORIZONTAL);
+
+        tempGroup.addView(groupID);
+        tempGroup.addView(author);
+        tempGroup.addView(message);
+        tempGroup.addView(time);
+        tempGroup.setClickable(true);
+        tempGroup.setBackgroundColor(Color.LTGRAY);
+
+        tempGroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        container.addView(tempGroup);
+    }
+
 }
