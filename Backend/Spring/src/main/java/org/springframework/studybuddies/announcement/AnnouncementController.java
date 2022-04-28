@@ -3,7 +3,6 @@ package org.springframework.studybuddies.announcement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.studybuddies.group.Groups;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,7 +39,7 @@ class AnnouncementController {
     //CREATE Request
     @PostMapping("/announcements/new")
     @ApiOperation(value = "createAnnouncements", notes = "Adds a new announcement to the database")
-    public @ResponseBody Announcements createAnnouncements(@RequestBody Announcements user) {
+    public @ResponseBody Announcements createAnnouncements(@RequestBody Announcements announcement) {
         System.out.println(announcement);
         announcementsRepository.save(announcement);
         return announcement;
@@ -63,10 +62,10 @@ class AnnouncementController {
         Optional<Announcements> announcement = announcementsRepository.findById(id);
     	if(announcement == null) return null;
     	
-    	announcement.get().setUsername(request.getUsername());
-    	announcement.get().setPassword(request.getPassword());
-    	announcement.get().setLocation(request.getLocation());
-    	announcement.get().setEmail(request.getEmail());
+    	announcement.get().setTime(request.getTime());
+    	announcement.get().setMessage(request.getMessage());
+    	announcement.get().setGroupId(request.getGroupId());
+    	announcement.get().setMemberId(request.getMemberId());
     	
     	
         System.out.println(announcement.get());
