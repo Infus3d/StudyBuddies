@@ -119,11 +119,19 @@ public class GroupPosts extends DrawerBaseActivity {
 
     }
 
+    /**
+     * Gets the current time in a String format. 24hr time version
+     * @return time as a String
+     */
     public String getTime() {
         Calendar now = Calendar.getInstance();
         return now.get(Calendar.HOUR_OF_DAY) + ":" + now.get(Calendar.MINUTE);
     }
 
+    /**
+     * Gets the correct memberID that ties the current user to the current group
+     * @param onSuccessfulInteger
+     */
     public void getMemberID(OnSuccessfulInteger onSuccessfulInteger) {
         RequestsCentral.getJSONArray(Const.GET_MEMBERS, new OnSuccessfulArray() {
             @Override
@@ -141,6 +149,9 @@ public class GroupPosts extends DrawerBaseActivity {
         });
     }
 
+    /**
+     * Creates the JSONObject to be sent to the database and displays the updated post list on the response
+     */
     public void makePost() {
 
         JSONObject j = new JSONObject();
