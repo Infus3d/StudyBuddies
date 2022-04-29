@@ -69,7 +69,7 @@ public class MembersTable {
 	private Permissions permissionSave;
 	
 
-	public Users getMembersDetail() {
+	public Users getUsersDetail() {
 		return userSave;
 	}
 	
