@@ -15,6 +15,6 @@ public interface OnSuccessfulArray {
      * @param response Response passed by the onResponse method of the JSONArrayRequest
      * @throws JSONException
      */
-    public void onSuccess(JSONArray response) throws JSONException;
+    void onSuccess(JSONArray response) throws JSONException;
 
 }

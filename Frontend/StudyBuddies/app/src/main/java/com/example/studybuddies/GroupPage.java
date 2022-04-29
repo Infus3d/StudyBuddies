@@ -56,7 +56,7 @@ public class GroupPage extends DrawerBaseActivity {
 
         groupID = extras.getInt("groupID");
         groupTitle = extras.getString("groupTitle");
-        isPublic = extras.getBoolean("isPublic");
+        isPublic = Boolean.valueOf(extras.getString("isPublic"));
 
         allocateActivityTitle(groupTitle);
 

@@ -10,14 +10,14 @@
     <ScrollView
         android:id="@+id/group_posts_scroller"
         android:layout_width="375dp"
-        android:layout_height="650dp"
+        android:layout_height="600dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.493">
+        app:layout_constraintVertical_bias="0.343">
 
         <LinearLayout
             android:id="@+id/group_posts_scroller_linear_layout"
@@ -31,5 +31,18 @@
         </LinearLayout>
 
     </ScrollView>
+
+    <Button
+        android:id="@+id/create_post"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/group_posts_scroller"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="Create Post"
+        android:textColor="@color/black"
+        android:background="@drawable/rect_button"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
