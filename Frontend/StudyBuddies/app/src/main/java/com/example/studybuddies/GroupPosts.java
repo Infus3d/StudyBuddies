@@ -119,7 +119,6 @@ public class GroupPosts extends DrawerBaseActivity {
 
     }
 
-
     public String getTime() {
         Calendar now = Calendar.getInstance();
         return now.get(Calendar.HOUR_OF_DAY) + ":" + now.get(Calendar.MINUTE);
@@ -161,9 +160,12 @@ public class GroupPosts extends DrawerBaseActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        
+
     }
 
+    /**
+     * Method to be called to find all posts present in the database for the group currently being viewed
+     */
     public void getPosts() {
 
         RequestsCentral.getJSONArray(Const.GET_ANNOUNCEMENTS, new OnSuccessfulArray() {
@@ -172,7 +174,7 @@ public class GroupPosts extends DrawerBaseActivity {
 
                 JSONArray postsForGroup = new JSONArray();
 
-                for (int i = 0; i < response.length(); i++) {
+                for (int i = response.length() - 1; i >= 0; i--) {
                     if (response.getJSONObject(i).getInt("groupId") == groupId) {
                         postsForGroup.put(response.getJSONObject(i));
                     }
@@ -183,6 +185,11 @@ public class GroupPosts extends DrawerBaseActivity {
         });
     }
 
+    /**
+     * Preps all posts from the JSONArray to be added to the layout and display groups
+     * @param posts
+     * @throws JSONException
+     */
     public void showPosts(JSONArray posts) throws JSONException {
 
         LinearLayout container = findViewById(R.id.group_posts_scroller_linear_layout);
