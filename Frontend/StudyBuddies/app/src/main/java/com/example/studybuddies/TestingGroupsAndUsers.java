@@ -1,25 +1,19 @@
 package com.example.studybuddies;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.studybuddies.databinding.ActivityDashboardBinding;
 import com.example.studybuddies.databinding.ActivityTestingGroupsAndUsersBinding;
 import com.example.studybuddies.objects.Group;
-import com.example.studybuddies.objects.GroupList;
 import com.example.studybuddies.objects.User;
 import com.example.studybuddies.utils.OnFinishedArrayList;
-import com.example.studybuddies.utils.OnSuccessfulArray;
 
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -30,6 +24,8 @@ public class TestingGroupsAndUsers extends DrawerBaseActivity {
     private int layoutCounter, textViewCounter;
     private static final int SIMULATED_DELAY_MS = 250;
 
+    private String TAG = TestingGroupsAndUsers.class.getSimpleName();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,16 +35,17 @@ public class TestingGroupsAndUsers extends DrawerBaseActivity {
 
         User andy = new User(11, "andy", "andy@gmail.com", "pass", "Ames, Iowa");
 
-        GroupList groups = new GroupList(new OnFinishedArrayList() {
+        Group.getGroups(andy, new OnFinishedArrayList() {
             @Override
             public void onFinishedArrayList(ArrayList a) {
                 try {
-                    showGroups((ArrayList<Group>) a);
+                    showGroups(a);
+                    Log.i(TAG, a.toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
-        }, andy);
+        });
 
     }
 

@@ -1,7 +1,11 @@
 package com.example.studybuddies.objects;
 
+import com.example.studybuddies.utils.Const;
+import com.example.studybuddies.utils.OnFinishedArrayList;
+import com.example.studybuddies.utils.OnSuccessfulArray;
 import com.example.studybuddies.utils.RequestsCentral;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -102,6 +106,12 @@ public class User {
     }
 
     /**
+     * Gets the password of the user object
+     * @return password
+     */
+    public String getPassword() {return password; }
+
+    /**
      * Gets the location of the user object
      * @return username
      */
@@ -153,6 +163,41 @@ public class User {
         }
 
         return j;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+
+        User user = (User) o;
+        
+        if (this.getId() == user.getId() &&
+            this.getUsername().equals(user.getUsername()) &&
+            this.getEmail().equals(user.getEmail()) &&
+            this.getPassword().equals(user.getPassword()) &&
+            this.getLocation().equals(user.getLocation())) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Returns a list of all users in the database as User objects
+     * @return
+     */
+    public static void getUsers(OnFinishedArrayList onFinishedArrayList) {
+
+        ArrayList<User> list = new ArrayList<User>();
+
+        RequestsCentral.getJSONArray(Const.GET_USERS, new OnSuccessfulArray() {
+            @Override
+            public void onSuccess(JSONArray response) throws JSONException {
+                for (int i = 0; i < response.length(); i++) {
+                    JSONObject j = response.getJSONObject(i);
+                    list.add(new User(j));
+                    onFinishedArrayList.onFinishedArrayList(list);
+                }
+            }
+        });
     }
 
 }

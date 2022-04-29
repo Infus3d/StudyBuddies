@@ -1,6 +1,7 @@
 package com.example.studybuddies.objects;
 
 import com.example.studybuddies.utils.Const;
+import com.example.studybuddies.utils.OnFinishedArrayList;
 import com.example.studybuddies.utils.OnSuccessfulArray;
 import com.example.studybuddies.utils.RequestsCentral;
 
@@ -31,10 +32,7 @@ public class Group {
      */
     private boolean isPublic;
 
-    /**
-     * ArrayList containing user objects for all users who are a member of the group
-     */
-    private UserList members;
+
 
     /**
      * Creates a new group from the information contained in the database
@@ -47,21 +45,6 @@ public class Group {
         this.id = id;
         this.title = title;
         this.isPublic = isPublic;
-
-        members = new UserList();
-
-        RequestsCentral.getJSONArray(Const.GET_MEMBERS, new OnSuccessfulArray() {
-            @Override
-            public void onSuccess(JSONArray response) throws JSONException {
-                for (int i = 0; i < response.length(); i++) {
-
-                    JSONObject j = response.getJSONObject(i);
-                    if (j.getInt("groupId") == id && !j.get("membersDetail").equals(null)) {
-                        members.add(new User((JSONObject) j.get("membersDetail")));
-                    }
-                }
-            }
-        });
 
     }
 
@@ -78,8 +61,6 @@ public class Group {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-        members = new UserList(this);
 
     }
 
@@ -108,23 +89,6 @@ public class Group {
     }
 
     /**
-     * Returns the ArrayList<User> that contains all of the group's members
-     * @return members
-     */
-    public UserList getMembers() {
-        return members;
-    }
-
-    /**
-     * Searches a group for a given user by their username
-     * @param username
-     * @return boolean value representing if a member is part of the group
-     */
-    public boolean memberPresent(String username) {
-        return members.searchList(username);
-    }
-
-    /**
      * Creates a JSONObject to be able to send to the database
      * @return JSONObject j
      */
@@ -141,6 +105,50 @@ public class Group {
         }
 
         return j;
+    }
+
+    public static void getGroups(OnFinishedArrayList onFinishedArrayList) {
+
+        ArrayList<Group> list = new ArrayList<Group>();
+
+        RequestsCentral.getJSONArray(Const.GET_GROUPS, new OnSuccessfulArray() {
+            @Override
+            public void onSuccess(JSONArray response) throws JSONException {
+                for (int i = 0; i < response.length(); i++) {
+                    try {
+                        JSONObject j = response.getJSONObject(i);
+                        list.add(new Group(j));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                onFinishedArrayList.onFinishedArrayList(list);
+            }
+        });
+    }
+
+    public static void getGroups(User user, OnFinishedArrayList onFinishedArrayList) {
+
+        ArrayList<Group> list = new ArrayList<Group>();
+
+        RequestsCentral.getJSONArray(Const.GET_MEMBERS, new OnSuccessfulArray() {
+            @Override
+            public void onSuccess(JSONArray response) throws JSONException {
+                for (int i = 0; i < response.length(); i++) {
+                    try {
+                        JSONObject j = response.getJSONObject(i);
+                        if (!j.getJSONObject("usersDetail").equals(null)) {
+                            if (new User(j.getJSONObject("usersDetail")).equals(user)) {
+                                list.add(new Group(j.getJSONObject("groupsDetail")));
+                            }
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                onFinishedArrayList.onFinishedArrayList(list);
+            }
+        });
     }
 
 }
