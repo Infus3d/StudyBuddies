@@ -49,15 +49,11 @@ public class Announcements {
 
 	@Column(name = "memberId")
 	@NotFound(action = NotFoundAction.IGNORE)
-	@ApiModelProperty(notes = "The number associated with the member that posted the announcement", name = "groupId", required = true, value = "1")
+	@ApiModelProperty(notes = "The number associated with the member that posted the announcement", name = "memberId", required = true, value = "1")
 	private Integer memberId;
 
 	@ManyToOne
-	@JoinColumn(name = "groupId", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
-	private Groups groupSave;
-
-	@ManyToOne
-	@JoinColumn(name = "memberId", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
+	@JoinColumn(name = "memberId", referencedColumnName = "memberId", nullable = false, insertable = false, updatable = false)
 	private MembersTable memberSave;
 
 	public Announcements() {
@@ -71,6 +67,9 @@ public class Announcements {
 		this.groupId = groupId;
 		this.memberId = memberId;
 	}
+	
+	
+	
 
 	// ID
 	public Integer getId() {
@@ -107,14 +106,18 @@ public class Announcements {
 	public void setGroupId(int groupId) {
 		this.groupId = groupId;
 	}
-
-	// Group Id
+	
+	// Member Id
 	public Integer getMemberId() {
 		return this.memberId;
 	}
 
 	public void setMemberId(int memberId) {
 		this.memberId = memberId;
+	}
+	
+	public MembersTable getMembersDetail() {
+		return memberSave;
 	}
 
 	@Override
