@@ -36,6 +36,8 @@
             android:text="Here is some text"
             android:textColor="@color/black"
             android:textSize="15sp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
             >
         </TextView>
 
