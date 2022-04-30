@@ -25,11 +25,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class GroupPosts extends DrawerBaseActivity {
 
     private int memberID;
+    private int currentPermission;
+
     ActivityGroupPostsBinding activityGroupPostsBinding;
 
     private String groupName;
@@ -45,8 +48,8 @@ public class GroupPosts extends DrawerBaseActivity {
 
     private int layoutCounter, textViewCounter;
 
-
     private Button createPost;
+    private Button refresh;
     private String postMessage;
     private EditText messageEnter;
 
@@ -78,7 +81,12 @@ public class GroupPosts extends DrawerBaseActivity {
                 memberID = i;
             }
         });
-        getTime();
+        getPermission(new OnSuccessfulInteger() {
+            @Override
+            public void onSuccess(int i) {
+                currentPermission = i;
+            }
+        });
 
         createPost = findViewById(R.id.create_post);
         createPost.setOnClickListener(new View.OnClickListener() {
@@ -117,6 +125,14 @@ public class GroupPosts extends DrawerBaseActivity {
             }
         });
 
+        refresh = findViewById(R.id.refresh_button);
+        refresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getPosts();
+            }
+        });
+
     }
 
     /**
@@ -142,6 +158,28 @@ public class GroupPosts extends DrawerBaseActivity {
                     int uID = member.getInt("userId");
                     if (groupId == gID && id == uID) {
                         onSuccessfulInteger.onSuccess(member.getInt("id"));
+                        break;
+                    }
+                }
+            }
+        });
+    }
+
+    /**
+     * Gets the correct permission for the current user to be used
+     * when checking status for deleting posts after passed by intent
+     * @param onSuccessfulInteger
+     */
+    public void getPermission(OnSuccessfulInteger onSuccessfulInteger) {
+        RequestsCentral.getJSONArray(Const.GET_MEMBERS, new OnSuccessfulArray() {
+            @Override
+            public void onSuccess(JSONArray response) throws JSONException {
+                for (int i = 0; i < response.length(); i++) {
+                    JSONObject member = response.getJSONObject(i);
+                    int gID = member.getInt("groupId");
+                    int uID = member.getInt("userId");
+                    if (groupId == gID && id == uID) {
+                        onSuccessfulInteger.onSuccess(member.getInt("permission"));
                         break;
                     }
                 }
@@ -232,23 +270,29 @@ public class GroupPosts extends DrawerBaseActivity {
      */
     public void addGroupToLayout(LinearLayout container, JSONObject obj) throws JSONException {
 
-        TextView groupID = new TextView(GroupPosts.this);
-        groupID.setText("ID: " + obj.getInt("id"));
-        groupID.setTextColor(Color.BLACK);
-        groupID.setId(++textViewCounter);
+        int postID = obj.getInt("id");
 
         TextView author = new TextView(GroupPosts.this);
-        author.setText("Author: " + obj.getJSONObject("membersDetail").getJSONObject("usersDetail").getString("username"));
+        String authorStr = obj.getJSONObject("membersDetail").getJSONObject("usersDetail").getString("username");
+        author.setText("Author: " + authorStr);
         author.setTextColor(Color.BLACK);
         author.setId(++textViewCounter);
 
         TextView message = new TextView(GroupPosts.this);
-        message.setText("Message: " + obj.getString("message"));
+        String messageStr = obj.getString("message");
+        String shortenedMsg = "";
+        if (messageStr.length() > 45) {
+            shortenedMsg = messageStr.substring(0, 40) + "...";
+        } else {
+            shortenedMsg = messageStr;
+        }
+        message.setText("Message: " + shortenedMsg);
         message.setTextColor(Color.BLACK);
         message.setId(++textViewCounter);
 
         TextView time = new TextView(GroupPosts.this);
-        time.setText("Time: " + obj.getString("time"));
+        String timeStr = obj.getString("time");
+        time.setText("Time: " + timeStr);
         time.setTextColor(Color.BLACK);
         time.setId(++textViewCounter);
 
@@ -257,16 +301,26 @@ public class GroupPosts extends DrawerBaseActivity {
         tempGroup.setOrientation(LinearLayout.VERTICAL);
         tempGroup.setHorizontalGravity(LinearLayout.HORIZONTAL);
 
-        tempGroup.addView(groupID);
         tempGroup.addView(author);
         tempGroup.addView(message);
         tempGroup.addView(time);
         tempGroup.setClickable(true);
         tempGroup.setBackgroundColor(Color.LTGRAY);
 
+        String finalAuthorStr = authorStr;
         tempGroup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), ViewPost.class);
+
+                intent.putExtra("id", postID);
+                intent.putExtra("permission", currentPermission);
+                intent.putExtra("username", username_s);
+                intent.putExtra("author", finalAuthorStr);
+                intent.putExtra("message", messageStr);
+                intent.putExtra("time", timeStr);
+
+                startActivity(intent);
 
             }
         });
