@@ -81,12 +81,6 @@ public class GroupPosts extends DrawerBaseActivity {
                 memberID = i;
             }
         });
-        getPermission(new OnSuccessfulInteger() {
-            @Override
-            public void onSuccess(int i) {
-                currentPermission = i;
-            }
-        });
 
         createPost = findViewById(R.id.create_post);
         createPost.setOnClickListener(new View.OnClickListener() {
@@ -157,29 +151,8 @@ public class GroupPosts extends DrawerBaseActivity {
                     int gID = member.getInt("groupId");
                     int uID = member.getInt("userId");
                     if (groupId == gID && id == uID) {
-                        onSuccessfulInteger.onSuccess(member.getInt("id"));
-                        break;
-                    }
-                }
-            }
-        });
-    }
-
-    /**
-     * Gets the correct permission for the current user to be used
-     * when checking status for deleting posts after passed by intent
-     * @param onSuccessfulInteger
-     */
-    public void getPermission(OnSuccessfulInteger onSuccessfulInteger) {
-        RequestsCentral.getJSONArray(Const.GET_MEMBERS, new OnSuccessfulArray() {
-            @Override
-            public void onSuccess(JSONArray response) throws JSONException {
-                for (int i = 0; i < response.length(); i++) {
-                    JSONObject member = response.getJSONObject(i);
-                    int gID = member.getInt("groupId");
-                    int uID = member.getInt("userId");
-                    if (groupId == gID && id == uID) {
-                        onSuccessfulInteger.onSuccess(member.getInt("permission"));
+                        memberID = member.getInt("id");
+                        currentPermission = member.getInt("permission");
                         break;
                     }
                 }
