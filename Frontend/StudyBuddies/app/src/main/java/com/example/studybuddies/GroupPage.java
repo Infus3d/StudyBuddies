@@ -56,7 +56,7 @@ public class GroupPage extends DrawerBaseActivity {
 
         groupID = extras.getInt("groupID");
         groupTitle = extras.getString("groupTitle");
-        isPublic = extras.getBoolean("isPublic");
+        isPublic = Boolean.valueOf(extras.getString("isPublic"));
 
         allocateActivityTitle(groupTitle);
 
@@ -69,6 +69,17 @@ public class GroupPage extends DrawerBaseActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), GroupMembers.class);
                 intent.putExtra("groupId", groupID);
+                startActivity(intent);
+            }
+        });
+
+        Button groupPostsButton = findViewById(R.id.posts_button);
+        groupPostsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), GroupPosts.class);
+                intent.putExtra("groupId", groupID);
+                intent.putExtra("title", groupTitle);
                 startActivity(intent);
             }
         });

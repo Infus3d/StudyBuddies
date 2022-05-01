@@ -254,4 +254,49 @@ public class RequestsCentral {
         AppController.getInstance().addToRequestQueue(jsonArrayRequest, tag_json_obj);
 
     }
+
+    public static void deleteJSONObject(String url, OnSuccessfulObject onSuccessfulResponse) {
+
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(
+                Request.Method.DELETE,
+                url,
+                null,
+                new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.i(TAG, response.toString());
+                        onSuccessfulResponse.onSuccess(response);
+                    }
+                }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                NetworkResponse response = error.networkResponse;
+                String errorMsg = "";
+                if (response != null && response.data != null) {
+                    String errorString = new String(response.data);
+                    Log.d("log error", errorString);
+                }
+            }
+        }) {
+
+            /**
+             * Passing some request headers
+             * */
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Content-Type", "application/json");
+                return headers;
+            }
+
+        };
+
+        jsonObjReq.setRetryPolicy(new DefaultRetryPolicy(10000, 1, 1.0f));
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(jsonObjReq, tag_json_obj);
+
+    }
+
 }

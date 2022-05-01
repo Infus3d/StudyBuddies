@@ -14,9 +14,14 @@
         android:theme="@style/Theme.AppCompat.NoActionBar"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ViewPost"
+            android:exported="false" />
+        <activity
+            android:name=".GroupPosts"
+            android:exported="false" />
+        <activity
             android:name=".GroupMembers"
-            android:exported="false">
-        </activity>
+            android:exported="false" />
         <activity
             android:name=".CreateGroup"
             android:exported="false" />
@@ -34,9 +39,7 @@
             android:exported="false" />
         <activity
             android:name=".PublicGroups"
-            android:exported="false">
-
-        </activity>
+            android:exported="false" />
         <activity
             android:name=".LoginScreen"
             android:exported="false" />
