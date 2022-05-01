@@ -75,12 +75,7 @@ public class GroupPosts extends DrawerBaseActivity {
         location_s = sharedPreferences.getString(LoginScreen.LOCATION_KEY, null);
 
         getPosts();
-        getMemberID(new OnSuccessfulInteger() {
-            @Override
-            public void onSuccess(int i) {
-                memberID = i;
-            }
-        });
+        getMemberID();
 
         createPost = findViewById(R.id.create_post);
         createPost.setOnClickListener(new View.OnClickListener() {
@@ -140,9 +135,8 @@ public class GroupPosts extends DrawerBaseActivity {
 
     /**
      * Gets the correct memberID that ties the current user to the current group
-     * @param onSuccessfulInteger
      */
-    public void getMemberID(OnSuccessfulInteger onSuccessfulInteger) {
+    public void getMemberID() {
         RequestsCentral.getJSONArray(Const.GET_MEMBERS, new OnSuccessfulArray() {
             @Override
             public void onSuccess(JSONArray response) throws JSONException {
