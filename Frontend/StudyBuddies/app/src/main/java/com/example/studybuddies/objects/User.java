@@ -182,7 +182,6 @@ public class User {
 
     /**
      * Returns a list of all users in the database as User objects
-     * @return
      */
     public static void getUsers(OnFinishedArrayList onFinishedArrayList) {
 
@@ -200,4 +199,26 @@ public class User {
         });
     }
 
+    /**
+     * Returns a list of all users in the database as User objects for a particular group
+     */
+    public static void getUsers(Group group, OnFinishedArrayList onFinishedArrayList) {
+
+        ArrayList<User> list = new ArrayList<User>();
+
+        RequestsCentral.getJSONArray(Const.GET_MEMBERS, new OnSuccessfulArray() {
+            @Override
+            public void onSuccess(JSONArray response) throws JSONException {
+                for (int i = 0; i < response.length(); i++) {
+                    JSONObject member = response.getJSONObject(i);
+                    Group currentGroup = new Group(member.getJSONObject("groupsDetail"));
+                    if (currentGroup.equals(group)) {
+                        list.add(new User(member.getJSONObject("usersDetail")));
+                    }
+                }
+                onFinishedArrayList.onFinishedArrayList(list);
+            }
+        });
+
+    }
 }

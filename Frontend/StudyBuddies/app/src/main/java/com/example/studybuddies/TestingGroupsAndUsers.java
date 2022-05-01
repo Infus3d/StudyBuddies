@@ -35,12 +35,25 @@ public class TestingGroupsAndUsers extends DrawerBaseActivity {
 
         User andy = new User(11, "andy", "andy@gmail.com", "pass", "Ames, Iowa");
 
-        Group.getGroups(andy, new OnFinishedArrayList() {
+        /*
+        Group.getGroups( new OnFinishedArrayList() {
             @Override
             public void onFinishedArrayList(ArrayList a) {
                 try {
                     showGroups(a);
-                    Log.i(TAG, a.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });*/
+
+        Group g = new Group(2, "COMS S 327", true);
+
+        User.getUsers(g, new OnFinishedArrayList() {
+            @Override
+            public void onFinishedArrayList(ArrayList a) {
+                try {
+                    showUsers(a);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -81,18 +94,18 @@ public class TestingGroupsAndUsers extends DrawerBaseActivity {
         isPublic.setTextColor(Color.BLACK);
         isPublic.setId(++textViewCounter);
 
-        LinearLayout tempGroup = new LinearLayout(TestingGroupsAndUsers.this);
-        tempGroup.setId(++layoutCounter);
-        tempGroup.setOrientation(LinearLayout.VERTICAL);
-        tempGroup.setHorizontalGravity(LinearLayout.HORIZONTAL);
+        LinearLayout tempUser = new LinearLayout(TestingGroupsAndUsers.this);
+        tempUser.setId(++layoutCounter);
+        tempUser.setOrientation(LinearLayout.VERTICAL);
+        tempUser.setHorizontalGravity(LinearLayout.HORIZONTAL);
 
-        tempGroup.addView(groupID);
-        tempGroup.addView(groupTitle);
-        tempGroup.addView(isPublic);
-        tempGroup.setClickable(true);
-        tempGroup.setBackgroundColor(Color.LTGRAY);
+        tempUser.addView(groupID);
+        tempUser.addView(groupTitle);
+        tempUser.addView(isPublic);
+        tempUser.setClickable(true);
+        tempUser.setBackgroundColor(Color.LTGRAY);
 
-        tempGroup.setOnClickListener(new View.OnClickListener() {
+        tempUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), GroupPage.class);
@@ -105,7 +118,59 @@ public class TestingGroupsAndUsers extends DrawerBaseActivity {
             }
         });
 
-        container.addView(tempGroup);
+        container.addView(tempUser);
+    }
+
+    public void showUsers(ArrayList<User> users) throws JSONException {
+
+        LinearLayout container = findViewById(R.id.groupsScrollerLinearLayout);
+        container.removeAllViews();
+
+        layoutCounter = 0;
+        textViewCounter = 0;
+
+        for (User user : users) {
+
+            addUserToLayout(container, user);
+
+        }
+    }
+
+    public void addUserToLayout(LinearLayout container, User user) throws JSONException {
+
+        TextView userID = new TextView(TestingGroupsAndUsers.this);
+        userID.setText("ID: " + user.getId());
+        userID.setTextColor(Color.BLACK);
+        userID.setId(++textViewCounter);
+
+        TextView username = new TextView(TestingGroupsAndUsers.this);
+        username.setText("username: " + user.getUsername());
+        username.setTextColor(Color.BLACK);
+        username.setId(++textViewCounter);
+
+        TextView location = new TextView(TestingGroupsAndUsers.this);
+        location.setText("location: " + user.getLocation());
+        location.setTextColor(Color.BLACK);
+        location.setId(++textViewCounter);
+
+        TextView email = new TextView(TestingGroupsAndUsers.this);
+        email.setText("email: " + user.getEmail());
+        email.setTextColor(Color.BLACK);
+        email.setId(++textViewCounter);
+
+        LinearLayout tempUser = new LinearLayout(TestingGroupsAndUsers.this);
+        tempUser.setId(++layoutCounter);
+        tempUser.setOrientation(LinearLayout.VERTICAL);
+        tempUser.setHorizontalGravity(LinearLayout.HORIZONTAL);
+
+        tempUser.addView(userID);
+        tempUser.addView(username);
+        tempUser.addView(location);
+        tempUser.addView(email);
+        tempUser.setClickable(true);
+        tempUser.setBackgroundColor(Color.LTGRAY);
+
+        container.addView(tempUser);
     }
 
 }

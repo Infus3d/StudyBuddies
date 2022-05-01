@@ -107,6 +107,18 @@ public class Group {
         return j;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        Group group = (Group) o;
+        if (this.getId() == group.getId() &&
+            this.getTitle().equals(group.getTitle()) &&
+            this.isPublic == group.isPublic
+        ) {
+            return true;
+        }
+        return false;
+    }
+
     public static void getGroups(OnFinishedArrayList onFinishedArrayList) {
 
         ArrayList<Group> list = new ArrayList<Group>();
