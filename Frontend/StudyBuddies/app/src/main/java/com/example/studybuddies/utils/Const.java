@@ -28,4 +28,9 @@ public class Const {
      * Url for the POST function which will create a new member
      */
     public static final String CREATE_NEW_MEMBER = "http://coms-309-011.class.las.iastate.edu:8080/members/new";
+    /**
+     * Url for the GET function which will return all announcements
+     */
+    public static final String GET_ANNOUNCEMENTS = "http://coms-309-011.class.las.iastate.edu:8080/announcements";
+
 }
