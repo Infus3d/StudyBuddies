@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.studybuddies.databinding.ActivityTestingGroupsAndUsersBinding;
 import com.example.studybuddies.objects.Group;
+import com.example.studybuddies.objects.Member;
 import com.example.studybuddies.objects.User;
 import com.example.studybuddies.utils.OnFinishedArrayList;
 
@@ -49,11 +50,24 @@ public class TestingGroupsAndUsers extends DrawerBaseActivity {
 
         Group g = new Group(2, "COMS S 327", true);
 
+        /*
         User.getUsers(g, new OnFinishedArrayList() {
             @Override
             public void onFinishedArrayList(ArrayList a) {
                 try {
                     showUsers(a);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        */
+
+        Member.getMembers(g, new OnFinishedArrayList() {
+            @Override
+            public void onFinishedArrayList(ArrayList a) {
+                try {
+                    showMembers(a);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -167,6 +181,58 @@ public class TestingGroupsAndUsers extends DrawerBaseActivity {
         tempUser.addView(username);
         tempUser.addView(location);
         tempUser.addView(email);
+        tempUser.setClickable(true);
+        tempUser.setBackgroundColor(Color.LTGRAY);
+
+        container.addView(tempUser);
+    }
+
+    public void showMembers(ArrayList<Member> members) throws JSONException {
+
+        LinearLayout container = findViewById(R.id.groupsScrollerLinearLayout);
+        container.removeAllViews();
+
+        layoutCounter = 0;
+        textViewCounter = 0;
+
+        for (Member member : members) {
+
+            addMemberToLayout(container, member);
+
+        }
+    }
+
+    public void addMemberToLayout(LinearLayout container, Member member) throws JSONException {
+
+        TextView memberID = new TextView(TestingGroupsAndUsers.this);
+        memberID.setText("ID: " + member.getId());
+        memberID.setTextColor(Color.BLACK);
+        memberID.setId(++textViewCounter);
+
+        TextView userID = new TextView(TestingGroupsAndUsers.this);
+        userID.setText("username: " + member.getUserId());
+        userID.setTextColor(Color.BLACK);
+        userID.setId(++textViewCounter);
+
+        TextView groupId = new TextView(TestingGroupsAndUsers.this);
+        groupId.setText("location: " + member.getGroupId());
+        groupId.setTextColor(Color.BLACK);
+        groupId.setId(++textViewCounter);
+
+        TextView permission = new TextView(TestingGroupsAndUsers.this);
+        permission.setText("email: " + member.getPermission());
+        permission.setTextColor(Color.BLACK);
+        permission.setId(++textViewCounter);
+
+        LinearLayout tempUser = new LinearLayout(TestingGroupsAndUsers.this);
+        tempUser.setId(++layoutCounter);
+        tempUser.setOrientation(LinearLayout.VERTICAL);
+        tempUser.setHorizontalGravity(LinearLayout.HORIZONTAL);
+
+        tempUser.addView(memberID);
+        tempUser.addView(userID);
+        tempUser.addView(groupId);
+        tempUser.addView(permission);
         tempUser.setClickable(true);
         tempUser.setBackgroundColor(Color.LTGRAY);
 
