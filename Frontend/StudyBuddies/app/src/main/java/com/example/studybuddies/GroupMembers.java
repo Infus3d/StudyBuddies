@@ -12,7 +12,9 @@ import android.widget.TextView;
 import android.os.Bundle;
 
 import com.example.studybuddies.databinding.ActivityGroupMembersBinding;
+import com.example.studybuddies.objects.Member;
 import com.example.studybuddies.utils.Const;
+import com.example.studybuddies.utils.OnFinishedArrayList;
 import com.example.studybuddies.utils.OnSuccessfulArray;
 import com.example.studybuddies.utils.RequestsCentral;
 
@@ -46,53 +48,28 @@ public class GroupMembers extends DrawerBaseActivity {
         allocateActivityTitle("Group Members");
 
         incomingIntent = getIntent();
-        RequestsCentral.getJSONArray(Const.GET_MEMBERS, new OnSuccessfulArray() {
+        Bundle extras = incomingIntent.getExtras();
+        groupID = extras.getInt("groupId");
+
+        Member.getMembers(groupID, new OnFinishedArrayList() {
             @Override
-            public void onSuccess(JSONArray response) throws JSONException {
-                ArrayList<JSONObject> alist = new ArrayList<JSONObject>();
-                for(int i=response.length()-1; i>=0; i--){
-                    JSONObject cur = response.getJSONObject(i);
-//                    uncomment this line when synced with group home page
-//                    if(cur.getString("groupId") != null && cur.getString("groupId").equals(incomingIntent.getStringExtra("groupId")))
-                        alist.add(cur);
-                }
-                showAllMembers(alist);
+            public void onFinishedArrayList(ArrayList a) {
+                ArrayList<Member> members = (ArrayList<Member>) a;
+                showAllMembers(members);
             }
         });
     }
 
     /**
      * Helper method that shows all of the members in this group
-     * @param alist List of members as JSON objects to display
+     * @param members List of members as JSON objects to display
      */
-    private void showAllMembers(ArrayList<JSONObject> alist){
+    private void showAllMembers(ArrayList<Member> members){
         LinearLayout container = findViewById(R.id.scrollViewLinearContainer_group_members);
         container.removeAllViews();
 
-        for(int i=alist.size()-1; i>=0; i--){
-            try{
-                addMember(container, alist.get(i));
-            }
-            catch (JSONException e){
-                e.printStackTrace();
-            }
-        }
-    }
-
-    /**
-     * Helper method that shows all of the members in this group
-     * @param jsonArray An array of members as JSON objects to display
-     */
-    private void showAllMembers(JSONArray jsonArray){
-        LinearLayout container = findViewById(R.id.scrollViewLinearContainer_group_members);
-        container.removeAllViews();
-
-        for(int i=jsonArray.length()-1; i>=0; i--){
-            try {
-                addMember(container, jsonArray.getJSONObject(i));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+        for(Member member : members){
+            addMember(container, member);
         }
     }
 
@@ -100,10 +77,10 @@ public class GroupMembers extends DrawerBaseActivity {
      * Helper method that creates an empty linear layout view for a specific member and adds that
      * member to the container view
      * @param container The ultimate view to contain all members
-     * @param obj   JSONObject representing current member to add
+     * @param member   Member representing current member to add
      * @throws JSONException
      */
-    private void addMember(LinearLayout container, JSONObject obj) throws JSONException {
+    private void addMember(LinearLayout container, Member member) {
         LinearLayout memberContainer = new LinearLayout(this);
 
         Button makeOwnerButton = new Button(this);
@@ -112,11 +89,11 @@ public class GroupMembers extends DrawerBaseActivity {
         kickButton.setText("Kick");
 
         TextView memberName = new TextView(this);
-        memberName.setText("Username: " + obj.getJSONObject("membersDetail").getString("username"));
+        memberName.setText("Username: " + member.getUser().getUsername());
         memberName.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
 
         TextView memberAccess = new TextView(this);
-        memberAccess.setText("Permission: " + (obj.getInt("permission") == 1 ? "read only" : (obj.getInt("permission") == 2 ? "read and write" : "read and write and edit")));
+        memberAccess.setText("Permission: " + (member.getPermission() == 1 ? "read only" : (member.getPermission() == 2 ? "read and write" : "read and write and edit")));
         memberAccess.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
 
         memberContainer.setOrientation(LinearLayout.VERTICAL);

@@ -21,6 +21,10 @@ public class Member {
 
     private int permission;
 
+    private User user;
+
+    private Group group;
+
     public Member(int id, int groupId, int userId, int permission) {
         this.id = id;
         this.groupId = groupId;
@@ -34,6 +38,8 @@ public class Member {
             this.groupId = j.getInt("groupId");
             this.userId = j.getInt("userId");
             this.permission = j.getInt("permission");
+            this.user = new User(j.getJSONObject("usersDetail"));
+            this.group = new Group(j.getJSONObject("groupsDetail"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -53,6 +59,14 @@ public class Member {
 
     public int getPermission() {
         return permission;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public Group getGroup() {
+        return group;
     }
 
     @Override
