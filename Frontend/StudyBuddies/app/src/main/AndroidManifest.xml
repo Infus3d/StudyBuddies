@@ -13,9 +13,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".TestingGroupsAndUsers"
-            android:exported="false"
-            ></activity>
         <activity
             android:name=".GroupMembers"
             android:exported="false">

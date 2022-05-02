@@ -163,4 +163,52 @@ public class Group {
         });
     }
 
+    public static void getGroups(int userID, OnFinishedArrayList onFinishedArrayList) {
+
+        ArrayList<Group> list = new ArrayList<Group>();
+
+        RequestsCentral.getJSONArray(Const.GET_MEMBERS, new OnSuccessfulArray() {
+            @Override
+            public void onSuccess(JSONArray response) throws JSONException {
+                for (int i = 0; i < response.length(); i++) {
+                    try {
+                        JSONObject j = response.getJSONObject(i);
+                        if (!j.getJSONObject("usersDetail").equals(null)) {
+                            if (j.getInt("userId") == userID) {
+                                list.add(new Group(j.getJSONObject("groupsDetail")));
+                            }
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                onFinishedArrayList.onFinishedArrayList(list);
+            }
+        });
+    }
+
+    public static void getPublicGroups(OnFinishedArrayList onFinishedArrayList) {
+
+        ArrayList<Group> list = new ArrayList<Group>();
+
+        RequestsCentral.getJSONArray(Const.GET_MEMBERS, new OnSuccessfulArray() {
+            @Override
+            public void onSuccess(JSONArray response) throws JSONException {
+                for (int i = 0; i < response.length(); i++) {
+                    try {
+                        JSONObject j = response.getJSONObject(i);
+                        if (!j.getJSONObject("usersDetail").equals(null)) {
+                            if (Boolean.valueOf(j.getJSONObject("groupsDetail").getString("isPublic"))) {
+                                list.add(new Group(j.getJSONObject("groupsDetail")));
+                            }
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                onFinishedArrayList.onFinishedArrayList(list);
+            }
+        });
+    }
+
 }

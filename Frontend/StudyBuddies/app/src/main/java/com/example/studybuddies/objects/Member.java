@@ -104,4 +104,24 @@ public class Member {
         });
 
     }
+
+    public static void getMembers(int groupId, OnFinishedArrayList onFinishedArrayList) {
+
+        ArrayList<Member> list = new ArrayList<Member>();
+
+        RequestsCentral.getJSONArray(Const.GET_MEMBERS, new OnSuccessfulArray() {
+            @Override
+            public void onSuccess(JSONArray response) throws JSONException {
+                for (int i = 0; i < response.length(); i++) {
+                    JSONObject member = response.getJSONObject(i);
+                    Group currentGroup = new Group(member.getJSONObject("groupsDetail"));
+                    if (currentGroup.getId() == groupId) {
+                        list.add(new Member(member));
+                    }
+                }
+                onFinishedArrayList.onFinishedArrayList(list);
+            }
+        });
+
+    }
 }
