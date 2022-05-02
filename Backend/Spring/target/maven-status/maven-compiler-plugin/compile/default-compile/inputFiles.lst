@@ -1,4 +1,5 @@
 /Users/brheath/2_ug_4/Backend/Spring/src/main/java/org/springframework/studybuddies/user/UserRepository.java
+/Users/brheath/2_ug_4/Backend/Spring/src/main/java/org/springframework/studybuddies/groupEvents/groupEventsRepository.java
 /Users/brheath/2_ug_4/Backend/Spring/src/main/java/org/springframework/studybuddies/user/UserController.java
 /Users/brheath/2_ug_4/Backend/Spring/src/main/java/org/springframework/studybuddies/permission/Permissions.java
 /Users/brheath/2_ug_4/Backend/Spring/src/main/java/org/springframework/studybuddies/personalEvents/personalEvents.java
@@ -16,6 +17,8 @@
 /Users/brheath/2_ug_4/Backend/Spring/src/main/java/org/springframework/studybuddies/system/WelcomeController.java
 /Users/brheath/2_ug_4/Backend/Spring/src/main/java/org/springframework/studybuddies/permission/PermissionController.java
 /Users/brheath/2_ug_4/Backend/Spring/src/main/java/org/springframework/studybuddies/StudyBuddiesApplication.java
+/Users/brheath/2_ug_4/Backend/Spring/src/main/java/org/springframework/studybuddies/groupEvents/groupEventsController.java
 /Users/brheath/2_ug_4/Backend/Spring/src/main/java/org/springframework/studybuddies/group/Groups.java
+/Users/brheath/2_ug_4/Backend/Spring/src/main/java/org/springframework/studybuddies/groupEvents/groupEvents.java
 /Users/brheath/2_ug_4/Backend/Spring/src/main/java/org/springframework/studybuddies/group/GroupRepository.java
 /Users/brheath/2_ug_4/Backend/Spring/src/main/java/org/springframework/studybuddies/user/Users.java
