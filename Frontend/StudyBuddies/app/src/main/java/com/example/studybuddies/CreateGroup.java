@@ -14,6 +14,8 @@ import android.widget.RelativeLayout;
 import android.widget.Switch;
 
 import com.example.studybuddies.databinding.ActivityCreateGroupBinding;
+import com.example.studybuddies.objects.Group;
+import com.example.studybuddies.objects.User;
 import com.example.studybuddies.utils.Const;
 import com.example.studybuddies.utils.OnSuccessfulArray;
 import com.example.studybuddies.utils.OnSuccessfulObject;
@@ -36,7 +38,6 @@ public class CreateGroup extends DrawerBaseActivity {
     private Switch isPublicSwitch;
     private Button createGroupButton;
 
-    private int newGroupId;
     private String newGroupName;
     private String newGroupDescription;
     private boolean newIsPublic;
@@ -95,51 +96,53 @@ public class CreateGroup extends DrawerBaseActivity {
 
                 if (newGroupName != "" && newGroupDescription != ""){
 
-                    JSONObject newGroup = new JSONObject();
-
-                    try {
-                        newGroup.put("title", newGroupName);
-                        newGroup.put("isPublic", String.valueOf(newIsPublic));
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-
-                    RequestsCentral.postJSONObject(Const.CREATE_NEW_GROUP, newGroup, new OnSuccessfulObject() {
-                        @Override
-                        public void onSuccess(JSONObject response) {
-
-                            JSONObject newMember = new JSONObject();
-
-                            try {
-                                newMember.put("userId", id);
-                                newMember.put("groupId", response.get("id"));
-                                newMember.put("permission", 1);
-                                newGroupId = response.getInt("id");
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-
-                            RequestsCentral.postJSONObject(Const.CREATE_NEW_MEMBER, newMember, new OnSuccessfulObject() {
-                                @Override
-                                public void onSuccess(JSONObject response) {
-
-                                    Intent i = new Intent(getApplicationContext(), GroupPage.class);
-
-                                    i.putExtra("groupID", newGroupId);
-                                    i.putExtra("groupTitle", newGroupName);
-                                    i.putExtra("isPublic", newIsPublic);
-
-                                    startActivity(i);
-
-                                }
-                            });
-                        }
-                    });
+                Group group = new Group(newGroupName, newIsPublic);
+                createGroup(group);
 
                 }
             }
         });
 
     }
+
+    public void createGroup(Group group) {
+        RequestsCentral.postJSONObject(Const.CREATE_NEW_GROUP, group.toJSONForServer(), new OnSuccessfulObject() {
+            @Override
+            public void onSuccess(JSONObject response) {
+
+                try {
+                    createMember(response.getInt("id"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+    }
+
+    public void createMember(int newGroupId) throws JSONException {
+
+        JSONObject newMember = new JSONObject();
+
+            newMember.put("userId", id);
+            newMember.put("groupId", newGroupId);
+            newMember.put("permission", 1);
+
+        RequestsCentral.postJSONObject(Const.CREATE_NEW_MEMBER, newMember, new OnSuccessfulObject() {
+            @Override
+            public void onSuccess(JSONObject response) {
+
+                Intent i = new Intent(getApplicationContext(), GroupPage.class);
+
+                i.putExtra("groupID", newGroupId);
+                i.putExtra("groupTitle", newGroupName);
+                i.putExtra("isPublic", newIsPublic);
+
+                startActivity(i);
+
+            }
+        });
+
+    }
+
 }

@@ -39,7 +39,7 @@ public class RequestsCentral {
      * Posts a JSONObject to the given url and calls the onSuccess() method from OnSuccessfulObject
      * @param url Url for the JSONObject to be sent to
      * @param j JSONObject to be sent by the request
-     * @param onSuccessfulResponse Instance of the interface OnSuccessfulObject to help handle the response
+     * @param onSuccessfulResponse Reference to the interface OnSuccessfulObject to help handle the response
      */
     public static void postJSONObject(String url, JSONObject j, OnSuccessfulObject onSuccessfulResponse) {
 
@@ -88,7 +88,7 @@ public class RequestsCentral {
     /**
      * Gets a JSONObject from the given url and calls the onSuccess() method from OnSuccessfulObject
      * @param url Url to get the JSONObject from
-     * @param onSuccessfulResponse Instance of the interface OnSuccessfulObject to help handle the response
+     * @param onSuccessfulResponse Reference to the interface OnSuccessfulObject to help handle the response
      */
     public static void getJSONObject(String url, OnSuccessfulObject onSuccessfulResponse) {
 
@@ -138,7 +138,7 @@ public class RequestsCentral {
      * Posts a JSONArray to the given url and calls the onSuccess() method from OnSuccessfulArray
      * @param url Url for the JSONArray to be sent to
      * @param j JSONArray to be sent by the request
-     * @param onSuccessfulResponse Instance of the interface OnSuccessfulArray to help handle the response
+     * @param onSuccessfulResponse Reference to the interface OnSuccessfulArray to help handle the response
      */
     public static void postJSONArray(String url, JSONArray j, OnSuccessfulArray onSuccessfulResponse) {
 
@@ -198,7 +198,7 @@ public class RequestsCentral {
     /**
      * Gets a JSONArray from the given url and calls the onSuccess() method from OnSuccessfulArray
      * @param url Url to get the JSONArray from
-     * @param successfulResponse Instance of the interface OnSuccessfulArray to help handle the response
+     * @param successfulResponse Reference to the interface OnSuccessfulArray to help handle the response
      */
     public static void getJSONArray(String url, OnSuccessfulArray successfulResponse) {
 

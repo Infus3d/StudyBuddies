@@ -29,7 +29,10 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.example.studybuddies.app.AppController;
 import com.example.studybuddies.databinding.ActivityDashboardBinding;
 import com.example.studybuddies.databinding.ActivityPublicGroupsBinding;
+import com.example.studybuddies.objects.Group;
+import com.example.studybuddies.objects.User;
 import com.example.studybuddies.utils.Const;
+import com.example.studybuddies.utils.OnFinishedArrayList;
 import com.example.studybuddies.utils.OnSuccessfulArray;
 import com.example.studybuddies.utils.OnSuccessfulObject;
 import com.example.studybuddies.utils.RequestsCentral;
@@ -72,6 +75,8 @@ public class Dashboard extends DrawerBaseActivity {
     private String password_s;
     private String location_s;
 
+    private User currentUser;
+
     /**
      * Shared preferences stores the information about the
      * user who is currently logged into the app
@@ -92,14 +97,16 @@ public class Dashboard extends DrawerBaseActivity {
         activityDashboardBinding = ActivityDashboardBinding.inflate(getLayoutInflater());
         setContentView(activityDashboardBinding.getRoot());
 
-        findUsersGroups();
-
         sharedPreferences = getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE);
         id = sharedPreferences.getInt(ID_KEY, 0);
         username_s = sharedPreferences.getString(USERNAME_KEY, null);
         email_s = sharedPreferences.getString(EMAIL_KEY, null);
         password_s = sharedPreferences.getString(PASSWORD_KEY, null);
         location_s = sharedPreferences.getString(LOCATION_KEY, null);
+
+
+        currentUser = new User(id,username_s,email_s,password_s,location_s);
+        findUsersGroups(currentUser);
 
         allocateActivityTitle(username_s + "'s Dashboard");
 
@@ -118,7 +125,7 @@ public class Dashboard extends DrawerBaseActivity {
      * @param groups List of groups that the current user is a member of
      * @throws JSONException
      */
-    public void showGroups(JSONArray groups) throws JSONException {
+    public void showGroups(ArrayList<Group> groups) {
 
         LinearLayout container = findViewById(R.id.scrollerLinearLayout);
         container.removeAllViews();
@@ -126,41 +133,31 @@ public class Dashboard extends DrawerBaseActivity {
         layoutCounter = 0;
         textViewCounter = 0;
 
-        for (int i=0; i<groups.length(); i++) {
-
-            JSONObject currentGroup = null;
-
-            try {
-                currentGroup = groups.getJSONObject(i);
-            } catch (JSONException e) {
-                e.printStackTrace();
-
-            }
-            addGroupToLayout(container, currentGroup);
-
+        for (Group g : groups) {
+            addGroupToLayout(container, g);
         }
     }
 
     /**
      * Adds a group to the layout to display them on the dashboard
      * @param container Layout to hold all of the groups on a dashboard
-     * @param obj Group to add to the layout
+     * @param group Group to add to the layout
      * @throws JSONException
      */
-    public void addGroupToLayout(LinearLayout container, JSONObject obj) throws JSONException {
+    public void addGroupToLayout(LinearLayout container, Group group) {
 
         TextView groupID = new TextView(Dashboard.this);
-        groupID.setText("ID: " + obj.getInt("id"));
+        groupID.setText("ID: " + group.getId());
         groupID.setTextColor(Color.BLACK);
         groupID.setId(++textViewCounter);
 
         TextView groupTitle = new TextView(Dashboard.this);
-        groupTitle.setText("Title: " + obj.getString("title"));
+        groupTitle.setText("Title: " + group.getTitle());
         groupTitle.setTextColor(Color.BLACK);
         groupTitle.setId(++textViewCounter);
 
         TextView isPublic = new TextView(Dashboard.this);
-        isPublic.setText("isPublic: " + obj.getString("isPublic"));
+        isPublic.setText("isPublic: " + group.isPublic());
         isPublic.setTextColor(Color.BLACK);
         isPublic.setId(++textViewCounter);
 
@@ -180,13 +177,9 @@ public class Dashboard extends DrawerBaseActivity {
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), GroupPage.class);
 
-                try {
-                    i.putExtra("groupID", obj.getInt("id"));
-                    i.putExtra("groupTitle", obj.getString("title"));
-                    i.putExtra("isPublic", obj.getString("isPublic"));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                i.putExtra("groupID", group.getId());
+                i.putExtra("groupTitle", group.getTitle());
+                i.putExtra("isPublic", group.isPublic());
 
                 startActivity(i);
             }
@@ -197,46 +190,18 @@ public class Dashboard extends DrawerBaseActivity {
 
     /**
      * Finds the groups for the user currently logged in
+     * @param user
      */
-    public void findUsersGroups() {
+    public void findUsersGroups(User user) {
 
-        RequestsCentral.getJSONArray(Const.GET_MEMBERS, new OnSuccessfulArray() {
+        Group.getGroups(user, new OnFinishedArrayList() {
             @Override
-            public void onSuccess(JSONArray response) {
-                try {
-                    showGroups(searchMembersForUser(response));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+            public void onFinishedArrayList(ArrayList a) {
+                ArrayList<Group> groups = (ArrayList<Group>) a;
+                showGroups(groups);
             }
         });
 
-    }
-
-    /**
-     * Finds the "Member" objects for the user that is currently logged in
-     * @param members Members list to search for the user
-     * @return userGroups Groups with the member
-     */
-    public JSONArray searchMembersForUser(JSONArray members) {
-
-        JSONArray userGroups = new JSONArray();
-
-        for (int i = 0; i < members.length(); i++) {
-
-            try {
-                JSONObject member = members.getJSONObject(i);
-                // make sure to check that the user id is called userID when members is implemented
-                int CurrentMemberID = member.getInt("userId");
-                if (CurrentMemberID == id) {
-                    userGroups.put(member.get("groupsDetail"));
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-
-        }
-        return userGroups;
     }
 
 }
