@@ -81,6 +81,14 @@ public class User {
         }
     }
 
+    public User(String username, String email, String password, String location) {
+        id = -1;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.location = location;
+    }
+
     /**
      * Gets the ID of the user object
      * @return id
@@ -165,6 +173,23 @@ public class User {
         return j;
     }
 
+    public JSONObject toJSONForServer() {
+
+        JSONObject j = new JSONObject();
+
+        try {
+            j.put("username", username);
+            j.put("email", email);
+            j.put("password", password);
+            j.put("location", location);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return j;
+
+    }
+
     @Override
     public boolean equals(Object o) {
 
@@ -193,8 +218,8 @@ public class User {
                 for (int i = 0; i < response.length(); i++) {
                     JSONObject j = response.getJSONObject(i);
                     list.add(new User(j));
-                    onFinishedArrayList.onFinishedArrayList(list);
                 }
+                onFinishedArrayList.onFinishedArrayList(list);
             }
         });
     }
