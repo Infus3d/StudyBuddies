@@ -64,6 +64,12 @@ public class Group {
 
     }
 
+    public Group(String title, boolean isPublic) {
+        this.id = -1;
+        this.title = title;
+        this.isPublic = isPublic;
+    }
+
     /**
      * Gets the group ID of the object as an int
       * @return id
@@ -88,6 +94,10 @@ public class Group {
         return isPublic;
     }
 
+    public void setId(int i) {
+        this.id = id;
+    }
+
     /**
      * Creates a JSONObject to be able to send to the database
      * @return JSONObject j
@@ -100,6 +110,20 @@ public class Group {
             j.put("id", id);
             j.put("title", title);
             j.put("isPublic", isPublic);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return j;
+    }
+
+    public JSONObject toJSONForServer() {
+
+        JSONObject j = new JSONObject();
+
+        try {
+            j.put("title", this.getTitle());
+            j.put("isPublic", String.valueOf(this.isPublic()));
         } catch (JSONException e) {
             e.printStackTrace();
         }
