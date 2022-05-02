@@ -12,13 +12,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.studybuddies.objects.User;
 import com.example.studybuddies.utils.Const;
+import com.example.studybuddies.utils.OnFinishedArrayList;
 import com.example.studybuddies.utils.OnSuccessfulArray;
 import com.example.studybuddies.utils.RequestsCentral;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 /**
  * This class represents the page to log into the app if a user already has an account.
@@ -63,57 +67,37 @@ public class LoginScreen extends AppCompatActivity {
         password = findViewById(R.id.enter_password);
         errorMessage = findViewById(R.id.login_error);
         loginB = findViewById(R.id.login_button);
-        RequestsCentral.getJSONArray(Const.GET_USERS, new OnSuccessfulArray() {
-            @Override
-            public void onSuccess(JSONArray response) {
-                users = response;
-            }
-        });
 
         loginB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                for (int i = 0; i < users.length(); i++) {
+                User.getUsers(new OnFinishedArrayList() {
+                    @Override
+                    public void onFinishedArrayList(ArrayList a) {
+                        for (Object o : a) {
+                            User currentUser = (User) o;
+                            if (currentUser.getUsername().equals(username.getText().toString()) && currentUser.getPassword().equals(password.getText().toString())) {
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
 
-                    JSONObject currentUser = null;
-                    try {
-                        currentUser = users.getJSONObject(i);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+                                editor.putInt(ID_KEY, currentUser.getId());
+                                editor.putString(USERNAME_KEY, currentUser.getUsername());
+                                editor.putString(EMAIL_KEY, currentUser.getEmail());
+                                editor.putString(PASSWORD_KEY, currentUser.getPassword());
+                                editor.putString(LOCATION_KEY, currentUser.getLocation());
 
-                    try {
-                        if (currentUser.getString("username").equals(username.getText().toString()) && currentUser.getString("password").equals(password.getText().toString()) ){
+                                editor.apply();
 
-                            SharedPreferences.Editor editor = sharedPreferences.edit();
-
-                            editor.putInt(ID_KEY, currentUser.getInt("id"));
-                            editor.putString(USERNAME_KEY, currentUser.getString("username"));
-                            editor.putString(EMAIL_KEY, currentUser.getString("email"));
-                            editor.putString(PASSWORD_KEY, currentUser.getString("password"));
-                            editor.putString(LOCATION_KEY, currentUser.getString("location"));
-
-                            editor.apply();
-
-                            Intent intent = new Intent(getApplicationContext(), Dashboard.class);
-                            startActivity(intent);
-                            finish();
-
-                            Log.i(LoginScreen.class.getSimpleName(), "success");
-                            return;
-
+                                Intent intent = new Intent(getApplicationContext(), Dashboard.class);
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                errorMessage.setText("Invalid username or password. Try again");
+                            }
                         }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
                     }
-
-                }
-
-                errorMessage.setText("Invalid username or password. Try again");
-
+                });
             }
-        });
-
+            });
     }
 }
