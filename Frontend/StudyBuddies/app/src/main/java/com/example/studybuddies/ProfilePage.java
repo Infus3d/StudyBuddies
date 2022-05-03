@@ -22,6 +22,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
 
+/**
+ * An activity displaying the Profile Page of the current Logged-in User.
+ * It extends DrawerBaseActivity to gain access to the global menu.
+ */
 public class ProfilePage extends DrawerBaseActivity {
     private ActivityProfilePageBinding activityProfilePageBinding;
     private String dErrorTag = ProfilePage.class.getSimpleName();
@@ -126,6 +130,10 @@ public class ProfilePage extends DrawerBaseActivity {
         });
     }
 
+    /**
+     * Private helper method that updates the TextViews of username, location and email
+     * when the http request is successful and the database is updated
+     */
     private void setViews(){
         usernameText.setText(sharedPreferences.getString(LoginScreen.USERNAME_KEY, null));
         locationText.setText(sharedPreferences.getString(LoginScreen.LOCATION_KEY, null));
