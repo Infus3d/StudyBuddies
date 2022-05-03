@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,6 +24,7 @@ import org.w3c.dom.Text;
 
 public class ProfilePage extends DrawerBaseActivity {
     private ActivityProfilePageBinding activityProfilePageBinding;
+    private String dErrorTag = ProfilePage.class.getSimpleName();
 
     private EditText username;
     private EditText location, email;
@@ -59,7 +61,7 @@ public class ProfilePage extends DrawerBaseActivity {
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (currentPassword.getText() == null || currentPassword.getText().equals("")) {
+                if (currentPassword.getText() == null || currentPassword.getText().toString().equals("")) {
                     currentPassword.requestFocus();
                     Toast.makeText(view.getContext(), "Please enter current password", Toast.LENGTH_SHORT).show();
                     return;
@@ -70,7 +72,9 @@ public class ProfilePage extends DrawerBaseActivity {
                     Toast.makeText(view.getContext(), "Current Password is incorrect", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (newPassword.getText() != null && (verifyNewPassword.getText() == null || verifyNewPassword.getText().equals(""))) {
+                if ((newPassword.getText() != null && !newPassword.getText().toString().equals("")) &&
+                        (verifyNewPassword.getText() == null || verifyNewPassword.getText().toString().equals("")
+                         || verifyNewPassword.getText().toString().equals(newPassword.getText().toString()) == false)) {
                     verifyNewPassword.requestFocus();
                     Toast.makeText(view.getContext(), "New passwords do not match", Toast.LENGTH_SHORT).show();
                     return;
@@ -81,19 +85,20 @@ public class ProfilePage extends DrawerBaseActivity {
                         sharedPreferences.getString(LoginScreen.EMAIL_KEY, null), sharedPreferences.getString(LoginScreen.PASSWORD_KEY, null),
                         sharedPreferences.getString(LoginScreen.LOCATION_KEY, null));
 
-                if (username.getText() != null) {
+                if (username.getText() != null && !username.getText().toString().equals("")) {
                     editor.putString(LoginScreen.USERNAME_KEY, username.getText().toString());
                     user.setUsername(username.getText().toString());
                 }
-                if(location.getText() != null) {
+                if(location.getText() != null && !location.getText().toString().equals("")) {
                     editor.putString(LoginScreen.LOCATION_KEY, location.getText().toString());
+                    Log.d(dErrorTag, "here is the location" + location.getText().toString());
                     user.setLocation(location.getText().toString());
                 }
-                if(email.getText() != null) {
+                if(email.getText() != null && !email.getText().toString().equals("")) {
                     editor.putString(LoginScreen.EMAIL_KEY, email.getText().toString());
                     user.setEmail(email.getText().toString());
                 }
-                if(newPassword.getText() != null) {
+                if(newPassword.getText() != null && !newPassword.getText().toString().equals("")) {
                     editor.putString(LoginScreen.PASSWORD_KEY, newPassword.getText().toString());
                     user.setPassword(newPassword.getText().toString());
                 }
