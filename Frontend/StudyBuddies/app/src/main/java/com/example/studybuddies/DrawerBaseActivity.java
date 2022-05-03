@@ -77,11 +77,11 @@ public class DrawerBaseActivity extends AppCompatActivity implements NavigationV
                 overridePendingTransition(0,0);
                 break;*/
 
-            /*
+
             case R.id.nav_profile:
                 startActivity((new Intent(this, ProfilePage.class)));
                 overridePendingTransition(0,0);
-                break;*/
+                break;
 
         }
         return false;

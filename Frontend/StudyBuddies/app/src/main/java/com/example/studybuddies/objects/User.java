@@ -117,7 +117,9 @@ public class User {
      * Gets the password of the user object
      * @return password
      */
-    public String getPassword() {return password; }
+    public String getPassword() {
+        return password;
+    }
 
     /**
      * Gets the location of the user object
@@ -125,6 +127,42 @@ public class User {
      */
     public String getLocation() {
         return location;
+    }
+
+
+    /**
+     * Sets the ID of the user object
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    /**
+     * Sets the username of the user object
+     */
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    /**
+     * Sets the email of the user object
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    /**
+     * Sets the password of the user object
+     */
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    /**
+     * Sets the location of the user object
+     */
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     /**

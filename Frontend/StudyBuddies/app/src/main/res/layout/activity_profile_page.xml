@@ -11,6 +11,7 @@
         android:layout_width="121dp"
         android:layout_height="113dp"
         android:layout_marginTop="16dp"
+        app:
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -19,7 +20,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="360dp"
-        android:layout_height="90dp"
+        android:layout_height="120dp"
         android:layout_marginTop="16dp"
         android:background="@color/lightGrey"
         app:layout_constraintEnd_toEndOf="parent"
@@ -27,75 +28,96 @@
         app:layout_constraintTop_toBottomOf="@+id/profilePicImageView">
 
         <EditText
-            android:id="@+id/firstNameEditText"
-            android:layout_width="150dp"
-            android:layout_height="40dp"
-            android:layout_marginStart="24dp"
+            android:id="@+id/usernameEditText"
+            android:layout_width="227dp"
+            android:layout_height="35dp"
             android:background="@color/white"
             android:ems="10"
             android:fontFamily="sans-serif-condensed-medium"
             android:inputType="textPersonName"
-            android:text="First name"
+            android:hint="User Name"
+            android:textColorHint="@color/lightGrey"
             android:textAlignment="center"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.503"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/firstAndLastNameTextView" />
+            app:layout_constraintTop_toBottomOf="@+id/firstAndLastNameTextView"
+            app:layout_constraintVertical_bias="0.737" />
 
         <TextView
             android:id="@+id/firstAndLastNameTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="monospace"
-            android:text="First and Last Name"
+            android:text="Username"
             android:textColor="@color/black"
             android:textSize="18dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/LastNameEditText"
-            android:layout_width="150dp"
-            android:layout_height="40dp"
+        <TextView
+            android:id="@+id/usernameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
             android:background="@color/white"
-            android:ems="10"
-            android:fontFamily="sans-serif-condensed-medium"
-            android:inputType="textPersonName"
-            android:text="Last Name"
-            android:textAlignment="center"
+            android:fontFamily="serif"
+            android:text="Username"
             android:textColor="@color/black"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:textSize="18dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/firstNameEditText"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/firstAndLastNameTextView" />
+
+        <!--        <EditText-->
+<!--            android:id="@+id/lastNameEditText"-->
+<!--            android:layout_width="150dp"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:background="@color/white"-->
+<!--            android:ems="10"-->
+<!--            android:fontFamily="sans-serif-condensed-medium"-->
+<!--            android:inputType="textPersonName"-->
+<!--            android:text="Last Name"-->
+<!--            android:textAlignment="center"-->
+<!--            android:textColor="@color/black"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toEndOf="@+id/firstNameEditText"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/firstAndLastNameTextView" />-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
         android:layout_width="360dp"
-        android:layout_height="90dp"
-        android:layout_marginTop="32dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="24dp"
         android:background="@color/lightGrey"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.509"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
         <EditText
             android:id="@+id/locationEditText"
-            android:layout_width="150dp"
-            android:layout_height="40dp"
+            android:layout_width="149dp"
+            android:layout_height="35dp"
             android:layout_marginStart="24dp"
             android:background="@color/white"
             android:ems="10"
             android:fontFamily="sans-serif-condensed-medium"
             android:inputType="textPersonName"
-            android:text="Location"
+            android:hint="Location"
+            android:textColorHint="@color/lightGrey"
             android:textAlignment="center"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/locationAndEmailTextView" />
+            app:layout_constraintTop_toBottomOf="@+id/locationAndEmailTextView"
+            app:layout_constraintVertical_bias="0.904" />
 
         <TextView
             android:id="@+id/locationAndEmailTextView"
@@ -112,18 +134,52 @@
         <EditText
             android:id="@+id/emailEditText"
             android:layout_width="150dp"
-            android:layout_height="40dp"
+            android:layout_height="35dp"
             android:background="@color/white"
             android:ems="10"
             android:fontFamily="sans-serif-condensed-medium"
             android:inputType="textPersonName"
-            android:text="Last Name"
+            android:hint="Email"
+            android:textColorHint="@color/lightGrey"
             android:textAlignment="center"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.567"
             app:layout_constraintStart_toEndOf="@+id/locationEditText"
-            app:layout_constraintTop_toBottomOf="@+id/locationAndEmailTextView" />
+            app:layout_constraintTop_toBottomOf="@+id/locationAndEmailTextView"
+            app:layout_constraintVertical_bias="0.892" />
+
+        <TextView
+            android:id="@+id/locationTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="48dp"
+            android:background="@color/white"
+            android:fontFamily="serif"
+            android:text="Location"
+            android:textColor="@color/black"
+            android:textSize="18dp"
+            app:layout_constraintBottom_toTopOf="@+id/locationEditText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/locationAndEmailTextView"
+            app:layout_constraintVertical_bias="0.483" />
+
+        <TextView
+            android:id="@+id/emailTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:fontFamily="serif"
+            android:text="Email"
+            android:textColor="@color/black"
+            android:textSize="18dp"
+            app:layout_constraintBottom_toTopOf="@+id/emailEditText"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.633"
+            app:layout_constraintStart_toEndOf="@+id/locationTextView"
+            app:layout_constraintTop_toBottomOf="@+id/locationAndEmailTextView"
+            app:layout_constraintVertical_bias="0.483" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -218,7 +274,7 @@
             app:layout_constraintTop_toBottomOf="@+id/newPasswordTextView" />
 
         <EditText
-            android:id="@+id/verifyPasswordEditText"
+            android:id="@+id/verifyNewPasswordEditText"
             android:layout_width="171dp"
             android:layout_height="38dp"
             android:layout_marginTop="32dp"
