@@ -3,14 +3,15 @@ package com.example.studybuddies.objects;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class CalendarEvent {
+public class CalendarEvent implements Comparable<CalendarEvent> {
     private String eventSource;
-    private int eventUserId, id;
+    private int id;
+    private Member memberDetail;
+    private User userDetail;
     private String message, time;
 
-    public CalendarEvent(int id, int eventUserId, String message, String time, String eventSource) {
+    public CalendarEvent(int eventUserId, String message, String time, String eventSource) {
         this.eventSource = eventSource;
-        this.eventUserId = eventUserId;
         this.id = id;
         this.message = message;
         this.time = time;
@@ -19,13 +20,35 @@ public class CalendarEvent {
     public CalendarEvent(JSONObject jsonObject){
         try {
             id = jsonObject.getInt("id");
-            eventUserId = jsonObject.getInt("eventUserId");
             message = jsonObject.getString("message");
             time = jsonObject.getString("time");
-            eventSource = "Personal Event";
+            if(jsonObject.has("userId")) {
+                eventSource = "Personal Event";
+                userDetail = new User(jsonObject.getJSONObject("userDetail"));
+            }
+            else {
+                eventSource = jsonObject.getJSONObject("groupsDetail").getString("title") + " Event";
+                memberDetail = new Member(jsonObject.getJSONObject("membersDetail"));
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    public Member getMemberDetail() {
+        return memberDetail;
+    }
+
+    public void setMemberDetail(Member memberDetail) {
+        this.memberDetail = memberDetail;
+    }
+
+    public User getUserDetail() {
+        return userDetail;
+    }
+
+    public void setUserDetail(User userDetail) {
+        this.userDetail = userDetail;
     }
 
     public String getEventSource() {
@@ -34,14 +57,6 @@ public class CalendarEvent {
 
     public void setEventSource(String eventSource) {
         this.eventSource = eventSource;
-    }
-
-    public int getEventUserId() {
-        return eventUserId;
-    }
-
-    public void setEventUserId(int eventUserId) {
-        this.eventUserId = eventUserId;
     }
 
     public int getId() {
@@ -66,5 +81,10 @@ public class CalendarEvent {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    @Override
+    public int compareTo(CalendarEvent calendarEvent) {
+        return this.time.compareTo(calendarEvent.getTime());
     }
 }

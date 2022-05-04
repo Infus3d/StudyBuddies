@@ -36,4 +36,20 @@ public class Const {
      * Url for the POST function which will create a new announcement
      */
     public static final String CREATE_NEW_ANNOUNCEMENT = "http://coms-309-011.class.las.iastate.edu:8080/announcements/new";
+    /**
+     * Url for the GET function which will return all personal events
+     */
+    public static final String GET_PERSONAL_EVENTS = "http://coms-309-011.class.las.iastate.edu:8080/personal/events";
+    /**
+     * Url for the POST function which will create a new personal event
+     */
+    public static final String CREATE_NEW_PERSONAL_EVENT = "http://coms-309-011.class.las.iastate.edu:8080/personal/event/new";
+    /**
+     * Url for the GET function which will return all group events
+     */
+    public static final String GET_GROUP_EVENTS = "http://coms-309-011.class.las.iastate.edu:8080/group/events";
+    /**
+     * Url for the POST function which will create a new group event
+     */
+    public static final String CREATE_NEW_GROUP_EVENT = "http://coms-309-011.class.las.iastate.edu:8080/group/event/new";
 }
