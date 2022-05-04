@@ -6,34 +6,22 @@
     android:layout_height="match_parent"
     tools:context=".UserSchedule">
 
-    <TextView
-        android:id="@+id/userSchedule_textView"
+
+    <CalendarView
+        android:id="@+id/calendarView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Schedules Activity"
-        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userSchedule_constraintLayout" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/userSchedule_constraintLayout"
-        android:layout_width="match_parent"
-        android:layout_height="460dp"
-        android:background="#297491"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/calendarEventRecyclerView"
+        android:layout_width="360dp"
+        android:layout_height="260dp"
+        android:layout_marginTop="116dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/calendarView" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <Button
-        android:id="@+id/submitButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Submit I guess"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userSchedule_textView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

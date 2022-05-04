@@ -1,6 +1,7 @@
 package com.example.studybuddies;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
@@ -19,11 +20,15 @@ import com.example.studybuddies.databinding.ActivityUserScheduleBinding;
 public class UserSchedule extends DrawerBaseActivity {
     ActivityUserScheduleBinding activityUserScheduleBinding;
 
+    private RecyclerView calendarEventRecView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activityUserScheduleBinding = ActivityUserScheduleBinding.inflate(getLayoutInflater());
         setContentView(activityUserScheduleBinding.getRoot());
         allocateActivityTitle("Schedule");
+
+        calendarEventRecView = findViewById(R.id.calendarEventRecyclerView);
     }
 }
