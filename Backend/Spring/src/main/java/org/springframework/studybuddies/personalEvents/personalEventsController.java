@@ -64,7 +64,7 @@ class personalEventsController {
     	
     	PEvent.get().setTime(request.getTime());
     	PEvent.get().setMessage(request.getMessage());
-    	PEvent.get().seteventMemberId(request.geteventMemberId());
+    	PEvent.get().setUserId(request.getUserId());
     	
     	
         System.out.println(PEvent.get());

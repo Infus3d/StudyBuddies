@@ -14,6 +14,7 @@ import org.hibernate.annotations.NotFoundAction;
 import org.springframework.core.style.ToStringCreator;
 import org.springframework.studybuddies.group.Groups;
 import org.springframework.studybuddies.members.MembersTable;
+import org.springframework.studybuddies.user.Users;
 
 import io.swagger.annotations.ApiModelProperty;
 
@@ -43,24 +44,24 @@ public class personalEvents {
 	private String message;
 
 
-	@Column(name = "eventMemberId")
+	@Column(name = "userID")
 	@NotFound(action = NotFoundAction.IGNORE)
 	@ApiModelProperty(notes = "The number associated with the member that posted the personal event", name = "eventMemberId", required = true, value = "1")
-	private Integer eventMemberId;
+	private Integer UserId;
 
 	@ManyToOne
-	@JoinColumn(name = "eventMemberId", referencedColumnName = "memberId", nullable = false, insertable = false, updatable = false)
-	private MembersTable memberSave;
+	@JoinColumn(name = "userID", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
+	private Users memberSave;
 
 	public personalEvents() {
 
 	}
 
-	public personalEvents(int PEid, String time, String message, int eventMemberId) {
+	public personalEvents(int PEid, String time, String message, int UserId) {
 		this.PEid = PEid;
 		this.time = time;
 		this.message = message;
-		this.eventMemberId = eventMemberId;
+		this.UserId = UserId;
 	}
 	
 	
@@ -95,15 +96,15 @@ public class personalEvents {
 
 	
 	// Member Id
-	public Integer geteventMemberId() {
-		return this.eventMemberId;
+	public Integer getUserId() {
+		return this.UserId;
 	}
 
-	public void seteventMemberId(int eventMemberId) {
-		this.eventMemberId = eventMemberId;
+	public void setUserId(int UserId) {
+		this.UserId = UserId;
 	}
 	
-	public MembersTable getMembersDetail() {
+	public Users getUserDetail() {
 		return memberSave;
 	}
 
