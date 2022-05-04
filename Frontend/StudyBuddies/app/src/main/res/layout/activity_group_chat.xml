@@ -4,6 +4,55 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".GroupChat">
+    tools:context=".GroupChat"
+    android:background="@color/white">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <EditText
+            android:id="@+id/enter_message_field"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="16dp"
+            android:textColor="@color/black"
+            android:hint="Type your message"
+            android:textColorHint="@color/black"
+            android:background="@drawable/better_edit_text"
+            android:padding="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/send_message_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/message_display" />
+
+        <Button
+            android:id="@+id/send_message_button"
+            android:layout_width="80dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="16dp"
+            android:text="Send"
+            android:background="@drawable/rect_button"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@+id/enter_message_field"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/enter_message_field" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/message_display"
+            android:layout_width="0dp"
+            tools:itemCount="5"
+            android:layout_height="0dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@+id/enter_message_field"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

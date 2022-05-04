@@ -33,7 +33,7 @@ public class GroupPosts extends DrawerBaseActivity {
     private int memberID;
     private int currentPermission;
 
-    ActivityGroupPostsBinding activityGroupPostsBinding;
+    private ActivityGroupPostsBinding activityGroupPostsBinding;
 
     private String groupName;
     private int groupId;
