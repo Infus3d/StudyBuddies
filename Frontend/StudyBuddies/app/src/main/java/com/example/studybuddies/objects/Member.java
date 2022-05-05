@@ -138,4 +138,28 @@ public class Member {
         });
 
     }
+
+    /**
+     * Allows to get all of the memberships of the specified user
+     * @param userId The specified user to get the memberships of
+     * @param onFinishedArrayList callback function to execute upon success
+     */
+    public static void getMemberships(int userId, OnFinishedArrayList onFinishedArrayList) {
+        ArrayList<Member> list = new ArrayList<Member>();
+
+        RequestsCentral.getJSONArray(Const.GET_MEMBERS, new OnSuccessfulArray() {
+            @Override
+            public void onSuccess(JSONArray response) throws JSONException {
+                for (int i = 0; i < response.length(); i++) {
+                    JSONObject jsonObject = response.getJSONObject(i);
+                    User currentUser = new User(jsonObject.getJSONObject("usersDetail"));
+                    if (currentUser.getId() == userId) {
+                        list.add(new Member(jsonObject));
+                    }
+                }
+                onFinishedArrayList.onFinishedArrayList(list);
+            }
+        });
+
+    }
 }

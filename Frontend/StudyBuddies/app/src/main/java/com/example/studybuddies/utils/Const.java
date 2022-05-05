@@ -41,6 +41,10 @@ public class Const {
      */
     public static final String GET_PERSONAL_EVENTS = "http://coms-309-011.class.las.iastate.edu:8080/personal/events";
     /**
+     * Url for the GET function which will return all personal event (+ the event ID)
+     */
+    public static final String GET_PERSONAL_EVENT = "http://coms-309-011.class.las.iastate.edu:8080/personal/event";
+    /**
      * Url for the POST function which will create a new personal event
      */
     public static final String CREATE_NEW_PERSONAL_EVENT = "http://coms-309-011.class.las.iastate.edu:8080/personal/event/new";
@@ -48,6 +52,10 @@ public class Const {
      * Url for the GET function which will return all group events
      */
     public static final String GET_GROUP_EVENTS = "http://coms-309-011.class.las.iastate.edu:8080/group/events";
+    /**
+     * Url for the GET function which will return all group event (+ the event ID)
+     */
+    public static final String GET_GROUP_EVENT = "http://coms-309-011.class.las.iastate.edu:8080/group/event";
     /**
      * Url for the POST function which will create a new group event
      */

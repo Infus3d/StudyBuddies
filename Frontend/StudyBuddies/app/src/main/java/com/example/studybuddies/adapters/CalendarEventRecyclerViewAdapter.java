@@ -1,27 +1,42 @@
 package com.example.studybuddies.adapters;
 
+import android.annotation.SuppressLint;
+import android.app.Dialog;
+import android.app.TimePickerDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.studybuddies.R;
 import com.example.studybuddies.objects.CalendarEvent;
+import com.example.studybuddies.utils.Const;
+import com.example.studybuddies.utils.OnSuccessfulObject;
+import com.example.studybuddies.utils.RequestsCentral;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class CalendarEventRecyclerViewAdapter extends RecyclerView.Adapter<CalendarEventRecyclerViewAdapter.ViewHolder>{
     private ArrayList<CalendarEvent> calendarEvents = new ArrayList<>();
-
-    public CalendarEventRecyclerViewAdapter(){
-
+    private Context context;
+    public CalendarEventRecyclerViewAdapter(Context context){
+        this.context = context;
     }
 
     @NonNull
@@ -38,6 +53,115 @@ public class CalendarEventRecyclerViewAdapter extends RecyclerView.Adapter<Calen
         holder.eventDescription.setText(calendarEvents.get(position).getMessage());
         holder.eventDescription.setMovementMethod(new ScrollingMovementMethod());
         holder.eventTime.setText(calendarEvents.get(position).getTime());
+
+        holder.editButton.setVisibility(calendarEvents.get(position).isEditAndDelete() ? View.VISIBLE : View.INVISIBLE);
+        holder.deleteButton.setVisibility(calendarEvents.get(position).isEditAndDelete() ? View.VISIBLE : View.INVISIBLE);
+
+        holder.editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Dialog dialog = new Dialog(context);
+                dialog.setContentView(R.layout.layout_personal_event_dialog);
+                dialog.show();
+
+                CalendarEvent temp = calendarEvents.get(holder.getAdapterPosition());
+                Button cancelButton = (Button) dialog.findViewById(R.id.cancelButton);
+                Button enterButton = (Button) dialog.findViewById(R.id.enterButton);
+                Button selectTimeButton = (Button) dialog.findViewById(R.id.selectTimeButton);
+                TextView title = (TextView) dialog.findViewById(R.id.newPersonalEventTitleTextView);
+                EditText eventMessage = (EditText) dialog.findViewById(R.id.eventMessageEditText);
+
+                title.setText("Edit current event");
+                selectTimeButton.setText(temp.getTime().substring(11));
+                eventMessage.setText(temp.getMessage());
+
+                selectTimeButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        int hour = 0, minute = 0;
+                        TimePickerDialog timePickerDialog = new TimePickerDialog(context, android.app.AlertDialog.THEME_HOLO_DARK, new TimePickerDialog.OnTimeSetListener() {
+                            @Override
+                            public void onTimeSet(TimePicker timePicker, int i, int i1) {
+                                String newTime = String.format(Locale.getDefault(), "%02d:%02d", i, i1);
+                                selectTimeButton.setText(newTime);
+                            }
+                        }, hour, minute, true);
+                        timePickerDialog.show();
+                    }
+                });
+
+                cancelButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
+                enterButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String url = (temp.isPersonal() ? Const.GET_PERSONAL_EVENT : Const.GET_GROUP_EVENT) + "/" + temp.getId();
+                        JSONObject jsonObject = temp.toJSONObject();
+                        try {
+                            jsonObject.put("message", eventMessage.getText());
+                            jsonObject.put("time", jsonObject.getString("time").substring(0, 11) + selectTimeButton.getText());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        RequestsCentral.putJSONObject(url, jsonObject, new OnSuccessfulObject() {
+                            @Override
+                            public void onSuccess(JSONObject response) {
+                                Toast.makeText(context, "Successfully updated the event", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                        dialog.dismiss();
+                    }
+                });
+            }
+        });
+        holder.deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog myQuittingDialogBox = new AlertDialog.Builder(context)
+                        // set message, title, and icon
+                        .setTitle("Delete")
+                        .setMessage("Do you want to Delete")
+                        .setIcon(R.drawable.ic_baseline_delete_48)
+
+                        .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                CalendarEvent temp = calendarEvents.get(holder.getAdapterPosition());
+                                if(temp.isPersonal()){
+                                    RequestsCentral.deleteJSONObject(Const.GET_PERSONAL_EVENT + "/" + temp.getId(), new OnSuccessfulObject() {
+                                        @Override
+                                        public void onSuccess(JSONObject response) {
+                                            Toast.makeText(context, "Successfully deleted the personal event", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                                }
+                                else{
+                                    RequestsCentral.deleteJSONObject(Const.GET_GROUP_EVENT + "/" + temp.getId(), new OnSuccessfulObject() {
+                                        @Override
+                                        public void onSuccess(JSONObject response) {
+                                            Toast.makeText(context, "Successfully deleted the" + temp.getMemberDetail().getGroup().getTitle() + " event", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                                }
+                                dialog.dismiss();
+                            }
+
+                        })
+                        .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                dialog.dismiss();
+
+                            }
+                        })
+                        .create();
+                myQuittingDialogBox.show();
+            }
+        });
     }
 
     @Override

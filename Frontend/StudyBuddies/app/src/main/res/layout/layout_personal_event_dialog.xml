@@ -35,22 +35,20 @@
         android:id="@+id/cancelButton"
         android:layout_width="wrap_content"
         android:layout_height="47dp"
-        android:layout_marginStart="64dp"
         android:layout_marginTop="12dp"
         android:background="@color/teal_darker"
         android:text="Cancel"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/eventMessageEditText"
         app:layout_constraintTop_toBottomOf="@+id/eventMessageEditText" />
 
     <Button
         android:id="@+id/enterButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="108dp"
         android:layout_marginTop="12dp"
         android:background="@color/teal_darker"
         android:text="Enter"
-        app:layout_constraintStart_toEndOf="@+id/cancelButton"
+        app:layout_constraintEnd_toEndOf="@+id/eventMessageEditText"
         app:layout_constraintTop_toBottomOf="@+id/eventMessageEditText" />
 
     <TextView
