@@ -126,7 +126,7 @@ public class CreateGroup extends DrawerBaseActivity {
 
             newMember.put("userId", id);
             newMember.put("groupId", newGroupId);
-            newMember.put("permission", 1);
+            newMember.put("permission", 2); //2 as in Owner of the group, 1 for those who 'join' the group for public page
 
         RequestsCentral.postJSONObject(Const.CREATE_NEW_MEMBER, newMember, new OnSuccessfulObject() {
             @Override

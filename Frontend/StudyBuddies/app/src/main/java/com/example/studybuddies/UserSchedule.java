@@ -177,8 +177,9 @@ public class UserSchedule extends DrawerBaseActivity {
             public void onSuccess(JSONArray response) throws JSONException {
                 for(int i=0; i<response.length(); i++){
                     JSONObject jsonObject = response.getJSONObject(i);
-                    if(jsonObject.getInt("userId") == user_ID && jsonObject.getString("time").substring(0, 10).equals(dateToMatch))
+                    if(jsonObject.getInt("userId") == user_ID && jsonObject.getString("time").substring(0, 10).equals(dateToMatch)) {
                         calendarEvents.add(new CalendarEvent(jsonObject, true));
+                    }
                 }
                 RequestsCentral.getJSONArray(Const.GET_GROUP_EVENTS, new OnSuccessfulArray() {
                     @Override
@@ -196,7 +197,7 @@ public class UserSchedule extends DrawerBaseActivity {
                             }
                             if(found && jsonObject.getString("time").substring(0, 10).equals(dateToMatch)) {
                                 boolean okToEditAndDelete = false;
-                                if(membership.getPermission() == 2 || user_ID == jsonObject.getJSONObject("membersDetail").getInt("userId"))
+                                if(membership.getPermission() == 3 || user_ID == jsonObject.getJSONObject("membersDetail").getInt("userId"))
                                     okToEditAndDelete = true;
                                 calendarEvents.add(new CalendarEvent(jsonObject, okToEditAndDelete));
                             }

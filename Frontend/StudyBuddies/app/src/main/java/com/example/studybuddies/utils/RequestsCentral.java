@@ -52,7 +52,11 @@ public class RequestsCentral {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.i(TAG, response.toString());
-                        onSuccessfulResponse.onSuccess(response);
+                        try {
+                            onSuccessfulResponse.onSuccess(response);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }, new Response.ErrorListener() {
 
@@ -102,7 +106,11 @@ public class RequestsCentral {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.i(TAG, response.toString());
-                        onSuccessfulResponse.onSuccess(response);
+                        try {
+                            onSuccessfulResponse.onSuccess(response);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }, new Response.ErrorListener() {
 
@@ -151,7 +159,11 @@ public class RequestsCentral {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.i(TAG, response.toString());
-                        onSuccessfulResponse.onSuccess(response);
+                        try {
+                            onSuccessfulResponse.onSuccess(response);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }, new Response.ErrorListener() {
 
@@ -262,6 +274,7 @@ public class RequestsCentral {
                         Log.i(TAG, response.toString());
                         try {
                             successfulResponse.onSuccess(response);
+                            Log.d(TAG, "HELFJJ:K " + response.length());
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -316,7 +329,11 @@ public class RequestsCentral {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.i(TAG, response.toString());
-                        onSuccessfulResponse.onSuccess(response);
+                        try {
+                            onSuccessfulResponse.onSuccess(response);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }, new Response.ErrorListener() {
 

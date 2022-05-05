@@ -89,6 +89,14 @@ public class User {
         this.location = location;
     }
 
+    public User(User user) {
+        this.id = user.id;
+        this.username = user.username;
+        this.location = user.location;
+        this.password = user.password;
+        this.email = user.email;
+    }
+
     /**
      * Gets the ID of the user object
      * @return id
