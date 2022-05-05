@@ -129,7 +129,12 @@ public class GroupChat extends DrawerBaseActivity {
         messageDisplay.addView(messageRow);
         TextView profile = findViewById(R.id.profile_circle);
         profile.setId(textViewCounter++);
-        profile.setText(message.getAuthor());
+        if (message.getAuthor().length() > 8) {
+            String author = message.getAuthor().substring(0,8) + "...";
+            profile.setText(author);
+        } else {
+            profile.setText(message.getAuthor());
+        }
         TextView messageBox = findViewById(R.id.message_box);
         messageBox.setId(textViewCounter++);
         messageBox.setText(message.getMessage());
@@ -141,7 +146,12 @@ public class GroupChat extends DrawerBaseActivity {
         messageDisplay.addView(messageRow);
         TextView profile = findViewById(R.id.profile_circle);
         profile.setId(textViewCounter++);
-        profile.setText(message.getAuthor());
+        if (message.getAuthor().length() > 8) {
+            String author = message.getAuthor().substring(0,8) + "...";
+            profile.setText(author);
+        } else {
+            profile.setText(message.getAuthor());
+        }
         TextView messageBox = findViewById(R.id.message_box);
         messageBox.setId(textViewCounter++);
         messageBox.setText(message.getMessage());
@@ -154,7 +164,7 @@ public class GroupChat extends DrawerBaseActivity {
     private void openConnection() {
         Draft[] drafts = {new Draft_6455()};
 
-        String w = "ws://coms-309-011.class.las.iastate.edu:8080/websocket/" + sharedPreferences.getInt("id", 0);
+        String w = "ws://coms-309-011.class.las.iastate.edu:8080/chat/" + username_s;
 
         try {
             Log.d("Socket:", "Trying socket");
