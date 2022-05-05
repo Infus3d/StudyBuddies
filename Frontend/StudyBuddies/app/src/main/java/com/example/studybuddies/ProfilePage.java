@@ -59,7 +59,7 @@ public class ProfilePage extends DrawerBaseActivity {
         submitBtn = (Button) findViewById(R.id.submitButton);
 
         sharedPreferences = getSharedPreferences(LoginScreen.SHARED_PREFS, Context.MODE_PRIVATE);
-
+        
         setViews();
 
         submitBtn.setOnClickListener(new View.OnClickListener() {
