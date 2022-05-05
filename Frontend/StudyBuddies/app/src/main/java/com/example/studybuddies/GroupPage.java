@@ -54,7 +54,7 @@ public class GroupPage extends DrawerBaseActivity {
 
         Bundle extras = groupIntent.getExtras();
 
-        groupID = extras.getInt("groupID");
+        groupID = extras.getInt("groupId");
         groupTitle = extras.getString("groupTitle");
         isPublic = Boolean.valueOf(extras.getString("isPublic"));
 
