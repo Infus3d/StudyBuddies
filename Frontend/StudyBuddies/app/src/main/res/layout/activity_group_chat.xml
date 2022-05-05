@@ -42,7 +42,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/enter_message_field" />
 
-        <androidx.recyclerview.widget.RecyclerView
+        <LinearLayout
             android:id="@+id/message_display"
             android:layout_width="0dp"
             tools:itemCount="5"
@@ -51,7 +51,8 @@
             app:layout_constraintBottom_toTopOf="@+id/enter_message_field"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:orientation="vertical" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
