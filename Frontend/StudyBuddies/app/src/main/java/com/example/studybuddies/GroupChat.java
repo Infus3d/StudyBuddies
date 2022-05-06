@@ -225,7 +225,7 @@ public class GroupChat extends DrawerBaseActivity {
             public void onClick(View v) {
                 try {
                     ChatMessage outgoing = new ChatMessage(enterMessage.getText().toString(), username_s);
-                    client.send(enterMessage.getText().toString());
+                    client.send(outgoing.getMessage());
                     enterMessage.setText("");
                 } catch (Exception e) {
                     Log.d("ExceptionSendMessage:", e.getMessage());
@@ -233,6 +233,13 @@ public class GroupChat extends DrawerBaseActivity {
             }
         });
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        client.close();
+        this.finish();
     }
 
 }
