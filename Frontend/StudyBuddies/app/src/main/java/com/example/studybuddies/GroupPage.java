@@ -1,6 +1,7 @@
 package com.example.studybuddies;
 
 import androidx.appcompat.app.AppCompatActivity;
+import com.example.studybuddies.databinding.ActivityGroupPageBinding;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,9 +11,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.studybuddies.databinding.ActivityCreateGroupBinding;
-import com.example.studybuddies.databinding.ActivityGroupPageBinding;
-
 /**
  * This class represents the home page for any given group.
  * @author Andy Bruder
@@ -20,8 +18,9 @@ import com.example.studybuddies.databinding.ActivityGroupPageBinding;
 public class GroupPage extends DrawerBaseActivity {
 
     private TextView welcomeMessage;
-    private Button backButton;
-    private TextView headerText;
+    private Button membersButton;
+    private Button groupPostsButton;
+    private Button groupChatButton;
 
     private ActivityGroupPageBinding activityGroupPageBinding;
 
@@ -56,14 +55,14 @@ public class GroupPage extends DrawerBaseActivity {
 
         groupID = extras.getInt("groupId");
         groupTitle = extras.getString("groupTitle");
-        isPublic = Boolean.valueOf(extras.getString("isPublic"));
+        isPublic = extras.getBoolean("isPublic");
 
         allocateActivityTitle(groupTitle);
 
         welcomeMessage = findViewById(R.id.welcome_group);
         welcomeMessage.setText("Welcome to " + groupTitle);
 
-        Button membersButton = findViewById(R.id.members_button);
+        membersButton = findViewById(R.id.members_button);
         membersButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,11 +72,22 @@ public class GroupPage extends DrawerBaseActivity {
             }
         });
 
-        Button groupPostsButton = findViewById(R.id.posts_button);
+        groupPostsButton = findViewById(R.id.posts_button);
         groupPostsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), GroupPosts.class);
+                intent.putExtra("groupId", groupID);
+                intent.putExtra("title", groupTitle);
+                startActivity(intent);
+            }
+        });
+
+        groupChatButton = findViewById(R.id.group_chat_button);
+        groupChatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), GroupChat.class);
                 intent.putExtra("groupId", groupID);
                 intent.putExtra("title", groupTitle);
                 startActivity(intent);
