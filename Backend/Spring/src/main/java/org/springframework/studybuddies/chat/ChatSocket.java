@@ -151,6 +151,7 @@ public class ChatSocket {
     // convert the list to a string
 		StringBuilder sb = new StringBuilder();
 		if(messages != null && messages.size() != 0) {
+			sb.append("initmess");
 			for (Message message : messages) {
 				if(message.getGroupID() == group.intValue()) {
 				sb.append(message.getUserName() + ": " + message.getContent() + "\n");
