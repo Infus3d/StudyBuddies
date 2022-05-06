@@ -18,12 +18,14 @@ import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.studybuddies.databinding.ActivityPublicGroupsBinding;
 import com.example.studybuddies.objects.Group;
 import com.example.studybuddies.utils.Const;
 import com.example.studybuddies.utils.OnFinishedArrayList;
 import com.example.studybuddies.utils.OnSuccessfulArray;
+import com.example.studybuddies.utils.OnSuccessfulObject;
 import com.example.studybuddies.utils.RequestsCentral;
 
 import org.json.JSONArray;
@@ -40,6 +42,8 @@ import java.util.ArrayList;
  */
 public class PublicGroups extends DrawerBaseActivity {
     ActivityPublicGroupsBinding activityPublicGroupsBinding;
+
+    private SharedPreferences sp;
 
     private int linearLayoutCounter, textViewCounter, buttonCounter;
     @Override
@@ -76,6 +80,8 @@ public class PublicGroups extends DrawerBaseActivity {
 //
 //        LinearLayout outerContainer = findViewById(R.id.scrollViewLinearContainer);
 //        outerContainer.addView(groupContainer);
+
+        sp = getSharedPreferences(LoginScreen.SHARED_PREFS, Context.MODE_PRIVATE);
 
         Group.getPublicGroups(new OnFinishedArrayList() {
             @Override
@@ -133,7 +139,43 @@ public class PublicGroups extends DrawerBaseActivity {
         Button visitButton = new Button(this);
         Button joinButton = new Button(this);
         visitButton.setText("Visit");
-        joinButton.setText("Join");
+        RequestsCentral.getJSONArray(Const.GET_MEMBERS, new OnSuccessfulArray() {
+            @Override
+            public void onSuccess(JSONArray response) throws JSONException {
+                boolean foundMembership = false;
+                for (int i = 0; i < response.length(); i++) {
+                    JSONObject jsonObject = response.getJSONObject(i);
+                    if (jsonObject.getInt("groupId") == group.getId() && jsonObject.getInt("userId") == sp.getInt(LoginScreen.ID_KEY, 0)) {
+                        foundMembership = true;
+                        break;
+                    }
+                }
+                joinButton.setText(foundMembership ? "Joined!" : "Join");
+                if (foundMembership == false) {
+                    joinButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            JSONObject newMember = new JSONObject();
+                            try {
+                                newMember.put("userId", sp.getInt(LoginScreen.ID_KEY, 0));
+                                newMember.put("groupId", group.getId());
+                                newMember.put("permission", 1); // 1 for those who 'join' the group for public page
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                            RequestsCentral.postJSONObject(Const.CREATE_NEW_MEMBER, newMember, new OnSuccessfulObject() {
+                                @Override
+                                public void onSuccess(JSONObject response) throws JSONException {
+                                    joinButton.setText("Joined!");
+                                    Toast.makeText(view.getContext(), "Successfully joined as a new Member!", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    });
+                }
+            }
+        });
 
         visitButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -147,6 +189,41 @@ public class PublicGroups extends DrawerBaseActivity {
                 startActivity(intent);
             }
         });
+        if(joinButton.getText().toString().equals("Join")) {
+            joinButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    RequestsCentral.getJSONArray(Const.GET_MEMBERS, new OnSuccessfulArray() {
+                        @Override
+                        public void onSuccess(JSONArray response) throws JSONException {
+                            boolean foundMembership = false;
+                            for(int i=0; i<response.length(); i++){
+                                JSONObject jsonObject = response.getJSONObject(i);
+                                if(jsonObject.getInt("groupId") == group.getId() && jsonObject.getInt("userId") == sp.getInt(LoginScreen.ID_KEY, 0)){
+                                    foundMembership = true;
+                                    break;
+                                }
+                            }
+                            if(foundMembership == false){
+                                JSONObject newMember = new JSONObject();
+
+                                newMember.put("userId", sp.getInt(LoginScreen.ID_KEY, 0));
+                                newMember.put("groupId", group.getId());
+                                newMember.put("permission", 1); // 1 for those who 'join' the group for public page
+
+                                RequestsCentral.putJSONObject(Const.CREATE_NEW_MEMBER, newMember, new OnSuccessfulObject() {
+                                    @Override
+                                    public void onSuccess(JSONObject response) throws JSONException {
+                                        joinButton.setText("Joined!");
+                                        Toast.makeText(view.getContext(), "Successfully joined as a new Member!", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            }
+                        }
+                    });
+                }
+            });
+        }
 
         TextView groupName = new TextView(this);
         groupName.setText(group.getTitle());

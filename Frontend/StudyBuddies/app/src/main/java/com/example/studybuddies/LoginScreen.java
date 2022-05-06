@@ -75,6 +75,7 @@ public class LoginScreen extends AppCompatActivity {
                 User.getUsers(new OnFinishedArrayList() {
                     @Override
                     public void onFinishedArrayList(ArrayList a) {
+                        boolean matchFound = false;
                         for (Object o : a) {
                             User currentUser = (User) o;
                             if (currentUser.getUsername().equals(username.getText().toString()) && currentUser.getPassword().equals(password.getText().toString())) {
@@ -91,10 +92,11 @@ public class LoginScreen extends AppCompatActivity {
                                 Intent intent = new Intent(getApplicationContext(), Dashboard.class);
                                 startActivity(intent);
                                 finish();
-                            } else {
-                                errorMessage.setText("Invalid username or password. Try again");
+                                matchFound = true;
                             }
                         }
+                        if(matchFound == false)
+                            errorMessage.setText("Invalid username or password. Try again");
                     }
                 });
             }
