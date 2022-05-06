@@ -53,6 +53,7 @@ public class UserSchedule extends DrawerBaseActivity {
     private int user_ID;
     private ArrayList<Member> userMemberships;
     private String selectedCalendarDate;
+    private SimpleDateFormat sdf;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +76,7 @@ public class UserSchedule extends DrawerBaseActivity {
 
         calendarEventRecView = findViewById(R.id.calendarEventRecyclerView);
         adapter = new CalendarEventRecyclerViewAdapter(this);
-        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+        sdf = new SimpleDateFormat("MM/dd/yyyy");
         selectedCalendarDate = sdf.format(new Date(calendarView.getDate()));
         Member.getMemberships(user_ID, new OnFinishedArrayList() {
             @Override
@@ -146,6 +147,7 @@ public class UserSchedule extends DrawerBaseActivity {
                             @Override
                             public void onSuccess(JSONObject response) {
                                 Toast.makeText(view.getContext(), "Successfully updated the event", Toast.LENGTH_SHORT).show();
+                                refreshRecView(selectedCalendarDate);
                             }
                         });
                         dialog.dismiss();
@@ -175,8 +177,9 @@ public class UserSchedule extends DrawerBaseActivity {
             public void onSuccess(JSONArray response) throws JSONException {
                 for(int i=0; i<response.length(); i++){
                     JSONObject jsonObject = response.getJSONObject(i);
-                    if(jsonObject.getInt("userId") == user_ID && jsonObject.getString("time").substring(0, 10).equals(dateToMatch))
+                    if(jsonObject.getInt("userId") == user_ID && jsonObject.getString("time").substring(0, 10).equals(dateToMatch)) {
                         calendarEvents.add(new CalendarEvent(jsonObject, true));
+                    }
                 }
                 RequestsCentral.getJSONArray(Const.GET_GROUP_EVENTS, new OnSuccessfulArray() {
                     @Override
@@ -194,7 +197,7 @@ public class UserSchedule extends DrawerBaseActivity {
                             }
                             if(found && jsonObject.getString("time").substring(0, 10).equals(dateToMatch)) {
                                 boolean okToEditAndDelete = false;
-                                if(membership.getPermission() == 2 || user_ID == jsonObject.getJSONObject("membersDetail").getInt("userId"))
+                                if(membership.getPermission() == 3 || user_ID == jsonObject.getJSONObject("membersDetail").getInt("userId"))
                                     okToEditAndDelete = true;
                                 calendarEvents.add(new CalendarEvent(jsonObject, okToEditAndDelete));
                             }

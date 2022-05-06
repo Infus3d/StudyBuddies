@@ -177,7 +177,7 @@ public class Dashboard extends DrawerBaseActivity {
             public void onClick(View view) {
                 Intent i = new Intent(getApplicationContext(), GroupPage.class);
 
-                i.putExtra("groupID", group.getId());
+                i.putExtra("groupId", group.getId());
                 i.putExtra("groupTitle", group.getTitle());
                 i.putExtra("isPublic", group.isPublic());
 

@@ -70,6 +70,12 @@ public class Group {
         this.isPublic = isPublic;
     }
 
+    public Group(Group group) {
+        this.id = group.id;
+        this.title = group.title;
+        this.isPublic = group.isPublic;
+    }
+
     /**
      * Gets the group ID of the object as an int
       * @return id

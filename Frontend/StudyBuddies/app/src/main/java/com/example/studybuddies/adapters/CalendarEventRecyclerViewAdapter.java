@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.studybuddies.R;
+import com.example.studybuddies.UserSchedule;
 import com.example.studybuddies.objects.CalendarEvent;
 import com.example.studybuddies.utils.Const;
 import com.example.studybuddies.utils.OnSuccessfulObject;
@@ -104,6 +106,7 @@ public class CalendarEventRecyclerViewAdapter extends RecyclerView.Adapter<Calen
                         try {
                             jsonObject.put("message", eventMessage.getText());
                             jsonObject.put("time", jsonObject.getString("time").substring(0, 11) + selectTimeButton.getText());
+                            notifyDataSetChanged();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -111,6 +114,14 @@ public class CalendarEventRecyclerViewAdapter extends RecyclerView.Adapter<Calen
                             @Override
                             public void onSuccess(JSONObject response) {
                                 Toast.makeText(context, "Successfully updated the event", Toast.LENGTH_SHORT).show();
+                                try {
+                                    calendarEvents.get(holder.getAdapterPosition()).setTime(jsonObject.getString("time"));
+                                    calendarEvents.get(holder.getAdapterPosition()).setMessage(jsonObject.getString("message"));
+                                    notifyDataSetChanged();
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+//                                context.startActivity(new Intent(context, UserSchedule.class));
                             }
                         });
                         dialog.dismiss();
@@ -136,6 +147,9 @@ public class CalendarEventRecyclerViewAdapter extends RecyclerView.Adapter<Calen
                                         @Override
                                         public void onSuccess(JSONObject response) {
                                             Toast.makeText(context, "Successfully deleted the personal event", Toast.LENGTH_SHORT).show();
+                                            calendarEvents.remove(holder.getAdapterPosition());
+                                            notifyDataSetChanged();
+//                                            context.startActivity(new Intent(context, UserSchedule.class));
                                         }
                                     });
                                 }
@@ -144,6 +158,9 @@ public class CalendarEventRecyclerViewAdapter extends RecyclerView.Adapter<Calen
                                         @Override
                                         public void onSuccess(JSONObject response) {
                                             Toast.makeText(context, "Successfully deleted the" + temp.getMemberDetail().getGroup().getTitle() + " event", Toast.LENGTH_SHORT).show();
+                                            calendarEvents.remove(holder.getAdapterPosition());
+                                            notifyDataSetChanged();
+//                                            context.startActivity(new Intent(context, UserSchedule.class));
                                         }
                                     });
                                 }
