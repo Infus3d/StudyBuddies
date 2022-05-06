@@ -68,41 +68,43 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/dark_button"
-        app:layout_constraintTop_toBottomOf="@id/posts_button"
-        app:layout_constraintBottom_toTopOf="@id/shared_files_button"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:textSize="20dp"
-        tools:layout_editor_absoluteX="15dp"
         android:text="Group Chat"
-        />
-
-    <Button
-        android:id="@+id/shared_files_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/dark_button"
-        app:layout_constraintTop_toBottomOf="@id/group_chat_button"
-        app:layout_constraintBottom_toTopOf="@id/members_button"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
         android:textSize="20dp"
-        tools:layout_editor_absoluteX="15dp"
-        android:text="Shared Files"
-        />
+        app:layout_constraintBottom_toTopOf="@id/members_button"
+        app:layout_constraintHorizontal_bias="0.516"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/posts_button" />
 
     <Button
         android:id="@+id/members_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/dark_button"
-        app:layout_constraintTop_toBottomOf="@id/shared_files_button"
+        app:layout_constraintTop_toBottomOf="@id/group_chat_button"
+        app:layout_constraintBottom_toTopOf="@id/delete_group_button"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:textSize="20dp"
+        android:text="Group Members"
+        />
+
+    <Button
+        android:id="@+id/delete_group_button"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:background="@drawable/delete_button"
+        app:layout_constraintTop_toBottomOf="@id/members_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="5dp"
+        android:paddingHorizontal="8dp"
         android:textSize="20dp"
-        tools:layout_editor_absoluteX="15dp"
-        android:text="Group Members"
+        android:text="Delete Group"
+        android:visibility="invisible"
         />
 
 

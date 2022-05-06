@@ -325,7 +325,6 @@ public class RequestsCentral {
                 url,
                 null,
                 new Response.Listener<JSONObject>() {
-
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.i(TAG, response.toString());
