@@ -41,7 +41,7 @@ public class MembersController {
     //CREATE Request
     @PostMapping("/members/new")
     @ApiOperation(value = "createMembers", notes = "Adds a new member to the database")
-    public @ResponseBody MembersTable createAdmin(@RequestBody MembersTable membersNew) {
+    public @ResponseBody MembersTable createMember(@RequestBody MembersTable membersNew) {
         System.out.println(membersNew);
         membersRepository.save(membersNew);
         return membersNew;
