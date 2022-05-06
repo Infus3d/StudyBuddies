@@ -42,7 +42,7 @@ public class ChatSocket {
 	private static Map<Session, String> sessionUsernameMap = new Hashtable<>();
 	private static Map<String, Session> usernameSessionMap = new Hashtable<>();
 	
-	private static Map<Integer, Session> groupSessionMap = new Hashtable<>();
+	private static Map<String, Integer> usernameGroupMap = new Hashtable<>();
 
 	private final Logger logger = LoggerFactory.getLogger(ChatSocket.class);
 	
@@ -59,7 +59,7 @@ public class ChatSocket {
     // store connecting user information
 		sessionUsernameMap.put(session, username);
 		usernameSessionMap.put(username, session);
-		groupSessionMap.put(group, session);
+		usernameGroupMap.put(username, group);
 
 		//Send chat history to the newly connected user
 		sendMessageToPArticularUser(username, getChatHistory(group));
@@ -131,14 +131,14 @@ public class ChatSocket {
 
 	private void broadcast(String message) {
 		sessionUsernameMap.forEach((session, username) -> {
-			try {
-				session.getBasicRemote().sendText(message);
-			} 
-      catch (IOException e) {
-				logger.info("Exception: " + e.getMessage().toString());
-				e.printStackTrace();
-			}
 
+				//session.getBasicRemote().sendText(message);
+				if(usernameGroupMap.get(username) == groupID.intValue()) {
+					
+					sendMessageToPArticularUser(username, message);
+					
+				}
+				
 		});
 
 	}
