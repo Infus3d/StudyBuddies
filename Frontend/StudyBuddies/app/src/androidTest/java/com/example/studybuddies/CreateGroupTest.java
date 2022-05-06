@@ -1,6 +1,7 @@
 package com.example.studybuddies;
 
 import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.typeText;
@@ -19,50 +20,47 @@ import static org.hamcrest.Matchers.not;
 import android.content.ComponentName;
 import android.view.Gravity;
 
-import androidx.test.core.app.ActivityScenario;
-import androidx.test.espresso.ViewAction;
+import androidx.test.core.app.ApplicationProvider;
+import androidx.test.espresso.ViewAssertion;
 import androidx.test.espresso.contrib.DrawerActions;
 import androidx.test.espresso.contrib.NavigationViewActions;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
 
+import com.google.android.material.navigation.NavigationView;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
 @RunWith(AndroidJUnit4.class)
-public class CreateUserTest {
+public class CreateGroupTest {
     private static final int SIMULATED_DELAY_MS = 500;
 
-
     @Rule
-    public ActivityScenarioRule<CreateUser> activityRule = new ActivityScenarioRule<CreateUser>(CreateUser.class);
+    public ActivityScenarioRule<CreateGroup> activityRule = new ActivityScenarioRule<CreateGroup>(CreateGroup.class);
 
     @Test
-    public void validEmailTest(){
-        logOut();
-        String username = "testuser1";
-        String password1 = "password";
-        String password2 = "password";
-        String email = "testuser1.email.com";
-        String location = "City, State";
-        String errorMessage = "invalid email address";
-
-        onView(withId(R.id.user_name)).perform(typeText(username), closeSoftKeyboard());
-        onView(withId(R.id.password_one)).perform(typeText(password1), closeSoftKeyboard());
-        onView(withId(R.id.password_two)).perform(typeText(password2), closeSoftKeyboard());
-        onView(withId(R.id.email_address)).perform(typeText(email), closeSoftKeyboard());
-        onView(withId(R.id.location)).perform(typeText(location), closeSoftKeyboard());
-        onView(withId(R.id.create_button)).perform(click());
-        onView(withId(R.id.error_display)).check(matches(withText(errorMessage)));
+    public void groupCreationInputTest(){
+        String groupName = "New JUnit test";
+        String description = "Junit test new description";
+        onView(withId(R.id.group_name_edit_text)).perform(typeText(groupName), closeSoftKeyboard()).check(matches(withText(groupName)));
+        onView(withId(R.id.group_description)).perform(typeText(description), closeSoftKeyboard()).check(matches(withText(description)));
     }
 
-    void logOut(){
-        onView(withId(R.id.base_drawer)).check(matches(isClosed(Gravity.LEFT))).perform(DrawerActions.open());
+    @Test
+    public void groupCreationTest(){
+        String groupName = "New JUnit test";
+        String description = "Junit test new description";
+        onView(withId(R.id.group_name_edit_text)).perform(typeText(groupName), closeSoftKeyboard());
+        onView(withId(R.id.group_description)).perform(typeText(description), closeSoftKeyboard());
+        onView(withId(R.id.is_public_switch)).perform(click(), click());
+        onView(withId(R.id.create_group_button)).perform(click());
         try {
             Thread.sleep(SIMULATED_DELAY_MS);
         } catch (InterruptedException e) {
         }
-        onView(withId(R.id.nav_view)).perform(NavigationViewActions.navigateTo(R.id.nav_logout));
+        onView(withId(R.id.welcome_description)).check(matches(isDisplayed()));
     }
 }

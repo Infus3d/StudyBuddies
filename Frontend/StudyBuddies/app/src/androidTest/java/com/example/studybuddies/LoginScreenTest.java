@@ -67,7 +67,6 @@ public class LoginScreenTest {
         onView(withId(R.id.enter_password)).perform(typeText(password));
         onView(withId(R.id.login_button)).perform(click());
         onView(withId(R.id.login_error)).check(doesNotExist());
-        logOut();
     }
 
     @Test
@@ -90,7 +89,6 @@ public class LoginScreenTest {
 //        assertEquals("Dashboard", InstrumentationRegistry.getInstrumentation().getTargetContext().getClass().getSimpleName());
         onView(withId(R.id.create_group)).check(matches(isDisplayed()));
 //        onView(withId(R.id.base_drawer)).perform(click());
-        logOut();
     }
 
     void logOut(){
