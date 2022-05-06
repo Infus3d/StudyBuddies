@@ -39,27 +39,57 @@ import java.util.Locale;
 
 import org.java_websocket.client.WebSocketClient;
 
+/**
+ * This class represents the group chat activity for the app. It connects to the
+ * websocket at a url specific to the group and the user and displays messages accordingly
+ * @author Andy Bruder
+ */
 public class GroupChat extends DrawerBaseActivity {
 
+    /**
+     * Stores the shared preferences (user details)
+     */
     private SharedPreferences sharedPreferences;
-    private int id;
+    /**
+     * The username of the current user
+     */
     private String username_s;
-    private String email_s;
-    private String password_s;
-    private String location_s;
-
+    /**
+     * The counters for messages and text views to assign ids to the new message views
+     */
     private int messageCounter, textViewCounter;
-
+    /**
+     * The websocekt client used to connect to the server
+     */
     private WebSocketClient client;
 
     private ActivityGroupChatBinding activityGroupChatBinding;
+    /**
+     * The name of the current group
+     */
     private String groupName;
+    /**
+     * The id of the current group
+     */
     private int groupId;
-
+    /**
+     * The container for the message views
+     */
     private LinearLayout messageDisplay;
+    /**
+     * The enter message box at the bottom
+     */
     private EditText enterMessage;
+    /**
+     * Button used to send the message to the chat
+     */
     private Button sendMessage;
 
+    /**
+     * Populates the necessary fields, initializes views, and opens the websocket
+     * connection which populates the chat with previous messages
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,11 +102,7 @@ public class GroupChat extends DrawerBaseActivity {
         groupId = extras.getInt("groupId");
 
         sharedPreferences = getSharedPreferences(LoginScreen.SHARED_PREFS, Context.MODE_PRIVATE);
-        id = sharedPreferences.getInt(LoginScreen.ID_KEY, 0);
         username_s = sharedPreferences.getString(LoginScreen.USERNAME_KEY, null);
-        email_s = sharedPreferences.getString(LoginScreen.EMAIL_KEY, null);
-        password_s = sharedPreferences.getString(LoginScreen.PASSWORD_KEY, null);
-        location_s = sharedPreferences.getString(LoginScreen.LOCATION_KEY, null);
 
         allocateActivityTitle(groupName +"'s Group Chat");
 
@@ -90,6 +116,10 @@ public class GroupChat extends DrawerBaseActivity {
 
     }
 
+    /**
+     * Displays all previous messages that were sent in this group chat
+     * @param messages the list of messages to be displayed
+     */
     private void displayExistingMessages(ArrayList<ChatMessage> messages) {
         for (ChatMessage message : messages) {
             boolean outgoing = message.getAuthor().equals(username_s);
@@ -102,12 +132,11 @@ public class GroupChat extends DrawerBaseActivity {
         }
     }
 
-    public String getTime() {
-        Calendar now = Calendar.getInstance();
-        return now.get(Calendar.HOUR_OF_DAY) + ":" + now.get(Calendar.MINUTE);
-    }
-
-    public void createIncomingMessage(ChatMessage message) {
+    /**
+     * This method adds an incoming message to the view (one sent by other users)
+     * @param message the message to be displayed
+     */
+    private void createIncomingMessage(ChatMessage message) {
         runOnUiThread(new Runnable() {
 
             @Override
@@ -132,6 +161,10 @@ public class GroupChat extends DrawerBaseActivity {
         });
     }
 
+    /**
+     * This method adds an outgoing message to the view (one sent by the current user)
+     * @param message the message to be displayed
+     */
     private void createOutgoingMessage(ChatMessage message) {
         runOnUiThread(new Runnable() {
 
@@ -235,6 +268,10 @@ public class GroupChat extends DrawerBaseActivity {
 
     }
 
+    /**
+     * When the back button is pressed, ensures
+     * websocket is closed before activity is left
+     */
     @Override
     public void onBackPressed() {
         super.onBackPressed();
