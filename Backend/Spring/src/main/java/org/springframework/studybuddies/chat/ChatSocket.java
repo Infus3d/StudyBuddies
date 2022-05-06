@@ -84,7 +84,7 @@ public class ChatSocket {
 
 		} 
     else { // broadcast
-			broadcast(username + " " + groupID + ": " + message);
+			broadcast(username + " " + ": " + message);
 		}
 
 		// Saving chat history to repository
