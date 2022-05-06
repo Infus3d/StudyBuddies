@@ -35,6 +35,7 @@
         <entry key="app/src/main/res/layout/activity_public_groups.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_public_groups_screen.xml" value="0.19583333333333333" />
         <entry key="app/src/main/res/layout/activity_user_schedule.xml" value="0.19583333333333333" />
+        <entry key="app/src/main/res/layout/activity_view_post.xml" value="0.19583333333333333" />
         <entry key="app/src/main/res/layout/calendarevent_list_item.xml" value="0.33" />
         <entry key="app/src/main/res/layout/content_layout.xml" value="0.19583333333333333" />
         <entry key="app/src/main/res/layout/groupmembers_list_item.xml" value="0.33" />
