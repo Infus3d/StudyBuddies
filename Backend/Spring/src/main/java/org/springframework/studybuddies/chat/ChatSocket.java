@@ -100,6 +100,7 @@ public class ChatSocket {
 		String username = sessionUsernameMap.get(session);
 		sessionUsernameMap.remove(session);
 		usernameSessionMap.remove(username);
+	}
 
 
 	@OnError
