@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -81,6 +82,11 @@ public class DrawerBaseActivity extends AppCompatActivity implements NavigationV
             case R.id.nav_profile:
                 startActivity((new Intent(this, ProfilePage.class)));
                 overridePendingTransition(0,0);
+                break;
+
+            case R.id.nav_logout:
+                getSharedPreferences(LoginScreen.SHARED_PREFS, Context.MODE_PRIVATE).edit().clear().apply();
+                startActivity(new Intent(this, CreateUser.class));
                 break;
 
         }
