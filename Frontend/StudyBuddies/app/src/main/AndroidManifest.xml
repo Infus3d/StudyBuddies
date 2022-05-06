@@ -17,6 +17,9 @@
             android:name=".ProfilePage"
             android:exported="false" />
         <activity
+            android:name=".GroupChat"
+            android:exported="false" />
+        <activity
             android:name=".ViewPost"
             android:exported="false" />
         <activity

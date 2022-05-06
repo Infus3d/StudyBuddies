@@ -38,9 +38,6 @@ public class CreateUser extends AppCompatActivity {
     private TextView errorDisplay;
     private Button createButton;
     private Button loginButton;
-    private RequestsCentral requestsCentral;
-
-    private JSONArray users;
 
     private int id;
     private String username_s;
@@ -86,13 +83,8 @@ public class CreateUser extends AppCompatActivity {
             public void onClick(View view) {
 
                 User user = new User(username.getText().toString(), email.getText().toString(), password1.getText().toString(), location.getText().toString());
-
-                // this block calls valid new user to see if it meets the criteria to create a new user
-                try {
-                    validNewUser(user);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                // if user is valid, methods to create the new user are automatically called
+                validNewUser(user);
 
             }
         });
@@ -100,38 +92,37 @@ public class CreateUser extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 Intent intent = new Intent(getApplicationContext(), LoginScreen.class);
                 startActivity(intent);
-
             }
         });
 
     }
 
+    /**
+     * This method sends the new user to the server and upon success,
+     * populates the shared preferences and takes the user to their dashboard.
+     * @param user
+     */
     public void createUser(User user) {
         RequestsCentral.postJSONObject(Const.CREATE_NEW_USER, user.toJSONForServer(), new OnSuccessfulObject() {
             @Override
             public void onSuccess(JSONObject response) {
                 int newUserid = -1;
-
                 try {
                     newUserid = response.getInt("id");
 
                     SharedPreferences.Editor editor = sharedPreferences.edit();
-
                     editor.putInt(LoginScreen.ID_KEY, newUserid);
                     editor.putString(LoginScreen.USERNAME_KEY, response.getString("username"));
                     editor.putString(LoginScreen.EMAIL_KEY, response.getString("email"));
                     editor.putString(LoginScreen.PASSWORD_KEY, response.getString("password"));
                     editor.putString(LoginScreen.LOCATION_KEY, response.getString("location"));
-
                     editor.apply();
 
                     Intent intent = new Intent(getApplicationContext(), Dashboard.class);
                     startActivity(intent);
                     finish();
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -144,8 +135,7 @@ public class CreateUser extends AppCompatActivity {
      * @return Returns boolean value to indicate if a user is valid
      * @throws JSONException
      */
-    public void validNewUser(User user) throws JSONException {
-
+    public void validNewUser(User user) {
         if (!password1.getText().toString().equals(password2.getText().toString())) {
             errorDisplay.setText("passwords don't match");
             return;
@@ -175,7 +165,6 @@ public class CreateUser extends AppCompatActivity {
                 createUser(user);
             }
         });
-
     }
 
     /**
