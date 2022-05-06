@@ -62,7 +62,6 @@ public class GroupChat extends DrawerBaseActivity {
      * The websocekt client used to connect to the server
      */
     private WebSocketClient client;
-
     private ActivityGroupChatBinding activityGroupChatBinding;
     /**
      * The name of the current group

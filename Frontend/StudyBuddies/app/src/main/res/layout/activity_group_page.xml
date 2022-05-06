@@ -26,21 +26,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
-            android:textColor="@color/black"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/welcome_description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:text="@string/here_is_a_totally_short_and_not_long_winded_description_of_your_group_that_hasnt_been_implemented_yet_this_description_will_fill_up_this_area_and_be_displayed_beneath_the_group_name_this_is_where_groups_will_write_a_short_desctiption_about_their_group_in_case_people_need_to_know_something_before_joining_thank_you_for_taking_the_time_to_read_all_of_this_filler_text"
-            android:textAlignment="center"
+            android:layout_marginTop="40dp"
+            android:textSize="30sp"
             android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -68,41 +55,43 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/dark_button"
-        app:layout_constraintTop_toBottomOf="@id/posts_button"
-        app:layout_constraintBottom_toTopOf="@id/shared_files_button"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:textSize="20dp"
-        tools:layout_editor_absoluteX="15dp"
         android:text="Group Chat"
-        />
-
-    <Button
-        android:id="@+id/shared_files_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/dark_button"
-        app:layout_constraintTop_toBottomOf="@id/group_chat_button"
-        app:layout_constraintBottom_toTopOf="@id/members_button"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
         android:textSize="20dp"
-        tools:layout_editor_absoluteX="15dp"
-        android:text="Shared Files"
-        />
+        app:layout_constraintBottom_toTopOf="@id/members_button"
+        app:layout_constraintHorizontal_bias="0.516"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/posts_button" />
 
     <Button
         android:id="@+id/members_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/dark_button"
-        app:layout_constraintTop_toBottomOf="@id/shared_files_button"
+        app:layout_constraintTop_toBottomOf="@id/group_chat_button"
+        app:layout_constraintBottom_toTopOf="@id/delete_group_button"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:textSize="20dp"
+        android:text="Group Members"
+        />
+
+    <Button
+        android:id="@+id/delete_group_button"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:background="@drawable/delete_button"
+        app:layout_constraintTop_toBottomOf="@id/members_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="5dp"
+        android:paddingHorizontal="8dp"
         android:textSize="20dp"
-        tools:layout_editor_absoluteX="15dp"
-        android:text="Group Members"
+        android:text="Delete Group"
+        android:visibility="invisible"
         />
 
 
