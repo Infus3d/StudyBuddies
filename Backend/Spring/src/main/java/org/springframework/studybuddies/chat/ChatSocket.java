@@ -101,11 +101,6 @@ public class ChatSocket {
 		sessionUsernameMap.remove(session);
 		usernameSessionMap.remove(username);
 
-    // broadcast that the user disconnected
-		String message = username + " disconnected";
-		broadcast(message);
-	}
-
 
 	@OnError
 	public void onError(Session session, Throwable throwable) {
