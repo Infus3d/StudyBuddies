@@ -173,6 +173,7 @@ public class GroupChat extends DrawerBaseActivity {
                 public void onMessage(String message) {
                     if (message.contains("initmess")) {
                         Log.d(String.valueOf(getApplicationContext()), "getting initial message");
+
                         ArrayList<ChatMessage> messages = new ArrayList<ChatMessage>();
                         String [] rawMessages = message.split("\n");
                         for (String s : rawMessages) {
@@ -218,7 +219,6 @@ public class GroupChat extends DrawerBaseActivity {
                     ChatMessage outgoing = new ChatMessage(enterMessage.getText().toString(), username_s);
                     client.send(enterMessage.getText().toString());
                     enterMessage.setText("");
-                    createOutgoingMessage(outgoing);
                 } catch (Exception e) {
                     Log.d("ExceptionSendMessage:", e.getMessage());
                 }
