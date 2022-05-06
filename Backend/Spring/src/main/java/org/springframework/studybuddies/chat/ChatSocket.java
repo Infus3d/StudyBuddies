@@ -64,9 +64,6 @@ public class ChatSocket {
 		//Send chat history to the newly connected user
 		sendMessageToPArticularUser(username, getChatHistory(group));
 		
-    // broadcast that new user joined
-		String message = "User:" + username + " " + groupID + " has Joined the Chat";
-		broadcast(message);
 	}
 
 
