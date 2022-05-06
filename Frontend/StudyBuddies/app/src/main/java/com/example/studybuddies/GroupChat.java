@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -34,6 +35,7 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import org.java_websocket.client.WebSocketClient;
 
@@ -84,31 +86,13 @@ public class GroupChat extends DrawerBaseActivity {
 
         messageCounter = 0; textViewCounter = 0;
 
-        ChatMessage in = new ChatMessage(4, getTime(), "Omar Muhammetkulyyev", groupId, "hey, how are you?");
-        ChatMessage out = new ChatMessage(id, getTime(), username_s, groupId, "i'm good, how are you?");
-
-        ArrayList<ChatMessage> messages = new ArrayList<ChatMessage>();
-        messages.add(in);
-        messages.add(out);
-        messages.add(in);
-        messages.add(out);
-        messages.add(in);
-        messages.add(out);
-        messages.add(in);
-        messages.add(out);
-        messages.add(in);
-        messages.add(in);
-        messages.add(in);
-        messages.add(out);
-        //openConnection();
-
-        displayExistingMessages(messages);
+        openConnection();
 
     }
 
     private void displayExistingMessages(ArrayList<ChatMessage> messages) {
         for (ChatMessage message : messages) {
-            boolean outgoing = message.getUserId() == id;
+            boolean outgoing = message.getAuthor().equals(username_s);
             if (outgoing) {
                 createOutgoingMessage(message);
             } else {
@@ -124,38 +108,54 @@ public class GroupChat extends DrawerBaseActivity {
     }
 
     public void createIncomingMessage(ChatMessage message) {
-        View messageRow = getLayoutInflater().inflate(R.layout.incoming_messge_row, messageDisplay, false);
-        messageRow.setId(messageCounter);
-        messageDisplay.addView(messageRow);
-        TextView profile = findViewById(R.id.profile_circle);
-        profile.setId(textViewCounter++);
-        if (message.getAuthor().length() > 8) {
-            String author = message.getAuthor().substring(0,8) + "...";
-            profile.setText(author);
-        } else {
-            profile.setText(message.getAuthor());
-        }
-        TextView messageBox = findViewById(R.id.message_box);
-        messageBox.setId(textViewCounter++);
-        messageBox.setText(message.getMessage());
+        runOnUiThread(new Runnable() {
+
+            @Override
+            public void run() {
+                ScrollView scrollView = findViewById(R.id.message_scroller);
+                View messageRow = getLayoutInflater().inflate(R.layout.incoming_messge_row, messageDisplay, false);
+                messageRow.setId(messageCounter);
+                messageDisplay.addView(messageRow);
+                TextView profile = findViewById(R.id.profile_circle);
+                profile.setId(textViewCounter++);
+                if (message.getAuthor().length() > 8) {
+                    String author = message.getAuthor().substring(0,8) + "...";
+                    profile.setText(author);
+                } else {
+                    profile.setText(message.getAuthor());
+                }
+                TextView messageBox = findViewById(R.id.message_box);
+                messageBox.setId(textViewCounter++);
+                messageBox.setText(message.getMessage());
+                scrollView.fullScroll(View. FOCUS_DOWN);
+            }
+        });
     }
 
     private void createOutgoingMessage(ChatMessage message) {
-        View messageRow = getLayoutInflater().inflate(R.layout.outgoing_message_row, messageDisplay, false);
-        messageRow.setId(messageCounter);
-        messageDisplay.addView(messageRow);
-        TextView profile = findViewById(R.id.profile_circle);
-        profile.setId(textViewCounter++);
-        if (message.getAuthor().length() > 8) {
-            String author = message.getAuthor().substring(0,8) + "...";
-            profile.setText(author);
-        } else {
-            profile.setText(message.getAuthor());
-        }
-        TextView messageBox = findViewById(R.id.message_box);
-        messageBox.setId(textViewCounter++);
-        messageBox.setText(message.getMessage());
-        messageBox.setGravity(View.FOCUS_RIGHT);
+        runOnUiThread(new Runnable() {
+
+            @Override
+            public void run() {
+                ScrollView scrollView = findViewById(R.id.message_scroller);
+                View messageRow = getLayoutInflater().inflate(R.layout.outgoing_message_row, messageDisplay, false);
+                messageRow.setId(messageCounter);
+                messageDisplay.addView(messageRow);
+                TextView profile = findViewById(R.id.profile_circle);
+                profile.setId(textViewCounter++);
+                if (message.getAuthor().length() > 8) {
+                    String author = message.getAuthor().substring(0,8) + "...";
+                    profile.setText(author);
+                } else {
+                    profile.setText(message.getAuthor());
+                }
+                TextView messageBox = findViewById(R.id.message_box);
+                messageBox.setId(textViewCounter++);
+                messageBox.setText(message.getMessage());
+                messageBox.setGravity(View.FOCUS_RIGHT);
+                scrollView.fullScroll(View. FOCUS_DOWN);
+            }
+        });
     }
 
     /**
@@ -164,16 +164,25 @@ public class GroupChat extends DrawerBaseActivity {
     private void openConnection() {
         Draft[] drafts = {new Draft_6455()};
 
-        String w = "ws://coms-309-011.class.las.iastate.edu:8080/chat/" + username_s;
+        String w = "ws://coms-309-011.class.las.iastate.edu:8080/chat/" + groupId + "/" + username_s;
 
         try {
             Log.d("Socket:", "Trying socket");
             client = new WebSocketClient(new URI(w), (Draft) drafts[0]) {
                 @Override
                 public void onMessage(String message) {
-                    Log.d("", "run() returned: " + message);
-                    String s = enterMessage.getText().toString();
-                    enterMessage.setText(s + "\nServer:" + message);
+                    if (message.contains("initmess")) {
+                        Log.d(String.valueOf(getApplicationContext()), "getting initial message");
+                        ArrayList<ChatMessage> messages = new ArrayList<ChatMessage>();
+                        String [] rawMessages = message.split("\n");
+                        for (String s : rawMessages) {
+                            messages.add(new ChatMessage(s, groupId));
+                        }
+                        displayExistingMessages(messages);
+                    } else {
+                        Log.d("", "run() returned: " + message);
+                            createIncomingMessage(new ChatMessage(message, groupId));
+                    }
                 }
 
                 @Override
@@ -196,15 +205,22 @@ public class GroupChat extends DrawerBaseActivity {
             Log.d("Exception:", e.getMessage().toString());
             e.printStackTrace();
         }
-        client.connect();
+        try {
+            client.connectBlocking();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         sendMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
-                    client.send(sendMessage.getText().toString());
+                    ChatMessage outgoing = new ChatMessage(enterMessage.getText().toString(), username_s);
+                    client.send(enterMessage.getText().toString());
+                    enterMessage.setText("");
+                    createOutgoingMessage(outgoing);
                 } catch (Exception e) {
-                    Log.d("ExceptionSendMessage:", e.getMessage().toString());
+                    Log.d("ExceptionSendMessage:", e.getMessage());
                 }
             }
         });

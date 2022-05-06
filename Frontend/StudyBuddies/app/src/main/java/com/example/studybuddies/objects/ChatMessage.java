@@ -38,6 +38,19 @@ public class ChatMessage {
 
     }
 
+    public ChatMessage(String outgoing, String author){
+        this.message = outgoing;
+        this.author = author;
+    }
+
+    public ChatMessage(String fromSocket, int groupId) {
+        this.author = fromSocket.substring(0, fromSocket.indexOf(": "));
+        this.message = fromSocket.substring(fromSocket.indexOf(": ") + 2);
+        this.groupId = groupId;
+        this.time = "";
+        this.userId = -1;
+    }
+
     public int getId() {
         return id;
     }
