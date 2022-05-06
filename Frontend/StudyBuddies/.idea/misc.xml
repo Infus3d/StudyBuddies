@@ -38,6 +38,7 @@
         <entry key="app/src/main/res/layout/content_layout.xml" value="0.19583333333333333" />
         <entry key="app/src/main/res/layout/groupmembers_list_item.xml" value="0.33" />
         <entry key="app/src/main/res/layout/layout_personal_event_dialog.xml" value="0.21927083333333333" />
+        <entry key="app/src/main/res/layout/public_group_list_item.xml" value="0.33" />
         <entry key="app/src/main/res/menu/main_drawer_menu.xml" value="0.19583333333333333" />
       </map>
     </option>
