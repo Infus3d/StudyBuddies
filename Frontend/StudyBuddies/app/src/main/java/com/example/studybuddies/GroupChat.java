@@ -182,7 +182,15 @@ public class GroupChat extends DrawerBaseActivity {
                         displayExistingMessages(messages);
                     } else {
                         Log.d("", "run() returned: " + message);
-                            createIncomingMessage(new ChatMessage(message, groupId));
+                            String[] messageParts = message.split(" : ");
+
+                            ChatMessage mess = new ChatMessage(messageParts[1], messageParts[0]);
+                            boolean outgoing = mess.getAuthor().equals(username_s);
+                            if (outgoing) {
+                                createOutgoingMessage(mess);
+                            } else {
+                                createIncomingMessage(mess);
+                            }
                     }
                 }
 
