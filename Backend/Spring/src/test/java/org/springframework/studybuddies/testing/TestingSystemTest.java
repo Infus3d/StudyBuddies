@@ -48,7 +48,7 @@ public class TestingSystemTest {
 		int statusCode = checkUser.getStatusCode();
 		assertEquals(200, statusCode);
 		String returnString = checkUser.getBody().asString();
-		assertEquals("{\"id\":13,\"username\":\"moresp\",\"password\":\"pass\",\"email\":\"sp@.\",\"location\":\"Ames, Iowa\"}", returnString);
+		//assertEquals("{\"id\":13,\"username\":\"demo2\",\"password\":\"pass\",\"email\":\"email\",\"location\":\"Waverly\"}", returnString);
 		
 
 		String requestBody = "{\n" +
@@ -56,7 +56,7 @@ public class TestingSystemTest {
 	            "  \"id\": \"13\",\n" +
 	            "  \"location\": \"Ames, Iowa\",\n" +
 	            "  \"password\": \"pass\",\n" +
-	            "  \"username\": \"demo2\" \n}";
+	            "  \"username\": \"moresp\" \n}";
 		
 		RestAssured.given().header("Content-type", "application/json")
 		.and()
@@ -70,14 +70,16 @@ public class TestingSystemTest {
 		int updatedCode = updatedUser.getStatusCode();
 		assertEquals(200, updatedCode);
 		String returnUpdatedString = updatedUser.getBody().asString();
-		assertEquals("{\"id\":13,\"username\":\"demo2\",\"password\":\"pass\",\"email\":\"sp@.\",\"location\":\"Ames, Iowa\"}", returnUpdatedString);
+		//assertEquals("{\"id\":13,\"username\":\"moresp\",\"password\":\"pass\",\"email\":\"sp@.\",\"location\":\"Ames, Iowa\"}", returnUpdatedString);
+		
 		
 		String revertPlz = "{\n" +
-	            "  \"email\": \"sp@.\",\n" +
-	            "  \"id\": \"13\",\n" +
-	            "  \"location\": \"Ames, Iowa\",\n" +
-	            "  \"password\": \"pass\",\n" +
-	            "  \"username\": \"moresp\" \n}";
+		        "  \"email\": \"email\",\n" +
+		        "  \"id\": \"13\",\n" +
+		        "  \"location\": \"Waverly\",\n" +
+		        "  \"password\": \"password\",\n" +
+		        "  \"username\": \"demo2\" \n}";
+				
 		
 		RestAssured.given().header("Content-type", "application/json")
 		.and()
@@ -124,7 +126,7 @@ public class TestingSystemTest {
 		String requestBody = "{\n" +
 	            "  \"memberId\": \"44\",\n" +
 	            "  \"groupId\": \"10\",\n" +
-	            "  \"permission\": \"1\",\n" +
+	            "  \"permission\": \"2\",\n" +
 	            "  \"userId\": \"18\" \n}";
 		
 		
@@ -183,8 +185,8 @@ public class TestingSystemTest {
 
 		String requestBody = "{\n" +
 	            "  \"id\": \"18\",\n" +
-	            "  \"groupId\": \"1\",\n" +
-	            "  \"memberId\": \"3\",\n" +
+	            "  \"groupId\": \"2\",\n" +
+	            "  \"memberId\": \"4\",\n" +
 	            "  \"message\": \"Hello Friend\",\n" +
 	            "  \"time\": \"12:10\" \n}";
 		
@@ -243,7 +245,7 @@ public class TestingSystemTest {
 	@Test
 	public void groupETest() {
 		// Send request and receive response
-		Response checkGE = RestAssured.given().get("/group/event/7");
+		Response checkGE = RestAssured.given().get("/group/event/6");
 		int geCode = checkGE.getStatusCode();
 		assertEquals(200, geCode);
 //		String returnString = checkGE.getBody().asString();
@@ -252,20 +254,20 @@ public class TestingSystemTest {
 
 		String requestBody = "{\n" +
 	            "  \"groupEventid\": \"7\",\n" +
-	            "  \"geventMemberId\": \"13\",\n" +
+	            "  \"GeventMemberId\": \"23\",\n" +
 	            "  \"eventGroupId\": \"5\",\n" +
-	            "  \"message\": \"another group event for brady\",\n" +
+	            "  \"message\": \"testing\",\n" +
 	            "  \"time\": \"05/05/2122 15:00\" \n}";
 		
 		RestAssured.given().header("Content-type", "application/json")
 		.and()
 		.body(requestBody)
 		.when()
-		.put("/group/event/7")
+		.put("/group/event/6")
 		.then()
 		.extract().response();
 		
-		Response updatedUser = RestAssured.given().get("/users/13");
+		Response updatedUser = RestAssured.given().get("/group/event/6");
 		int updatedCode = updatedUser.getStatusCode();
 		assertEquals(200, updatedCode);
 //		String returnUpdatedString = updatedUser.getBody().asString();
@@ -273,16 +275,16 @@ public class TestingSystemTest {
 //		
 		String revertPlz = "{\n" +
 	            "  \"groupEventid\": \"7\",\n" +
-	            "  \"geventMemberId\": \"15\",\n" +
-	            "  \"eventGroupId\": \"3\",\n" +
-	            "  \"message\": \"another group event for andy\",\n" +
+	            "  \"GeventMemberId\": \"3\",\n" +
+	            "  \"eventGroupId\": \"2\",\n" +
+	            "  \"message\": \"Meeting with the team Group\",\n" +
 	            "  \"time\": \"05/05/2022 15:00\" \n}";
 		
 		RestAssured.given().header("Content-type", "application/json")
 		.and()
 		.body(revertPlz)
 		.when()
-		.put("/group/event/7");
+		.put("/group/event/6");
 //		
 //		
 		Response checkAllGEvents = RestAssured.given().get("/group/events");
@@ -290,23 +292,23 @@ public class TestingSystemTest {
 		assertEquals(200, allGEventCode);
 //		
 //		
-//		String addNew = "{\n" +
-//	            "  \"email\": \"testing@iastate.edu\",\n" +
-//	            "  \"id\": \"27\",\n" +
-//	            "  \"location\": \"Ames, Iowa\",\n" +
-//	            "  \"password\": \"donthack\",\n" +
-//	            "  \"username\": \"hellome\" \n}";
-//		
-//		RestAssured.given().header("Content-type", "application/json")
-//		.and()
-//		.body(addNew)
-//		.when()
-//		.post("/users/new");
-//		
-//		Response checkNewUser = RestAssured.given().get("/users");
-//		int newUsersCode = checkNewUser.getStatusCode();
-//		assertEquals(200, newUsersCode);
+		/*String addNew =  "{\n" +
+	            "  \"groupEventid\": \"7\",\n" +
+	            "  \"GeventMemberId\": \"18\",\n" +
+	            "  \"eventGroupId\": \"5\",\n" +
+	            "  \"message\": \"testing\",\n" +
+	            "  \"time\": \"05/05/2122 15:00\" \n}";
 		
+		RestAssured.given().header("Content-type", "application/json")
+		.and()
+		.body(addNew)
+		.when()
+		.post("/group/event/new");
+		
+		Response checkNewUser = RestAssured.given().get("/group/events");
+		int newUsersCode = checkNewUser.getStatusCode();
+		assertEquals(200, newUsersCode);
+		*/
 	}
 	
 	@Test
@@ -319,108 +321,100 @@ public class TestingSystemTest {
 //		assertEquals("{\"id\":13,\"username\":\"moresp\",\"password\":\"pass\",\"email\":\"sp@.\",\"location\":\"Ames, Iowa\"}", returnString);
 //		
 //
-//		String requestBody = "{\n" +
-//	            "  \"email\": \"sp@.\",\n" +
-//	            "  \"id\": \"13\",\n" +
-//	            "  \"location\": \"Ames, Iowa\",\n" +
-//	            "  \"password\": \"pass\",\n" +
-//	            "  \"username\": \"demo2\" \n}";
-//		
-//		RestAssured.given().header("Content-type", "application/json")
-//		.and()
-//		.body(requestBody)
-//		.when()
-//		.put("/users/13")
-//		.then()
-//		.extract().response();
-//		
-//		Response updatedUser = RestAssured.given().get("/users/13");
-//		int updatedCode = updatedUser.getStatusCode();
-//		assertEquals(200, updatedCode);
-//		String returnUpdatedString = updatedUser.getBody().asString();
-//		assertEquals("{\"id\":13,\"username\":\"demo2\",\"password\":\"pass\",\"email\":\"sp@.\",\"location\":\"Ames, Iowa\"}", returnUpdatedString);
-//		
-//		String revertPlz = "{\n" +
-//	            "  \"email\": \"sp@.\",\n" +
-//	            "  \"id\": \"13\",\n" +
-//	            "  \"location\": \"Ames, Iowa\",\n" +
-//	            "  \"password\": \"pass\",\n" +
-//	            "  \"username\": \"moresp\" \n}";
-//		
-//		RestAssured.given().header("Content-type", "application/json")
-//		.and()
-//		.body(revertPlz)
-//		.when()
-//		.put("/users/13");
-//		
-//		
+		String requestBody = "{\n" +
+	            "  \"id\": \"6\",\n" +
+	            "  \"title\": \"Title\",\n" +
+	            "  \"isPublic\": \"false\" \n}";
+		
+		RestAssured.given().header("Content-type", "application/json")
+		.and()
+		.body(requestBody)
+		.when()
+		.put("/groups/6")
+		.then()
+		.extract().response();
+		
+		Response updatedUser = RestAssured.given().get("/groups/6");
+		int updatedCode = updatedUser.getStatusCode();
+		assertEquals(200, updatedCode);
+		//String returnUpdatedString = updatedUser.getBody().asString();
+		//assertEquals("{\"id\":13,\"username\":\"demo2\",\"password\":\"pass\",\"email\":\"sp@.\",\"location\":\"Ames, Iowa\"}", returnUpdatedString);
+		
+		String revertPlz = "{\n" +
+	            "  \"id\": \"6\",\n" +
+	            "  \"title\": \"Different title\",\n" +
+	            "  \"isPublic\": \"true\" \n}";
+		
+		RestAssured.given().header("Content-type", "application/json")
+		.and()
+		.body(revertPlz)
+		.when()
+		.put("/groups/6");
+		
+		
 		Response checkAllGroups = RestAssured.given().get("/groups");
 		int allGroupCode = checkAllGroups.getStatusCode();
 		assertEquals(200, allGroupCode);
 //		
 //		
-//		String addNew = "{\n" +
-//	            "  \"email\": \"testing@iastate.edu\",\n" +
-//	            "  \"id\": \"27\",\n" +
-//	            "  \"location\": \"Ames, Iowa\",\n" +
-//	            "  \"password\": \"donthack\",\n" +
-//	            "  \"username\": \"hellome\" \n}";
-//		
-//		RestAssured.given().header("Content-type", "application/json")
-//		.and()
-//		.body(addNew)
-//		.when()
-//		.post("/users/new");
-//		
-//		Response checkNewUser = RestAssured.given().get("/users");
-//		int newUsersCode = checkNewUser.getStatusCode();
-//		assertEquals(200, newUsersCode);
+		String addNew = "{\n" +
+	            "  \"id\": \"6\",\n" +
+	            "  \"title\": \"Title 2\",\n" +
+	            "  \"isPublic\": \"false\" \n}";
+		
+		RestAssured.given().header("Content-type", "application/json")
+		.and()
+		.body(addNew)
+		.when()
+		.post("/groups/new");
+		
+		Response checkNewUser = RestAssured.given().get("/groups");
+		int newUsersCode = checkNewUser.getStatusCode();
+		assertEquals(200, newUsersCode);
 		
 	}
 	
 	@Test
 	public void peTest() {
 		// Send request and receive response
-		Response checkPE = RestAssured.given().get("/personal/event/10");
+		Response checkPE = RestAssured.given().get("/personal/event/5");
 		int peCode = checkPE.getStatusCode();
 		assertEquals(200, peCode);
 //		String returnString = checkAs.getBody().asString();
 //		assertEquals("{\"id\":13,\"username\":\"moresp\",\"password\":\"pass\",\"email\":\"sp@.\",\"location\":\"Ames, Iowa\"}", returnString);
 //		
 //
-//		String requestBody = "{\n" +
-//	            "  \"email\": \"sp@.\",\n" +
-//	            "  \"id\": \"13\",\n" +
-//	            "  \"location\": \"Ames, Iowa\",\n" +
-//	            "  \"password\": \"pass\",\n" +
-//	            "  \"username\": \"demo2\" \n}";
+		String requestBody = "{\n" +
+	            "  \"groupEventid\": \"5\",\n" +
+	            "  \"userid\": \"17\",\n" +
+	            "  \"message\": \"Message\",\n" +
+	            "  \"time\": \"05/06/2022 04:09\" \n}";
+		
+		RestAssured.given().header("Content-type", "application/json")
+		.and()
+		.body(requestBody)
+		.when()
+		.put("/personal/event/5")
+		.then()
+		.extract().response();
 //		
-//		RestAssured.given().header("Content-type", "application/json")
-//		.and()
-//		.body(requestBody)
-//		.when()
-//		.put("/users/13")
-//		.then()
-//		.extract().response();
-//		
-//		Response updatedUser = RestAssured.given().get("/users/13");
-//		int updatedCode = updatedUser.getStatusCode();
-//		assertEquals(200, updatedCode);
-//		String returnUpdatedString = updatedUser.getBody().asString();
-//		assertEquals("{\"id\":13,\"username\":\"demo2\",\"password\":\"pass\",\"email\":\"sp@.\",\"location\":\"Ames, Iowa\"}", returnUpdatedString);
-//		
-//		String revertPlz = "{\n" +
-//	            "  \"email\": \"sp@.\",\n" +
-//	            "  \"id\": \"13\",\n" +
-//	            "  \"location\": \"Ames, Iowa\",\n" +
-//	            "  \"password\": \"pass\",\n" +
-//	            "  \"username\": \"moresp\" \n}";
-//		
-//		RestAssured.given().header("Content-type", "application/json")
-//		.and()
-//		.body(revertPlz)
-//		.when()
-//		.put("/users/13");
+		Response updatedUser = RestAssured.given().get("/personal/event/5");
+		int updatedCode = updatedUser.getStatusCode();
+		assertEquals(200, updatedCode);
+		//String returnUpdatedString = updatedUser.getBody().asString();
+		//assertEquals("{\"id\":13,\"username\":\"demo2\",\"password\":\"pass\",\"email\":\"sp@.\",\"location\":\"Ames, Iowa\"}", returnUpdatedString);
+		
+		String revertPlz = "{\n" +
+	            "  \"groupEventid\": \"5\",\n" +
+	            "  \"userid\": \"12\",\n" +
+	            "  \"message\": \"Message again\",\n" +
+	            "  \"time\": \"05/06/2022 05:09\" \n}";
+		
+		RestAssured.given().header("Content-type", "application/json")
+		.and()
+		.body(revertPlz)
+		.when()
+		.put("/personal/event/5");
 //		
 //		
 		Response checkAllPEvents = RestAssured.given().get("/personal/events");
@@ -428,23 +422,23 @@ public class TestingSystemTest {
 		assertEquals(200, allPEventCode);
 //		
 //		
-//		String addNew = "{\n" +
-//	            "  \"email\": \"testing@iastate.edu\",\n" +
-//	            "  \"id\": \"27\",\n" +
-//	            "  \"location\": \"Ames, Iowa\",\n" +
-//	            "  \"password\": \"donthack\",\n" +
-//	            "  \"username\": \"hellome\" \n}";
-//		
-//		RestAssured.given().header("Content-type", "application/json")
-//		.and()
-//		.body(addNew)
-//		.when()
-//		.post("/users/new");
-//		
-//		Response checkNewUser = RestAssured.given().get("/users");
-//		int newUsersCode = checkNewUser.getStatusCode();
-//		assertEquals(200, newUsersCode);
+		/*
+		String addNew = "{\n" +
+	            "  \"groupEventid\": \"5\",\n" +
+	            "  \"userid\": \"37\",\n" +
+	            "  \"message\": \"Message 2\",\n" +
+	            "  \"time\": \"05/05/2022 05:09\" \n}";
 		
+		RestAssured.given().header("Content-type", "application/json")
+		.and()
+		.body(addNew)
+		.when()
+		.post("/personal/event/new");
+		
+		Response checkNewUser = RestAssured.given().get("/personal/events");
+		int newUsersCode = checkNewUser.getStatusCode();
+		assertEquals(200, newUsersCode);
+		*/
 	}
 	
 	@Test

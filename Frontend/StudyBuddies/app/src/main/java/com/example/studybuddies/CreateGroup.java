@@ -105,6 +105,10 @@ public class CreateGroup extends DrawerBaseActivity {
 
     }
 
+    /**
+     * Creates the new group on the database
+     * @param group local group object to create from
+     */
     public void createGroup(Group group) {
         RequestsCentral.postJSONObject(Const.CREATE_NEW_GROUP, group.toJSONForServer(), new OnSuccessfulObject() {
             @Override
@@ -120,6 +124,11 @@ public class CreateGroup extends DrawerBaseActivity {
         });
     }
 
+    /**
+     * Creates a new member to tie the user to the group
+     * @param newGroupId group to tie the user to
+     * @throws JSONException
+     */
     public void createMember(int newGroupId) throws JSONException {
 
         JSONObject newMember = new JSONObject();

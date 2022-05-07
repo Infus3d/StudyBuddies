@@ -75,17 +75,17 @@ public class ChatSocket {
 		String username = sessionUsernameMap.get(session);
 
     // Direct message to a user using the format "@username <message>"
-		if (message.startsWith("@")) {
-			String destUsername = message.split(" ")[0].substring(1); 
+		//if (message.startsWith("@")) {
+		//	String destUsername = message.split(" ")[0].substring(1); 
 
       // send the message to the sender and receiver
-			sendMessageToPArticularUser(destUsername, "[DM] " + username + ": " + message);
-			sendMessageToPArticularUser(username, "[DM] " + username + ": " + message);
+			//sendMessageToPArticularUser(destUsername, "[DM] " + username + ": " + message);
+			//sendMessageToPArticularUser(username, "[DM] " + username + ": " + message);
 
-		} 
-    else { // broadcast
+		//} 
+   // else { // broadcast
 			broadcast(username + " " + ": " + message);
-		}
+		//}
 
 		// Saving chat history to repository
 		msgRepo.save(new Message(username, message, groupID));
