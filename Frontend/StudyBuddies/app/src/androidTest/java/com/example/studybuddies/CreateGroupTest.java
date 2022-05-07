@@ -61,6 +61,6 @@ public class CreateGroupTest {
             Thread.sleep(SIMULATED_DELAY_MS);
         } catch (InterruptedException e) {
         }
-        onView(withId(R.id.welcome_description)).check(matches(isDisplayed()));
+        onView(withId(R.id.welcome_container)).check(matches(isDisplayed()));
     }
 }
