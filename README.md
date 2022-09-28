@@ -1,2 +1,2 @@
-# 2_UG_4
+# StudyBuddies
 
